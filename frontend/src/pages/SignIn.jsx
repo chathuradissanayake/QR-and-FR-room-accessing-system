@@ -1,6 +1,7 @@
 // src/pages/SignIn.js
 import React, { useState } from 'react';
-import logo from "../assets/logo.png"
+import { useNavigate } from 'react-router-dom';
+import logo from "../assets/logo.png";
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ const SignIn = () => {
     console.log('Email:', email);
     console.log('Password:', password);
   };
+  const navigate = useNavigate();
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -66,6 +68,7 @@ const SignIn = () => {
           {/* Login Button */}
           <div>
             <button
+              onClick={() => navigate('/home')}
               type="submit"
               className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
             >

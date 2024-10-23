@@ -15,8 +15,8 @@ const Profile = () => {
     <div className="min-h-screen bg-white p-4 flex flex-col items-center">
       {/* Header with Back Chevron */}
       <div className="w-full max-w-xs flex items-center mb-6">
-        <FaChevronLeft className="text-gray-600" onClick={() => handleNavigation('/home')} />
-        <h1 className="ml-2 text-lg font-semibold text-gray-800" onClick={() => handleNavigation('/home')}>
+        <FaChevronLeft className="text-gray-600" onClick={() => handleNavigation('/')} />
+        <h1 className="ml-2 text-lg font-semibold text-gray-800" onClick={() => handleNavigation('/')}>
           My Profile
         </h1>
       </div>

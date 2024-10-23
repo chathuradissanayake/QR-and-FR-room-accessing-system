@@ -9,7 +9,7 @@ const Home = () => {
       {/* Header */}
       <div className="mb-6">
         <p className="text-gray-500">Hello,</p>
-        <h1 className="text-2xl font-semibold">Hi James</h1>
+        <h1 className="text-2xl font-semibold">James</h1>
         <div className="flex justify-between items-center mt-2">
           <span className="text-gray-600">Dashboard</span>
           <a href="/profile" className="text-blue-500">My Profile</a>

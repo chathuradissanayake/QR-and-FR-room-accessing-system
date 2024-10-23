@@ -8,14 +8,22 @@ import Password from './pages/Password'
 import FaceID from './pages/FaceID'
 import AppInfo from './pages/AppInfo'
 import CustomerCare from './pages/CustomerCare'
+import Register from './pages/Register'
+import axios from 'axios'
+import {Toaster} from 'react-hot-toast'
+
+axios.defaults.baseURL = 'http://localhost:8000'
+axios.defaults.withCredentials = true
 
 function App() {
 
   return (
     <Router>
+      <Toaster position='top-center' toastOptions={{duration :2000}}/>
       <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/home" element={<Home/>}/>
+        <Route path="/register" element={<Register />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/" element={<Home/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/password" element={<Password />} />
         <Route path="/face-id" element={<FaceID />} />

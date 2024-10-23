@@ -1,41 +1,42 @@
 import React, { useState } from 'react';
 import logo from "../assets/logo.png";
 import axios from 'axios';
-import {toast} from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-hot-toast';
+import {useNavigate} from 'react-router-dom';
 
-
-const SignIn = () => {
+const Register = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({
+    name: '',
     email: '',
     password: ''
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    // Handle sign-in logic here
+    // Handle registration logic here
+    console.log('Name:', data.name);
     console.log('Email:', data.email);
     console.log('Password:', data.password);
 
-    //destructuring email and password from data
-    const { email, password } = data;
-    try {
-      const {data} = await axios.post('/signin', {
-        email, 
-        password
-      });
+    // destructuring data
+    const { name, email, password } = data;
 
-      if(data.error){
-        return toast.error(data.error)
-      } else{
-        toast.success('Logged in successfully');
-        setData({});
-        navigate('/')
+    try {
+      const {data} = await axios.post('/register',{
+        name,email,password
+      })
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        setData({})
+        toast.success('Registration successful');
+        navigate('/signin');
       }
     } catch (error) {
       console.log(error)
     }
+
   };
 
   return (
@@ -52,11 +53,28 @@ const SignIn = () => {
 
         {/* Title */}
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-          LOG IN
+          SIGN UP
         </h1>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Name Field */}
+          <div>
+            <label htmlFor="name" className="sr-only">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={data.name}
+              onChange={(e) => setData({ ...data, name: e.target.value })}
+              placeholder="Name"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            />
+          </div>
+
           {/* Email Field */}
           <div>
             <label htmlFor="email" className="sr-only">
@@ -91,29 +109,22 @@ const SignIn = () => {
             />
           </div>
 
-          {/* Forgot Password */}
-          <div className="text-right">
-            <a href="#" className="text-sm text-blue-500 hover:underline">
-              Forgot Password? <span className="font-semibold">Click Here</span>
-            </a>
-          </div>
-
-          {/* Login Button */}
+          {/* Sign Up Button */}
           <div>
             <button
               type="submit"
               className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
             >
-              Log in
+              Sign Up
             </button>
           </div>
         </form>
 
         {/* Footer */}
         <div className="text-center mt-6 text-sm text-gray-600">
-          Having trouble logging in?{" "}
-          <a href="#" className="text-blue-500 hover:underline">
-            Contact us!
+          Already have an account?{' '}
+          <a href="/signin" className="text-blue-500 hover:underline">
+            Log in!
           </a>
         </div>
       </div>
@@ -121,4 +132,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Register;

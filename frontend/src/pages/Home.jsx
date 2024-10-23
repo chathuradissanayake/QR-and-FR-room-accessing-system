@@ -1,8 +1,14 @@
-import React from 'react'
-import DashboardTab from '../components/DashboardTab'
-import tab1 from '../assets/tab1.png'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import tab1 from '../assets/tab1.png';
+import DashboardTab from '../components/DashboardTab';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(href); // Navigate to the path specified in the 'href' prop
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-4">
     <div className="max-w-lg mx-auto">
@@ -38,7 +44,7 @@ const Home = () => {
         <DashboardTab 
           title="Leave" 
           description="Mark the Leave" 
-          href="/leave" 
+          href="/markleave" 
           image={tab1}
         />
         <DashboardTab 

@@ -2,14 +2,18 @@ import React from 'react'
 import DashboardTab from '../components/DashboardTab'
 import tab1 from '../assets/tab1.png'
 
+import { useContext } from 'react'
+import {UserContext} from '../../context/userContext'
+
 const Home = () => {
+  const {user} = useContext(UserContext);
   return (
     <div className="min-h-screen bg-gray-50 p-4">
     <div className="max-w-lg mx-auto">
       {/* Header */}
       <div className="mb-6">
         <p className="text-gray-500">Hello,</p>
-        <h1 className="text-2xl font-semibold">James</h1>
+        {!!user && (<h1 className="text-2xl font-semibold">{user.name}</h1>)}
         <div className="flex justify-between items-center mt-2">
           <span className="text-gray-600">Dashboard</span>
           <a href="/profile" className="text-blue-500">My Profile</a>

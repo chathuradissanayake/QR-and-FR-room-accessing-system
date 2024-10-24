@@ -7,6 +7,13 @@ import {UserContext} from '../../context/userContext'
 
 const Home = () => {
   const {user} = useContext(UserContext);
+// getting the day 
+  const getCurrentDateAndDay = () => {
+    const date = new Date();
+    const options = { weekday: 'long', day: 'numeric', month: 'long' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-4">
     <div className="max-w-lg mx-auto">
@@ -23,7 +30,8 @@ const Home = () => {
       {/* Info Card */}
       <div className="bg-gray-800 text-white rounded-lg p-4 mb-6">
         <div className="flex justify-between items-center">
-          <span className="text-sm">Sunday, 12 June</span>
+          {/* set the current date */}
+          <span className="text-sm">{getCurrentDateAndDay()}</span>
           <i className="fas fa-calendar-alt"></i> {/* Add icon */}
         </div>
         <p className="mt-2">Location: Office Room</p>

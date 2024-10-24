@@ -50,7 +50,7 @@ const Home = () => {
         <DashboardTab 
           title="Ask Permission" 
           description="Asking permission for Access room" 
-          href="/ask-permission" 
+          href="/askpermission" 
           image={tab1}
         />
         <DashboardTab 

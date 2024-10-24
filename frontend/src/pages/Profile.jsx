@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { FaChevronLeft, FaChevronRight, FaExclamationCircle } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 
+import { useContext } from 'react'
+import {UserContext} from '../../context/userContext'
+
 const Profile = () => {
+  const {user} = useContext(UserContext);
   const navigate = useNavigate();
 
   // Function to handle navigation
@@ -33,18 +37,19 @@ const Profile = () => {
             <FiEdit className="text-white" />
           </button>
         </div>
-        <h2 className="mt-4 text-xl font-semibold text-gray-800">John Smith</h2>
+        {!!user && (<h2 className="mt-4 text-xl font-semibold text-gray-800">{user.name}</h2>)}
       </div>
 
       {/* Profile Details */}
       <div className="w-full max-w-xs space-y-4">
         <div className="flex justify-between items-center py-2 border-b border-gray-300">
           <span className="text-gray-500">User ID</span>
-          <span className="text-gray-400">InSP/2020/11/1111</span> {/* Lighter text for disabled */}
+          <span className="text-gray-400">InSP/2020/11/1111</span> 
         </div>
         <div className="flex justify-between items-center py-2 border-b border-gray-300">
           <span className="text-gray-500">User Name</span>
-          <span className="text-gray-400">John Smith</span> {/* Lighter text for disabled */}
+          {!!user && (<span className="text-gray-400">{user.name}</span>)}
+          
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"

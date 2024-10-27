@@ -56,7 +56,7 @@ const Home = () => {
         <DashboardTab 
           title="Log Book" 
           description="My previous accessing" 
-          href="/log-book" 
+          href="/mylogbook" 
           image={tab1}
         />
         <DashboardTab 

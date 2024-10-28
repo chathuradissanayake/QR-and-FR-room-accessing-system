@@ -7,6 +7,7 @@ import MarkLeave from './pages/MarkLeave'
 import MyLogbook from './pages/MyLogbook'
 import MyPermissions from './pages/MyPermissions'
 import SignIn from './pages/SignIn'
+import Success from './pages/Success'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/askpermission" element={<AskPermission/>}/>
         <Route path="/mylogbook" element={<MyLogbook/>}/>
         <Route path="/mypermissions" element={<MyPermissions/>}/>
+        <Route path="/success" element={<Success/>}/>
       </Routes>
     </Router>
   )

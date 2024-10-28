@@ -13,6 +13,7 @@ const AskPermission = () => {
     const [outtime, setoutTime] = useState('');
     const [message, setMessage] = useState('');
     
+    const navigate = useNavigate();
     
   
     const handleSubmit = (e) => {
@@ -26,8 +27,17 @@ const AskPermission = () => {
       console.log('OutTime:', outtime);
       console.log('Message:', message);
       
+      // Clear input values
+      setName('');
+      setRoom('');
+      setDoor('');
+      setDate('');
+      setinTime('');
+      setoutTime('');
+      setMessage('');
+
+      navigate('/success');
     };
-    const navigate = useNavigate();
 
   return (
 
@@ -43,7 +53,7 @@ const AskPermission = () => {
         <span className='font-semibold'>Ask Permission</span>
     </div>
     <div className='ml-4'>
-    <form className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="sr-only">
               Name
@@ -55,6 +65,7 @@ const AskPermission = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
             />
           </div>
 
@@ -101,7 +112,7 @@ const AskPermission = () => {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${date === '' ? 'text-gray-400' : 'text-black'}`}                
-
+                required
                 // className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
         </div>
@@ -118,6 +129,7 @@ const AskPermission = () => {
                 value={intime}
                 onChange={(e) => setinTime(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
             />
         </div>
 
@@ -146,6 +158,7 @@ const AskPermission = () => {
               rows="3"
               onChange={(e) => setMessage(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
             />
           </div>
 

@@ -5,6 +5,7 @@ import AskPermission from './pages/AskPermission'
 import Home from "./pages/Home"
 import MarkLeave from './pages/MarkLeave'
 import MyLogbook from './pages/MyLogbook'
+import MyPermissions from './pages/MyPermissions'
 import SignIn from './pages/SignIn'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/markleave" element={<MarkLeave/>}/>
         <Route path="/askpermission" element={<AskPermission/>}/>
         <Route path="/mylogbook" element={<MyLogbook/>}/>
+        <Route path="/mypermissions" element={<MyPermissions/>}/>
       </Routes>
     </Router>
   )

@@ -13,6 +13,14 @@ import axios from "axios";
 import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "../context/userContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AskPermission from "./pages/AskPermission";
+import MarkLeave from "./pages/MarkLeave";
+import MyLogbook from "./pages/MyLogbook";
+import MyPermissions from "./pages/MyPermissions";
+import Success from "./pages/Success";
+import MyProfile from "./pages/MyProfile";
+import ChangeUsername from "./pages/ChangeUsername";
+import ChangePassword from "./pages/ChangePassword";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
@@ -70,6 +78,70 @@ function App() {
             element={
               <ProtectedRoute>
                 <CustomerCare />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/markleave"
+            element={
+              <ProtectedRoute>
+                <MarkLeave />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/askpermission"
+            element={
+              <ProtectedRoute>
+                <AskPermission />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mylogbook"
+            element={
+              <ProtectedRoute>
+                <MyLogbook />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mypermissions"
+            element={
+              <ProtectedRoute>
+                <MyPermissions />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/success"
+            element={
+              <ProtectedRoute>
+                <Success />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <MyProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/change-username"
+            element={
+              <ProtectedRoute>
+                <ChangeUsername />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/change-password"
+            element={
+              <ProtectedRoute>
+                <ChangePassword />
               </ProtectedRoute>
             }
           />

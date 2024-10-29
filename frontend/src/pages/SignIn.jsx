@@ -32,6 +32,7 @@ const SignIn = () => {
     }
   };
 
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
@@ -73,6 +74,7 @@ const SignIn = () => {
           </div>
           <div>
             <button
+              onClick={() => navigate('/home')}
               type="submit"
               className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
             >

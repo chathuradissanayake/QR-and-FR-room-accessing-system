@@ -50,25 +50,25 @@ const Home = () => {
         <DashboardTab 
           title="Leave" 
           description="Mark the Leave" 
-          href="/leave" 
+          href="/markleave" 
           image={tab1}
         />
         <DashboardTab 
           title="Ask Permission" 
           description="Asking permission for Access room" 
-          href="/ask-permission" 
+          href="/askpermission" 
           image={tab1}
         />
         <DashboardTab 
           title="Log Book" 
           description="My previous accessing" 
-          href="/log-book" 
+          href="/mylogbook" 
           image={tab1}
         />
         <DashboardTab 
           title="My Permissions" 
           description="Doors and Rooms that I have permission" 
-          href="/permissions" 
+          href="/mypermissions" 
           image={tab1}
         />
         <DashboardTab 

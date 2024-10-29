@@ -1,19 +1,37 @@
-// src/pages/SignIn.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 import logo from "../assets/logo.png";
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle sign-in logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(email, password);
+
+    try {
+      const { data } = await axios.post('/signin', {
+        email,
+        password,
+      });
+
+      if (data.error) {
+        return toast.error(data.error);
+      } else {
+        toast.success('Logged in successfully');
+        localStorage.setItem('token', data.token); 
+        navigate('/'); 
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('An error occurred. Please try again.');
+    }
+  };
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -23,60 +41,46 @@ const SignIn = () => {
           <img
             src={logo} // Replace with your logo's URL
             alt="Logo"
-            className="w-20 h-20"
+            className="h-12"
           />
         </div>
-
-        {/* Title */}
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-          LOG IN
-        </h1>
-
-        {/* Form */}
-        <form className="space-y-4">
-          <div>
-            <label htmlFor="email" className="sr-only">
+        <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               Email
             </label>
             <input
               type="email"
               id="email"
-              placeholder="Email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
             />
           </div>
-
-          <div>
-            <label htmlFor="password" className="sr-only">
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
               Password
             </label>
             <input
               type="password"
               id="password"
-              placeholder="Password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
             />
           </div>
-
-          {/* Forgot Password */}
-          <div className="text-right">
-            <a href="#" className="text-sm text-blue-500 hover:underline">
-              Forgot Password? <span className="font-semibold">Click Here</span>
-            </a>
-          </div>
-
-          {/* Login Button */}
           <div>
             <button
-              onClick={() => navigate('/home')}
               type="submit"
               className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
             >
-              Log in
+              Sign In
             </button>
           </div>
         </form>
-
         {/* Footer */}
         <div className="text-center mt-6 text-sm text-gray-600">
           Having trouble logging in?{" "}

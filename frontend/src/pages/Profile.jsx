@@ -10,6 +10,11 @@ const Profile = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/signin');
+  };
+
   // Function to handle navigation
   const handleNavigation = (path) => {
     navigate(path);
@@ -85,7 +90,7 @@ const Profile = () => {
 
         {/* Log Out */}
         <div className="flex justify-center py-4">
-          <button className="text-red-500">Log out</button>
+          <button onClick={handleLogout} className="text-red-500">Log out</button>
         </div>
       </div>
     </div>

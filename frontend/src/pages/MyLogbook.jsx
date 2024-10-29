@@ -15,7 +15,7 @@ export default function MyLogbook() {
     <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
 
     <div className="title flex items-center space-x-2 mb-8">
-    <Link to="/home">
+    <Link to="/">
         <GoChevronLeft className="cursor-pointer" />
     </Link>
         <span className='font-semibold'>My LogBook</span>

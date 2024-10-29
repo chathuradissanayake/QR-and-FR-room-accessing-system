@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "../context/userContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
@@ -24,12 +25,54 @@ function App() {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/password" element={<Password />} />
-          <Route path="/face-id" element={<FaceID />} />
-          <Route path="/app-info" element={<AppInfo />} />
-          <Route path="/customer-care" element={<CustomerCare />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/password"
+            element={
+              <ProtectedRoute>
+                <Password />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/face-id"
+            element={
+              <ProtectedRoute>
+                <FaceID />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/app-info"
+            element={
+              <ProtectedRoute>
+                <AppInfo />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/customer-care"
+            element={
+              <ProtectedRoute>
+                <CustomerCare />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </UserContextProvider>

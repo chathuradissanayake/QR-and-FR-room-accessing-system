@@ -1,7 +1,7 @@
 const User = require('../models/user')
 const {comparePassword, hashPassword} = require('../helper/auth')
 const jwt = require('jsonwebtoken');
-
+require('dotenv').config();
 
 //Register User
 const registerUser = async (req,res) =>{
@@ -19,7 +19,7 @@ const registerUser = async (req,res) =>{
     const exist = await User.findOne({email});
     if(exist){
         return res.json({
-            error: 'Email is taken'
+            error: 'Email is already taken'
         })
     }
 
@@ -60,17 +60,22 @@ const loginUser = async (req,res) =>{
         })
     }
 
-    // check password
-    const match = await comparePassword(password, user.password);
-    if(match){
-        jwt.sign({email : user.email , id: user._id, name: user.name }, process.env.JWT_SECRET,{},(err,token) =>{
-            if(err) throw err;
-            res.cookie('token', token).json(user)
-        })
+    // Compare the password
+    const isMatch = await comparePassword(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Invalid email or password' });
     }
-    } catch (error) {
-        console.log(error)
-    }
+
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id, email: user.email, name: user.name }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    // Send the token in an HTTP-only cookie
+    res.cookie('token', token, { httpOnly: true }).json({ message: 'Login successful' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error logging in user' });
+  }
 }
 
 const getProfile = async (req,res) =>{

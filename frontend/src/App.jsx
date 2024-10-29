@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import axios from "axios";
+import { Toaster } from "react-hot-toast";
+import { UserContextProvider } from "../context/userContext";
 
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
@@ -9,9 +12,6 @@ import FaceID from "./pages/FaceID";
 import AppInfo from "./pages/AppInfo";
 import CustomerCare from "./pages/CustomerCare";
 import Register from "./pages/Register";
-import axios from "axios";
-import { Toaster } from "react-hot-toast";
-import { UserContextProvider } from "../context/userContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AskPermission from "./pages/AskPermission";
 import MarkLeave from "./pages/MarkLeave";

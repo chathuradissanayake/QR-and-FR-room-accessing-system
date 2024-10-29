@@ -1,29 +1,154 @@
-import React from 'react'
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import axios from "axios";
+import React from "react";
+import { Toaster } from "react-hot-toast";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { UserContextProvider } from "../context/userContext";
 
-import AskPermission from './pages/AskPermission'
-import Home from "./pages/Home"
-import MarkLeave from './pages/MarkLeave'
-import MyLogbook from './pages/MyLogbook'
-import MyPermissions from './pages/MyPermissions'
-import SignIn from './pages/SignIn'
-import SuccesLeave from './pages/SuccessLeave'
+import ProtectedRoute from "./components/ProtectedRoute";
+import AppInfo from "./pages/AppInfo";
+import AskPermission from "./pages/AskPermission";
+import ChangePassword from "./pages/ChangePassword";
+import ChangeUsername from "./pages/ChangeUsername";
+import CustomerCare from "./pages/CustomerCare";
+import FaceID from "./pages/FaceID";
+import Home from "./pages/Home";
+import MarkLeave from "./pages/MarkLeave";
+import MyLogbook from "./pages/MyLogbook";
+import MyPermissions from "./pages/MyPermissions";
+import MyProfile from "./pages/MyProfile";
+import Password from "./pages/Password";
+import Profile from "./pages/Profile";
+import Register from "./pages/Register";
+import SignIn from "./pages/SignIn";
+import Success from "./pages/Success";
+
+axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.withCredentials = true;
 
 function App() {
-
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/home" element={<Home/>}/>
-        <Route path="/markleave" element={<MarkLeave/>}/>
-        <Route path="/askpermission" element={<AskPermission/>}/>
-        <Route path="/mylogbook" element={<MyLogbook/>}/>
-        <Route path="/mypermissions" element={<MyPermissions/>}/>
-        <Route path="/successleave" element={<SuccesLeave/>}/>
-      </Routes>
-    </Router>
-  )
+    <UserContextProvider>
+      <Router>
+        <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/password"
+            element={
+              <ProtectedRoute>
+                <Password />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/face-id"
+            element={
+              <ProtectedRoute>
+                <FaceID />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/app-info"
+            element={
+              <ProtectedRoute>
+                <AppInfo />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/customer-care"
+            element={
+              <ProtectedRoute>
+                <CustomerCare />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/markleave"
+            element={
+              <ProtectedRoute>
+                <MarkLeave />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/askpermission"
+            element={
+              <ProtectedRoute>
+                <AskPermission />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mylogbook"
+            element={
+              <ProtectedRoute>
+                <MyLogbook />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mypermissions"
+            element={
+              <ProtectedRoute>
+                <MyPermissions />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/success"
+            element={
+              <ProtectedRoute>
+                <Success />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <MyProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/change-username"
+            element={
+              <ProtectedRoute>
+                <ChangeUsername />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/change-password"
+            element={
+              <ProtectedRoute>
+                <ChangePassword />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </UserContextProvider>
+  );
 }
 
-export default App
+export default App;

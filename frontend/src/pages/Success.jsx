@@ -5,7 +5,7 @@ const Success = () => {
   const navigate = useNavigate();
 
   const handleDoneClick = () => {
-    navigate('/home'); // Replace '/home' with the actual path to your home page
+    navigate('/');
   };
 
   return (

@@ -7,8 +7,6 @@ import { UserContextProvider } from "../context/userContext";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import Password from "./pages/Password";
-import FaceID from "./pages/FaceID";
 import AppInfo from "./pages/AppInfo";
 import CustomerCare from "./pages/CustomerCare";
 import Register from "./pages/Register";
@@ -18,7 +16,6 @@ import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
 import Success from "./pages/Success";
-import MyProfile from "./pages/MyProfile";
 import ChangeUsername from "./pages/ChangeUsername";
 import ChangePassword from "./pages/ChangePassword";
 
@@ -49,22 +46,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/password"
-            element={
-              <ProtectedRoute>
-                <Password />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/face-id"
-            element={
-              <ProtectedRoute>
-                <FaceID />
-              </ProtectedRoute>
-            }
-          />
+         
+          
           <Route
             path="/app-info"
             element={
@@ -121,14 +104,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <MyProfile />
-              </ProtectedRoute>
-            }
-          />
+        
           <Route
             path="/change-username"
             element={
@@ -141,7 +117,7 @@ function App() {
             path="/change-password"
             element={
               <ProtectedRoute>
-                <ChangePassword />
+                < ChangePassword/>
               </ProtectedRoute>
             }
           />

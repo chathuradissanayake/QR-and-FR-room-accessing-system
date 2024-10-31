@@ -10,13 +10,10 @@ import AskPermission from "./pages/AskPermission";
 import ChangePassword from "./pages/ChangePassword";
 import ChangeUsername from "./pages/ChangeUsername";
 import CustomerCare from "./pages/CustomerCare";
-import FaceID from "./pages/FaceID";
 import Home from "./pages/Home";
 import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
-import MyProfile from "./pages/MyProfile";
-import Password from "./pages/Password";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
@@ -49,22 +46,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/password"
-            element={
-              <ProtectedRoute>
-                <Password />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/face-id"
-            element={
-              <ProtectedRoute>
-                <FaceID />
-              </ProtectedRoute>
-            }
-          />
+         
+          
           <Route
             path="/app-info"
             element={
@@ -121,14 +104,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <MyProfile />
-              </ProtectedRoute>
-            }
-          />
+        
           <Route
             path="/change-username"
             element={
@@ -141,7 +117,7 @@ function App() {
             path="/change-password"
             element={
               <ProtectedRoute>
-                <ChangePassword />
+                < ChangePassword/>
               </ProtectedRoute>
             }
           />

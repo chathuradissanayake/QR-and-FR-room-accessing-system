@@ -35,7 +35,7 @@ const Profile = () => {
         <div className="relative">
           <img
             className="w-24 h-24 rounded-full object-cover"
-            src="https://i.pravatar.cc/150?img=3" // Replace with actual image link
+            src="https://i.pravatar.cc/150?img=3" 
             alt="Profile"
           />
           <button className="absolute bottom-0 right-0 p-1 bg-blue-500 rounded-full">
@@ -51,14 +51,14 @@ const Profile = () => {
           <span className="text-gray-500">User ID</span>
           <span className="text-gray-400">InSP/2020/11/1111</span> 
         </div>
-        <div className="flex justify-between items-center py-2 border-b border-gray-300">
+        <div className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer" onClick={() => handleNavigation('/change-username')}>
           <span className="text-gray-500">User Name</span>
-          {!!user && (<span className="text-gray-400">{user.name}</span>)}
+          {!!user && (<span className="text-gray-600">{user.name}</span>)}
           
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
-          onClick={() => handleNavigation('/password')}
+          onClick={() => handleNavigation('/change-password')}
         >
           <span className="text-gray-500">Password</span>
           <FaChevronRight className="text-gray-600" />

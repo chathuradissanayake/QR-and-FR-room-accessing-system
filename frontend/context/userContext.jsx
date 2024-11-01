@@ -1,20 +1,29 @@
+import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react';
 
-export const UserContext = createContext({});
+// Create the context
+export const UserContext = createContext();
 
-export function UserContextProvider({children}){
-   const [user,setUser] = useState(null);
-   useEffect(() =>{
-    if(!user) {
-        axios.get('/profile').then(({data}) =>{
-            setUser(data);
-        })
-    }
-   },[])
-   return (
-        <UserContext.Provider value={{ user, setUser }}>
-            {children}
-        </UserContext.Provider>
-    );
-}
+// Create the provider component
+export const UserContextProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get('/profile');
+        setUser(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+};

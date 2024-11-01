@@ -38,7 +38,7 @@ export default function MarkLeave() {
     
     <div className='ml-3'>
           <button
-              onClick={() => navigate()}
+              onClick={() => navigate('/successleave')}
               type="submit"
               className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300 mb-2"
           >

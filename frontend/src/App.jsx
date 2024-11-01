@@ -1,23 +1,23 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import axios from "axios";
+import React from "react";
 import { Toaster } from "react-hot-toast";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { UserContextProvider } from "../context/userContext";
 
-import SignIn from "./pages/SignIn";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import AppInfo from "./pages/AppInfo";
-import CustomerCare from "./pages/CustomerCare";
-import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AppInfo from "./pages/AppInfo";
 import AskPermission from "./pages/AskPermission";
+import ChangePassword from "./pages/ChangePassword";
+import ChangeUsername from "./pages/ChangeUsername";
+import CustomerCare from "./pages/CustomerCare";
+import Home from "./pages/Home";
 import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
+import Profile from "./pages/Profile";
+import Register from "./pages/Register";
+import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
-import ChangeUsername from "./pages/ChangeUsername";
-import ChangePassword from "./pages/ChangePassword";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;

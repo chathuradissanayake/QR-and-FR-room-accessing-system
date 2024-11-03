@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaChevronRight, FaExclamationCircle } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { GoChevronLeft } from "react-icons/go";
@@ -6,8 +6,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 
 const Profile = () => {
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      setLoading(false);
+    }
+  }, [user]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -18,6 +25,14 @@ const Profile = () => {
   const handleNavigation = (path) => {
     navigate(path);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return <div>User data not available</div>;
+  }
 
   return (
     <div className="flex justify-center min-h-screen bg-gray-50">
@@ -43,19 +58,20 @@ const Profile = () => {
             <FiEdit className="text-white" />
           </button>
         </div>
-        {!!user && (<h2 className="mt-4 text-xl font-semibold text-gray-800">{user.name}</h2>)}
+        <h2 className="mt-4 text-xl font-semibold text-gray-800">
+          {user.firstName} {user.lastName}
+        </h2>
       </div>
 
       {/* Profile Details */}
       <div className="w-full  space-y-4">
         <div className="flex justify-between items-center py-2 border-b border-gray-300">
           <span className="text-gray-500">User ID</span>
-          <span className="text-gray-400">InSP/2020/11/1111</span> 
+          <span className="text-gray-400">{user.userId}</span> 
         </div>
         <div className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer" onClick={() => handleNavigation('/change-username')}>
           <span className="text-gray-500">User Name</span>
-          {!!user && (<span className="text-gray-600">{user.name}</span>)}
-          
+          <span className="text-gray-600">{user.firstName} {user.lastName}</span>
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"

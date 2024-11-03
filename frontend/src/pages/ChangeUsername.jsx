@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
+import axios from 'axios';
 
 const ChangeUsername = () => {
+  const { user, setUser } = useContext(UserContext);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+    }
+  }, [user]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle username change logic here
-    console.log('New Username:', `${firstName} ${lastName}`);
+
+    try {
+      const { data } = await axios.put('/user/change-username', { firstName, lastName }, {
+        withCredentials: true,
+      });
+      // Update the user context with the new user data
+      setUser(data);
+      console.log(`New name: ${data.firstName} ${data.lastName}`);
+      navigate('/profile');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleBackNavigation = () => {
@@ -45,7 +65,7 @@ const ChangeUsername = () => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               className="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
-              placeholder="Mohamed"
+              placeholder={user ? user.firstName : 'First Name'}
               required
             />
           </div>
@@ -57,7 +77,7 @@ const ChangeUsername = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               className="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
-              placeholder="Afraar"
+              placeholder={user ? user.lastName : 'Last Name'}
               required
             />
           </div>
@@ -72,6 +92,6 @@ const ChangeUsername = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ChangeUsername;

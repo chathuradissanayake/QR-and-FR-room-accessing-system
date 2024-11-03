@@ -1,9 +1,9 @@
 import React from 'react'
-import DashboardTab from '../components/DashboardTab'
 import tab1 from '../assets/tab1.png'
+import DashboardTab from '../components/DashboardTab'
 
 import { useContext } from 'react'
-import {UserContext} from '../../context/userContext'
+import { UserContext } from '../../context/userContext'
 
 const Home = () => {
   const {user} = useContext(UserContext);
@@ -44,7 +44,7 @@ const Home = () => {
         <DashboardTab 
           title="Go In" 
           description="Scan the QR and Face" 
-          href="/go-in" 
+          href="/qrscan" 
           image={tab1}
         />
         <DashboardTab 

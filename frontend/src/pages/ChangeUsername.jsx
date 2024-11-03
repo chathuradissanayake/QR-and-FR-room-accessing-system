@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { GoChevronLeft } from "react-icons/go";
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import axios from 'axios';
 
@@ -38,22 +38,16 @@ const ChangeUsername = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-lg mx-auto">
-        
-        {/* Header */}
-        <div className="flex items-center mb-8">
-          <FaChevronLeft
-            className="text-gray-600 cursor-pointer"
-            onClick={handleBackNavigation}
-          />
-          <h1
-            className="ml-2 text-xl font-semibold text-gray-800 cursor-pointer"
-            onClick={handleBackNavigation}
-          >
-            Change Username
-          </h1>
-        </div>
+    <div className="flex  justify-center min-h-screen bg-gray-50">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+
+    
+    <div className="title flex items-center space-x-2 mb-8">
+    <Link to="/profile">
+        <GoChevronLeft className="cursor-pointer" />
+    </Link>
+        <span className='font-semibold'>Change Username</span>
+    </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6 ml-6">

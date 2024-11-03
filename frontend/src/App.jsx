@@ -15,6 +15,7 @@ import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
 import Profile from "./pages/Profile";
+import QRScan from "./pages/QRscan";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
@@ -46,7 +47,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-         
+         <Route
+            path="/qrscan"
+            element={
+              <ProtectedRoute>
+                <QRScan />
+              </ProtectedRoute>
+            }
+          />
           
           <Route
             path="/app-info"

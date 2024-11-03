@@ -12,7 +12,7 @@ const SuccessLeave = () => {
 
     
     <div className="title flex items-center space-x-2 mb-8">
-    <Link to="/home">
+    <Link to="/">
         <GoChevronLeft className="cursor-pointer" />
     </Link>
         <span className='font-semibold'>Mark Leave</span>

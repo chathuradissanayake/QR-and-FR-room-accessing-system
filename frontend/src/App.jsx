@@ -20,7 +20,7 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 function App() {

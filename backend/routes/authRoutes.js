@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test, registerUser, loginUser, getProfile } = require('../controllers/authController') 
+const dotenv = require('dotenv').config();
+const {registerUser, loginUser, getProfile } = require('../controllers/authController') 
 const requireAuth = require('../middleware/authMiddleware');
 
 // middleware
 router.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTEND_URL,
     credentials: true
 }));
 

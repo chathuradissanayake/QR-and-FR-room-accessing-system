@@ -1,10 +1,9 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaChevronLeft, FaChevronRight, FaExclamationCircle } from 'react-icons/fa';
+import React, { useContext } from 'react';
+import { FaChevronRight, FaExclamationCircle } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
-
-import { useContext } from 'react'
-import {UserContext} from '../../context/userContext'
+import { GoChevronLeft } from "react-icons/go";
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/userContext';
 
 const Profile = () => {
   const {user} = useContext(UserContext);
@@ -21,14 +20,16 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-4 flex flex-col items-center">
-      {/* Header with Back Chevron */}
-      <div className="w-full max-w-xs flex items-center mb-6">
-        <FaChevronLeft className="text-gray-600" onClick={() => handleNavigation('/')} />
-        <h1 className="ml-2 text-lg font-semibold text-gray-800" onClick={() => handleNavigation('/')}>
-          My Profile
-        </h1>
-      </div>
+    <div className="flex justify-center min-h-screen bg-gray-50">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+
+    
+    <div className="title flex items-center space-x-2 mb-8">
+    <Link to="/">
+        <GoChevronLeft className="cursor-pointer" />
+    </Link>
+        <span className='font-semibold'>Profile</span>
+    </div>
 
       {/* Profile Picture and User Info */}
       <div className="flex flex-col items-center mb-6">
@@ -46,7 +47,7 @@ const Profile = () => {
       </div>
 
       {/* Profile Details */}
-      <div className="w-full max-w-xs space-y-4">
+      <div className="w-full  space-y-4">
         <div className="flex justify-between items-center py-2 border-b border-gray-300">
           <span className="text-gray-500">User ID</span>
           <span className="text-gray-400">InSP/2020/11/1111</span> 
@@ -93,6 +94,7 @@ const Profile = () => {
           <button onClick={handleLogout} className="text-red-500">Log out</button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

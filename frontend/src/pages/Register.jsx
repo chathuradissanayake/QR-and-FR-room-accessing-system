@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import logo from "../assets/logo.png";
 import axios from 'axios';
-import {toast} from 'react-hot-toast';
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import logo from "../assets/logo.png";
 
 const Register = () => {
   const navigate = useNavigate();

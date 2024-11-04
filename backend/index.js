@@ -19,5 +19,5 @@ app.use(express.urlencoded({extended: false}));
 app.use('/', require('./routes/authRoutes'))
 app.use('/user', require('./routes/userRoutes'))
 
-const port = 8000;
+const port =process.env.PORT;
 app.listen(port, () =>{console.log(`Server is running on port ${port}`)});

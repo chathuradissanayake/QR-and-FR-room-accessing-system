@@ -44,7 +44,7 @@ const Home = () => {
         <DashboardTab 
           title="Go In" 
           description="Scan the QR and Face" 
-          href="/qrscan" 
+          href="/entrancepage" 
           image={tab1}
         />
         <DashboardTab 

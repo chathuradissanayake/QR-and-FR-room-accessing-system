@@ -4,6 +4,7 @@ import { FiEdit } from 'react-icons/fi';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
+import avatar from '../assets/avatar.png'
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -51,7 +52,7 @@ const Profile = () => {
         <div className="relative">
           <img
             className="w-24 h-24 rounded-full object-cover"
-            src="https://i.pravatar.cc/150?img=3" 
+            src={avatar} 
             alt="Profile"
           />
           <button className="absolute bottom-0 right-0 p-1 bg-blue-500 rounded-full">

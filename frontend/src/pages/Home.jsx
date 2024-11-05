@@ -20,7 +20,7 @@ const Home = () => {
       {/* Header */}
       <div className="mb-6">
         <p className="text-gray-500">Hello,</p>
-        {!!user && (<h1 className="text-2xl font-semibold">{user.name}</h1>)}
+        {!!user && (<h1 className="text-2xl font-semibold">  {user.firstName} {user.lastName}</h1>)}
         <div className="flex justify-between items-center mt-2">
           <span className="text-gray-600">Dashboard</span>
           <a href="/profile" className="text-blue-500">My Profile</a>
@@ -44,7 +44,7 @@ const Home = () => {
         <DashboardTab 
           title="Go In" 
           description="Scan the QR and Face" 
-          href="/qrscan" 
+          href="/entrancepage" 
           image={tab1}
         />
         <DashboardTab 

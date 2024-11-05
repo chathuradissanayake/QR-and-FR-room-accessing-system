@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import NotUsed from '../assets/notused.png';
 import Used from '../assets/used.png';
 import LogSearch from '../components/LogSearch';
-import LogCard from '../components/Logcard';
+import LogCard from '../components/LogCard';
 
 export default function MyLogbook() {
 

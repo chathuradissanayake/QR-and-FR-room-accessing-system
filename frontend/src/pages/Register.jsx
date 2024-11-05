@@ -1,42 +1,59 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import logo from "../assets/logo.png";
+import { toast } from 'react-hot-toast';
+import logo from '../assets/logo.png'
 
 const Register = () => {
-  const navigate = useNavigate();
   const [data, setData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    password: ''
+    password: '',
+    userId: '',
   });
+  const navigate = useNavigate();
 
-  const handleSubmit =async (e) => {
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle registration logic here
-    console.log('Name:', data.name);
+
+    console.log('First Name:', data.firstName);
+    console.log('Last Name:', data.lastName);
     console.log('Email:', data.email);
     console.log('Password:', data.password);
+    console.log('User ID:', data.userId);
 
-    // destructuring data
-    const { name, email, password } = data;
+    // Destructuring data
+    const { firstName, lastName, email, password, userId } = data;
 
     try {
-      const {data} = await axios.post('/register',{
-        name,email,password
-      })
-      if (data.error) {
-        toast.error(data.error);
+      const { data: response } = await axios.post('/register', {
+        firstName,
+        lastName,
+        email,
+        password,
+        userId,
+      });
+      if (response.error) {
+        toast.error(response.error);
       } else {
-        setData({})
+        setData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          userId: '',
+        });
         toast.success('Registration successful');
         navigate('/signin');
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   };
 
   return (
@@ -45,7 +62,7 @@ const Register = () => {
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <img
-            src={logo} // Replace with your logo's URL
+            src={logo} 
             alt="Logo"
             className="w-20 h-20"
           />
@@ -57,27 +74,51 @@ const Register = () => {
         </h1>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name Field */}
-          <div>
-            <label htmlFor="name" className="sr-only">
-              Name
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
+              First Name
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
-              value={data.name}
-              onChange={(e) => setData({ ...data, name: e.target.value })}
-              placeholder="Name"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              id="firstName"
+              name="firstName"
+              value={data.firstName}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
           </div>
-
-          {/* Email Field */}
-          <div>
-            <label htmlFor="email" className="sr-only">
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={data.lastName}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="userId">
+              User ID
+            </label>
+            <input
+              type="text"
+              id="userId"
+              name="userId"
+              value={data.userId}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               Email
             </label>
             <input
@@ -85,16 +126,13 @@ const Register = () => {
               id="email"
               name="email"
               value={data.email}
-              onChange={(e) => setData({ ...data, email: e.target.value })}
-              placeholder="Email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
           </div>
-
-          {/* Password Field */}
-          <div>
-            <label htmlFor="password" className="sr-only">
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
               Password
             </label>
             <input
@@ -102,31 +140,20 @@ const Register = () => {
               id="password"
               name="password"
               value={data.password}
-              onChange={(e) => setData({ ...data, password: e.target.value })}
-              placeholder="Password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
             />
           </div>
-
-          {/* Sign Up Button */}
           <div>
             <button
               type="submit"
               className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
             >
-              Sign Up
+              Register
             </button>
           </div>
         </form>
-
-        {/* Footer */}
-        <div className="text-center mt-6 text-sm text-gray-600">
-          Already have an account?{' '}
-          <a href="/signin" className="text-blue-500 hover:underline">
-            Log in!
-          </a>
-        </div>
       </div>
     </div>
   );

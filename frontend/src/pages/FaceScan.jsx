@@ -3,7 +3,7 @@ import React from 'react'
 const FaceScan = () => {
   return (
     <div>
-      <h>FaceScan</h>
+      <h1>FaceScan</h1>
     </div>
   )
 }

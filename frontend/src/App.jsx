@@ -16,7 +16,6 @@ import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
 import Profile from "./pages/Profile";
-import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 
@@ -29,7 +28,6 @@ function App() {
       <Router>
         <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
         <Routes>
-          <Route path="/register" element={<Register />} />
           <Route path="/signin" element={<SignIn />} />
           <Route
             path="/"

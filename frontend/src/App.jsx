@@ -11,7 +11,6 @@ import ChangePassword from "./pages/ChangePassword";
 import ChangeUsername from "./pages/ChangeUsername";
 import CustomerCare from "./pages/CustomerCare";
 import EntrancePage from "./pages/EntrancePage";
-import FaceScan from "./pages/FaceScan";
 import Home from "./pages/Home";
 import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
@@ -55,14 +54,6 @@ function App() {
             }
           />
          
-         <Route
-            path="/facescan"
-            element={
-              <ProtectedRoute>
-                <FaceScan />
-              </ProtectedRoute>
-            }
-          />
           <Route
             path="/app-info"
             element={

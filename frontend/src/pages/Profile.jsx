@@ -4,7 +4,7 @@ import { FiEdit } from 'react-icons/fi';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
-import avatar from '../assets/avatar.png'
+import avatar from '../assets/avatar.png';
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -100,9 +100,9 @@ const Profile = () => {
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
-          onClick={() => handleNavigation('/customer-care')}
+          onClick={() => handleNavigation('/contactus')}
         >
-          <span className="text-gray-500">Customer care</span>
+          <span className="text-gray-500">Costumer care</span>
           <FaChevronRight className="text-gray-600" />
         </div>
 

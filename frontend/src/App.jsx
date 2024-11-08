@@ -10,7 +10,7 @@ import AppInfo from "./pages/AppInfo";
 import AskPermission from "./pages/AskPermission";
 import ChangePassword from "./pages/ChangePassword";
 import ChangeUsername from "./pages/ChangeUsername";
-import CustomerCare from "./pages/CustomerCare";
+import ContactUs from "./pages/ContactUs";
 import EntrancePage from "./pages/EntrancePage";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
@@ -81,10 +81,10 @@ function App() {
             }
           />
           <Route
-            path="/customer-care"
+            path="/contactus"
             element={
               <ProtectedRoute>
-                <CustomerCare />
+                <ContactUs />
               </ProtectedRoute>
             }
           />

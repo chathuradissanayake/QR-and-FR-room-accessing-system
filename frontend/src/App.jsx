@@ -18,6 +18,7 @@ import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
 import Profile from "./pages/Profile";
+import ResetPassword from "./pages/ResetPassword";
 import Settings from "./pages/Settings";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/verify-code" element={<TypeCode />} />
           
           <Route

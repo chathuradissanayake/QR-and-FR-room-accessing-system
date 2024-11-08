@@ -1,8 +1,8 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { GoChevronLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-hot-toast";
 
 const ForgotPassword = () => {
   const [emailOrPhone, setEmailOrPhone] = useState("");
@@ -28,8 +28,8 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-lg mx-auto">
+    <div className="flex  justify-center min-h-screen h-max bg-gray-50">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
         
         {/* Header */}
         <div className="flex items-center mb-8">
@@ -46,7 +46,7 @@ const ForgotPassword = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 ml-4">
           <div>
             <label htmlFor="emailOrPhone" className="block text-gray-600 mb-1">Type your Email</label>
             <input
@@ -64,7 +64,7 @@ const ForgotPassword = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition duration-150"
+            className="w-full bg-blue-500 text-white py-2 rounded-xl font-semibold hover:bg-blue-600 transition duration-150"
           >
             Send
           </button>

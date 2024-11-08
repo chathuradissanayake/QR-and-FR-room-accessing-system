@@ -5,6 +5,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { UserContextProvider } from "../context/userContext";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import AboutUs from "./pages/AboutUs";
 import AppInfo from "./pages/AppInfo";
 import AskPermission from "./pages/AskPermission";
 import ChangePassword from "./pages/ChangePassword";
@@ -17,6 +18,7 @@ import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import Settings from "./pages/Settings";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 
@@ -44,6 +46,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Settings />
               </ProtectedRoute>
             }
           />
@@ -129,6 +140,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+        <Route
+            path="/aboutus"
+            element={
+              <ProtectedRoute>
+                <AboutUs />
+              </ProtectedRoute>
+            }
+          />
+
         </Routes>
       </Router>
     </UserContextProvider>

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const dotenv = require('dotenv').config();
-const {registerUser, loginUser, getProfile } = require('../controllers/authController') 
+const {loginUser, getProfile } = require('../controllers/authController') 
 const requireAuth = require('../middleware/authMiddleware');
 
 // middleware
@@ -12,7 +12,6 @@ router.use(cors({
 }));
 
 // Public routes
-router.post('/register', registerUser);
 router.post('/signin', loginUser);
 
 // Protected routes

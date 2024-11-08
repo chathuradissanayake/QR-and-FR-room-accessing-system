@@ -19,6 +19,8 @@ import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 import ForgotPassword from "./pages/ForgotPassword";
+import TypeCode from "./pages/TypeCode";
+import ResetPassword from "./pages/ResetPassword";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
@@ -31,6 +33,8 @@ function App() {
         <Routes>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-code" element={<TypeCode />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/"
             element={

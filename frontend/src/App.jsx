@@ -18,6 +18,7 @@ import MyPermissions from "./pages/MyPermissions";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
+import ForgotPassword from "./pages/ForgotPassword";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
@@ -29,6 +30,7 @@ function App() {
         <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
         <Routes>
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route
             path="/"
             element={
@@ -45,15 +47,15 @@ function App() {
               </ProtectedRoute>
             }
           />
-         <Route
+          <Route
             path="/entrancepage"
             element={
               <ProtectedRoute>
-                <EntrancePage/>
+                <EntrancePage />
               </ProtectedRoute>
             }
           />
-         
+
           <Route
             path="/app-info"
             element={
@@ -110,7 +112,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-        
+
           <Route
             path="/change-username"
             element={
@@ -123,7 +125,7 @@ function App() {
             path="/change-password"
             element={
               <ProtectedRoute>
-                < ChangePassword/>
+                <ChangePassword />
               </ProtectedRoute>
             }
           />

@@ -42,7 +42,7 @@ const Settings = () => {
 
         <div
             role="button"
-            onClick={() => navigate('/appinfo')}
+            onClick={() => navigate('/app-info')}
             class="text-slate-800  flex w-full items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 justify-between">   
             App Information
             <GoChevronRight className='text-gray-500'/>

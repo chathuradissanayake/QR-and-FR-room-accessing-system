@@ -1,18 +1,24 @@
 import React from 'react';
 import { GoChevronLeft } from "react-icons/go";
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const AboutUs = () => {
+    const navigate = useNavigate();
+    const handleBackNavigation = () => {
+    navigate(-1); // Go back to the previous page
+  };
+
   return (
     <div className="flex justify-center min-h-screen bg-gray-50">
     <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
 
     
     <div className="title flex items-center space-x-2 mb-8">
-    <Link to="/settings">
-        <GoChevronLeft className="cursor-pointer" />
-    </Link>
+    
+        <GoChevronLeft className="cursor-pointer" 
+        onClick={handleBackNavigation}/>
+    
         <span className='font-semibold'>About us</span>
     </div>
 

@@ -1,32 +1,43 @@
-# Backend Project
+# Backend for QR and FR Room Accessing System
 
-## Overview
+This is the backend service for the QR and FR Room Accessing System. It handles authentication, database interactions, and other server-side logic.
 
-This is the backend for a door access system that uses QR and Facial Recognition for authentication. The project is built using Node.js, Express, and MongoDB.
-
-## Technologies Used
-
-- **Node.js**: JavaScript runtime environment.
-- **Express**: Web framework for Node.js.
-- **Mongoose**: MongoDB object modeling tool.
-- **bcrypt**: Library to hash passwords.
-- **cors**: Middleware to enable CORS.
-- **dotenv**: Module to load environment variables from a `.env` file.
-- **nodemon**: Tool to automatically restart the server during development.
-
-## Purpose
-
-The purpose of this project is to provide a secure backend for a door access system. It handles user authentication, including password hashing and verification, and interacts with a MongoDB database to store user data.
-
-## Setup Instructions
+## Getting Started
 
 ### Prerequisites
 
-- Node.js and npm installed on your machine.
-- MongoDB instance running (local or cloud).
+Make sure you have the following installed:
+- Node.js
+- npm (Node Package Manager)
+- MongoDB
 
 ### Installation
 
-Create a .env file in the root directory and add your MongoDB URI
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/yourusername/qr-and-fr-room-accessing-system.git
+    cd qr-and-fr-room-accessing-system/backend
+    ```
 
-```MONGO_URL=<your mongo URI>```
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
+
+3. Create a `.env` file in the root of the backend folder and add the following environment variables:
+    ```env
+    MONGO_URL = your_mongo_url
+    JWT_SECRET = your_jwt_secret
+    FRONTEND_URL = http://localhost:5173
+    PORT = 8000
+    ```
+
+4. Start the server:
+    ```sh
+    npm start
+    ```
+
+## Usage
+
+The backend server will be running on `http://localhost:8000`. You can interact with the API using tools like Postman or through the frontend application.
+

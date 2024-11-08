@@ -5,19 +5,23 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { UserContextProvider } from "../context/userContext";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import AboutUs from "./pages/AboutUs";
 import AppInfo from "./pages/AppInfo";
 import AskPermission from "./pages/AskPermission";
 import ChangePassword from "./pages/ChangePassword";
 import ChangeUsername from "./pages/ChangeUsername";
-import CustomerCare from "./pages/CustomerCare";
+import ContactUs from "./pages/ContactUs";
 import EntrancePage from "./pages/EntrancePage";
+import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
+import TypeCode from "./pages/TypeCode";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
@@ -29,6 +33,9 @@ function App() {
         <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
         <Routes>
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-code" element={<TypeCode />} />
+          
           <Route
             path="/"
             element={
@@ -45,15 +52,26 @@ function App() {
               </ProtectedRoute>
             }
           />
-         <Route
-            path="/entrancepage"
+
+          <Route
+            path="/settings"
             element={
               <ProtectedRoute>
-                <EntrancePage/>
+                <Settings />
               </ProtectedRoute>
             }
           />
-         
+
+         <Route
+          
+            path="/entrancepage"
+            element={
+              <ProtectedRoute>
+                <EntrancePage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/app-info"
             element={
@@ -63,10 +81,10 @@ function App() {
             }
           />
           <Route
-            path="/customer-care"
+            path="/contactus"
             element={
               <ProtectedRoute>
-                <CustomerCare />
+                <ContactUs />
               </ProtectedRoute>
             }
           />
@@ -110,7 +128,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-        
+
           <Route
             path="/change-username"
             element={
@@ -123,10 +141,20 @@ function App() {
             path="/change-password"
             element={
               <ProtectedRoute>
-                < ChangePassword/>
+                <ChangePassword />
               </ProtectedRoute>
             }
           />
+
+        <Route
+            path="/aboutus"
+            element={
+              <ProtectedRoute>
+                <AboutUs />
+              </ProtectedRoute>
+            }
+          />
+
         </Routes>
       </Router>
     </UserContextProvider>

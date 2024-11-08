@@ -1,9 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GoChevronLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import {toast} from "react-hot-toast"
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -35,29 +35,24 @@ const ChangePassword = () => {
   };
 
   const handleBackNavigation = () => {
-    navigate('/profile');
+    navigate(-1);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-lg mx-auto">
-        
-        {/* Header */}
-        <div className="flex items-center mb-8">
-          <GoChevronLeft
-            className="text-gray-600 cursor-pointer"
-            onClick={handleBackNavigation}
-          />
-          <h1
-            className="ml-2 text-xl font-semibold text-gray-800 cursor-pointer"
-            onClick={handleBackNavigation}
-          >
-            Change Password
-          </h1>
-        </div>
+    <div className="flex justify-center min-h-screen bg-gray-50">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+
+    
+    <div className="title flex items-center space-x-2 mb-8">
+    
+        <GoChevronLeft className="cursor-pointer" 
+        onClick={handleBackNavigation}/>
+    
+        <span className='font-semibold'>App Info</span>
+    </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 ml-4">
           <div>
             <label htmlFor="oldPassword" className="block text-gray-600 mb-1">Old Password</label>
             <div className="relative">
@@ -66,7 +61,7 @@ const ChangePassword = () => {
                 id="oldPassword"
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
-                className="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
                 required
               />
               <div
@@ -104,7 +99,7 @@ const ChangePassword = () => {
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
                 required
               />
               <div
@@ -118,7 +113,7 @@ const ChangePassword = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition duration-150"
+            className="w-full bg-blue-500 text-white py-2 rounded-xl font-semibold hover:bg-blue-600 transition duration-150"
           >
             Change Password
           </button>

@@ -80,7 +80,7 @@ const Home = () => {
         <DashboardTab 
           title="Contact Us" 
           description="Contact us for Emergency" 
-          href="/contact" 
+          href="/contactus" 
           image={tab1}
         />
       </div>

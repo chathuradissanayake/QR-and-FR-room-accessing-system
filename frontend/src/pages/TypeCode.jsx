@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { GoChevronLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
 
 const TypeCode = () => {
   const [code, setCode] = useState("");
@@ -32,8 +32,8 @@ const TypeCode = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-lg mx-auto">
+    <div className="flex  justify-center min-h-screen h-max bg-gray-50">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
         
         {/* Header */}
         <div className="flex items-center mb-8">
@@ -53,7 +53,7 @@ const TypeCode = () => {
         <p className="text-gray-600 mb-6">Enter the code sent to your email to verify your identity.</p>
 
         {/* Form */}
-        <form className="space-y-6">
+        <form className="space-y-6 ml-4">
           <div>
             <label htmlFor="code" className="block text-gray-600 mb-1">Verification Code</label>
             <input
@@ -70,7 +70,7 @@ const TypeCode = () => {
           <button
             type="button"
             onClick={handleConfirmCode}
-            className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition duration-150"
+            className="w-full bg-blue-500 text-white py-3 rounded-xl font-semibold hover:bg-blue-600 transition duration-150"
           >
             Confirm Code
           </button>
@@ -78,7 +78,7 @@ const TypeCode = () => {
           <button
             type="button"
             onClick={handleResendCode}
-            className="w-full text-blue-600 py-3 font-semibold hover:underline transition duration-150"
+            className="w-full text-blue-500 py-3 font-semibold hover:underline transition duration-150"
           >
             Resend Code
           </button>

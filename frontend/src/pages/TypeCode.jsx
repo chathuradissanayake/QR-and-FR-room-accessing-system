@@ -70,7 +70,7 @@ const TypeCode = () => {
           <button
             type="button"
             onClick={handleConfirmCode}
-            className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition duration-150"
+            className="w-full bg-blue-500 text-white py-3 rounded-xl font-semibold hover:bg-blue-600 transition duration-150"
           >
             Confirm Code
           </button>
@@ -78,7 +78,7 @@ const TypeCode = () => {
           <button
             type="button"
             onClick={handleResendCode}
-            className="w-full text-blue-600 py-3 font-semibold hover:underline transition duration-150"
+            className="w-full text-blue-500 py-3 font-semibold hover:underline transition duration-150"
           >
             Resend Code
           </button>

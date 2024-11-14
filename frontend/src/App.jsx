@@ -37,7 +37,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/verify-code" element={<TypeCode />} />
-          
+
           <Route
             path="/"
             element={
@@ -64,8 +64,7 @@ function App() {
             }
           />
 
-         <Route
-          
+          <Route
             path="/entrancepage"
             element={
               <ProtectedRoute>
@@ -148,7 +147,7 @@ function App() {
             }
           />
 
-        <Route
+          <Route
             path="/aboutus"
             element={
               <ProtectedRoute>
@@ -156,7 +155,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
         </Routes>
       </Router>
     </UserContextProvider>

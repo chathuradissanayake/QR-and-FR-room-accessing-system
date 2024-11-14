@@ -23,6 +23,7 @@ import Settings from "./pages/Settings";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 import TypeCode from "./pages/TypeCode";
+import Faceid from "./pages/Faceid";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
@@ -152,6 +153,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AboutUs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/face-id"
+            element={
+              <ProtectedRoute>
+                <Faceid />
               </ProtectedRoute>
             }
           />

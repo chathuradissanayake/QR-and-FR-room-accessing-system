@@ -1,34 +1,49 @@
-// CaptureImage.jsx
-import React, { useRef, useState } from 'react';
-import Webcam from 'react-webcam';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState } from "react";
+import Webcam from "react-webcam";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
-const CaptureImage = () => {
+const Faceid = () => {
   const webcamRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const navigate = useNavigate();
 
-  // Function to capture image
+  // Capture the photo from the webcam
   const capturePhoto = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setCapturedImage(imageSrc);
   };
 
-  // Function to retake photo
-  const retakePhoto = () => {
-    setCapturedImage(null);
-  };
+  // Save the photo to the backend
+  const savePhoto = async () => {
+    if (!capturedImage) {
+      toast.error("Please capture an image first.");
+      return;
+    }
 
-  // Function to save and proceed with the captured image
-  const savePhoto = () => {
-    // Here you can send the capturedImage to your server or database
-    console.log("Image saved:", capturedImage);
-    navigate('/profile'); // Redirect to profile or any other page
+    try {
+      // Replace with the correct backend URL
+      const response = await axios.post("http://localhost:8000/face/save-face-image", {
+        userId: "InSP/2024/4215/854", // Replace with the logged-in user's ID
+        faceImage: capturedImage,
+      });
+
+      if (response.data.success) {
+        toast.success("Face registered successfully!");
+        navigate("/profile"); // Redirect after successful registration
+      } else {
+        toast.error("Error storing the image.");
+      }
+    } catch (error) {
+      console.error("Error saving image:", error);
+      toast.error("Failed to save the image. Try again.");
+    }
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-      <h2 className="text-xl font-semibold mb-4">Capture Your Image</h2>
+      <h2 className="text-xl font-semibold mb-4">Register Your Face ID</h2>
 
       {!capturedImage ? (
         <>
@@ -36,34 +51,35 @@ const CaptureImage = () => {
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            videoConstraints={{
-              facingMode: "user" // Switch to front camera
-            }}
+            videoConstraints={{ facingMode: "user" }}
             className="rounded-lg shadow-md"
           />
-
           <button
             onClick={capturePhoto}
-            className="mt-6 bg-blue-500 text-white py-2 px-6 rounded-lg font-semibold hover:bg-blue-600"
+            className="mt-6 bg-blue-500 text-white py-2 px-6 rounded-lg font-semibold"
           >
             Capture Photo
           </button>
         </>
       ) : (
         <>
-          <img src={capturedImage} alt="Captured" className="rounded-lg shadow-md" />
-          <div className="flex space-x-4 mt-6">
-            <button
-              onClick={retakePhoto}
-              className="bg-gray-500 text-white py-2 px-6 rounded-lg font-semibold hover:bg-gray-600"
-            >
-              Retake
-            </button>
+          <img
+            src={capturedImage}
+            alt="Captured"
+            className="rounded-lg shadow-md"
+          />
+          <div className="flex mt-6 space-x-4">
             <button
               onClick={savePhoto}
-              className="bg-blue-500 text-white py-2 px-6 rounded-lg font-semibold hover:bg-blue-600"
+              className="bg-blue-500 text-white py-2 px-6 rounded-lg font-semibold"
             >
               Save Photo
+            </button>
+            <button
+              onClick={() => setCapturedImage(null)}
+              className="bg-gray-500 text-white py-2 px-6 rounded-lg font-semibold"
+            >
+              Retake Photo
             </button>
           </div>
         </>
@@ -72,4 +88,4 @@ const CaptureImage = () => {
   );
 };
 
-export default CaptureImage;
+export default Faceid;

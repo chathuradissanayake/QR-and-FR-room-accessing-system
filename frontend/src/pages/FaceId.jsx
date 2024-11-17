@@ -22,10 +22,17 @@ const Faceid = () => {
       return;
     }
 
+    // Retrieve userId dynamically (example: from localStorage)
+    const userId = localStorage.getItem("userId"); // Replace with actual source
+    if (!userId) {
+      toast.error("User ID is missing. Please log in again.");
+      return;
+    }
+
     try {
       // Replace with the correct backend URL
       const response = await axios.post("http://localhost:8000/face/save-face-image", {
-        userId: "InSP/2024/4215/854", // Replace with the logged-in user's ID
+        userId,
         faceImage: capturedImage,
       });
 
@@ -33,7 +40,7 @@ const Faceid = () => {
         toast.success("Face registered successfully!");
         navigate("/profile"); // Redirect after successful registration
       } else {
-        toast.error("Error storing the image.");
+        toast.error(response.data.message || "Error storing the image.");
       }
     } catch (error) {
       console.error("Error saving image:", error);

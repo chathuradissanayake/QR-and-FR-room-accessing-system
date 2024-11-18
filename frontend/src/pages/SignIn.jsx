@@ -1,86 +1,105 @@
-// src/pages/SignIn.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 import logo from "../assets/logo.png";
+import { FaEnvelope, FaLock } from 'react-icons/fa'; // Import icons from react-icons
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle sign-in logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await axios.post('/signin', {
+        email,
+        password,
+      });
+
+      if (data.error) {
+        return toast.error(data.error);
+      } else {
+        toast.success('Logged in successfully');
+        localStorage.setItem('token', data.token); 
+        navigate('/'); 
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Invalid email or password');
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <img
-            src={logo} // Replace with your logo's URL
+            src={logo}
             alt="Logo"
-            className="w-20 h-20"
+            className="h-12"
           />
         </div>
-
+        
         {/* Title */}
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-          LOG IN
-        </h1>
-
+        <h2 className="text-3xl font-bold mb-6 text-center">LOG IN</h2>
+        
         {/* Form */}
-        <form className="space-y-4">
-          <div>
-            <label htmlFor="email" className="sr-only">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4 relative">
+            <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+            <div className="flex items-center border rounded shadow appearance-none w-full py-3 px-4 focus:outline-none focus:shadow-outline">
+              <FaEnvelope className="text-gray-500 mr-2" />
+              <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full outline-none text-gray-700"
+                required
+              />
+            </div>
+          </div>
+          
+          <div className="mb-4 relative">
+            <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+            <div className="flex items-center border rounded shadow appearance-none w-full py-3 px-4 focus:outline-none focus:shadow-outline">
+              <FaLock className="text-gray-500 mr-2" />
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full outline-none text-gray-700"
+                required
+              />
+            </div>
           </div>
 
-          <div>
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+          {/* Forgot Password Link */}
+          <div className="flex justify-between items-center mb-6">
+            <span className="text-gray-600">Forgot Password?</span>
+            <a href="/forgot-password" className="text-blue-600 hover:underline">Click Here</a>
           </div>
 
-          {/* Forgot Password */}
-          <div className="text-right">
-            <a href="#" className="text-sm text-blue-500 hover:underline">
-              Forgot Password? <span className="font-semibold">Click Here</span>
-            </a>
-          </div>
-
-          {/* Login Button */}
-          <div>
-            <button
-              onClick={() => navigate('/home')}
-              type="submit"
-              className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
-            >
-              Log in
-            </button>
-          </div>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full py-2 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-semibold rounded-lg transition duration-300"
+          >
+            Log in
+          </button>
         </form>
 
         {/* Footer */}
         <div className="text-center mt-6 text-sm text-gray-600">
           Having trouble logging in?{" "}
-          <a href="#" className="text-blue-500 hover:underline">
+          <a href="/contact" className="text-blue-600 hover:underline">
             Contact us!
           </a>
         </div>

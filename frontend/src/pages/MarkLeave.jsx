@@ -8,12 +8,12 @@ export default function MarkLeave() {
   return (
 
     <>
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex justify-center min-h-screen bg-gray-50">
     <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
 
     
     <div className="title flex items-center space-x-2 mb-8">
-    <Link to="/home">
+    <Link to="/">
         <GoChevronLeft className="cursor-pointer" />
     </Link>
         <span className='font-semibold'>Leave</span>
@@ -30,7 +30,7 @@ export default function MarkLeave() {
             If you want to leave, <span className="font-semibold">Confirm</span>
             </p>
             <p className="text-sm text-black-500 mb-6">
-            otherwise <span className="font-semibold">Cancel</span>
+            otherwise <span className="font-semibold ">Cancel</span>
             </p>
     </div>
     
@@ -38,7 +38,7 @@ export default function MarkLeave() {
     
     <div className='ml-3'>
           <button
-              onClick={() => navigate()}
+              onClick={() => navigate('/successleave')}
               type="submit"
               className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300 mb-2"
           >
@@ -46,7 +46,7 @@ export default function MarkLeave() {
           </button>
       
           <button
-              onClick={() => navigate('/home')}
+              onClick={() => navigate('/')}
               type="cancel"
               className="w-full py-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg transition duration-300"
           >

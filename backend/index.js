@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
+const cors = require('cors');
 const {mongoose} = require ('mongoose');
 const cookieParser = require('cookie-parser');
 
@@ -17,6 +18,12 @@ app.use(express.urlencoded({extended: false}));
 
 app.use('/', require('./routes/authRoutes'))
 app.use('/user', require('./routes/userRoutes'))
+app.use('/askPermision', require('./models/askPermision'))
+app.use('/contactus', require('./models/contactUs'))
 
 const port =process.env.PORT;
 app.listen(port, () =>{console.log(`Server is running on port ${port}`)});
+
+
+
+

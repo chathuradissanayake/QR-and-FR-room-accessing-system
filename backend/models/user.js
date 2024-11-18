@@ -24,9 +24,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  faceImage: {
-    type: String,
-  },
 });
 
 const UserModel = mongoose.model("User", userSchema);

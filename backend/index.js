@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", require("./routes/authRoutes"));
 app.use("/user", require("./routes/userRoutes"));
 app.use("/face", require("./routes/faceRoutes"));
+app.use("/leave", require("./routes/leaveRoutes"));
 
 const port = process.env.PORT;
 app.listen(port, () => {

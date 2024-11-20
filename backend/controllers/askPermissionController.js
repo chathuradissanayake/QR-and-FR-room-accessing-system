@@ -2,6 +2,10 @@ const Permision = require('../models/askPermision');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+
+
+
+
 // Ask Permission
 const AskPermission = async (req, res) => {
   try {

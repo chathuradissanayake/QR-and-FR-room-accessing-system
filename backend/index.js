@@ -20,9 +20,12 @@ app.use('/', require('./routes/authRoutes'))
 app.use('/user', require('./routes/userRoutes'))
 app.use('/askPermision', require('./models/askPermision'))
 app.use('/contactus', require('./models/contactUs'))
+app.use("/face", require("./routes/faceRoutes"));
+app.use("/leave", require("./routes/leaveRoutes"));
 
 const port =process.env.PORT;
 app.listen(port, () =>{console.log(`Server is running on port ${port}`)});
+
 
 
 

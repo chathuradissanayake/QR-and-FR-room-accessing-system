@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const dotenv = require('dotenv').config();
-const {loginUser, getProfile } = require('../controllers/authController') 
+const {loginUser, getProfile, getContactUs } = require('../controllers/authController')
+const {AskPermission, getPermissions } = require('../controllers/askPermissionController');
 const requireAuth = require('../middleware/authMiddleware');
 
 // middleware
@@ -16,5 +17,8 @@ router.post('/signin', loginUser);
 
 // Protected routes
 router.get('/profile', requireAuth, getProfile);
+router.post('/askpermission',requireAuth, AskPermission)
+router.post('/contactus',requireAuth, getContactUs)
+router.get('/permissions',requireAuth, getPermissions);
 
 module.exports = router;

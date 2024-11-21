@@ -11,11 +11,11 @@ const permissionSchema = new Schema({
     type: String,
     required: true,
   },
-  room: {
+  roomName: {
     type: String,
     required: true,
   },
-  door: {
+  doorCode: {
     type: String,
     required: true,
   },
@@ -23,11 +23,11 @@ const permissionSchema = new Schema({
     type: Date,
     required: true,
   },
-  intime: {
+  inTime: {
     type: String,
     required: true,
   },
-  outtime: {
+  outTime: {
     type: String,
     required: true,
   },
@@ -37,6 +37,6 @@ const permissionSchema = new Schema({
   },
 });
 
-const Permission = mongoose.model('Permission', permissionSchema);
+const Permission = mongoose.model('PermissionRequests', permissionSchema);
 
 module.exports = Permission;

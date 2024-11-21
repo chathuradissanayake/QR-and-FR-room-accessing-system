@@ -2,10 +2,11 @@ const Permision = require('../models/askPermision');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+
 // Ask Permission
 const AskPermission = async (req, res) => {
   try {
-    const { name, room, door, date, intime, outtime, message } = req.body;
+    const { name, roomName, doorCode, date, inTime, outTime, message } = req.body;
 
     // Extract the token from the request (either from cookies or authorization header)
     const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
@@ -29,11 +30,11 @@ const AskPermission = async (req, res) => {
     const permission = await Permision.create({
       userId,  // Add the logged-in user's userId
       name,
-      room,
-      door,
+      roomName,
+      doorCode,
       date,
-      intime,
-      outtime,
+      inTime,
+      outTime,
       message,
     });
 

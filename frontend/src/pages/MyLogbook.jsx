@@ -3,8 +3,8 @@ import { GoChevronLeft } from "react-icons/go";
 import { Link } from 'react-router-dom';
 import NotUsed from '../assets/notused.png';
 import Used from '../assets/used.png';
-import LogSearch from '../components/LogSearch';
 import LogCard from '../components/LogCard';
+import LogSearch from '../components/LogSearch';
 
 export default function MyLogbook() {
 
@@ -31,8 +31,8 @@ export default function MyLogbook() {
     roomcode="M06"
     door="Main Door"
     branch="Colombo"
-    intime="11:22 AM"
-    outtime="1:44 PM"
+    entryTime="11:22 AM"
+    exitTime="1:44 PM"
     date="21/08/2024"
     state={Used}
     />
@@ -42,8 +42,8 @@ export default function MyLogbook() {
     roomcode="C06"
     door="Main Door"
     branch="Colombo"
-    intime=""
-    outtime=""
+    entryTime=""
+    exitTime=""
     date="29/08/2024"
     state={NotUsed}
     />

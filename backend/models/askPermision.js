@@ -23,11 +23,11 @@ const permissionSchema = new Schema({
     type: Date,
     required: true,
   },
-  inTime: {
+  entryTime: {
     type: String,
     required: true,
   },
-  outTime: {
+  exitTime: {
     type: String,
     required: true,
   },

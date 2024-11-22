@@ -10,8 +10,8 @@ const AskPermission = () => {
     roomName: '',
     doorCode: '',
     date: '',
-    inTime: '',
-    outTime: '',
+    entryTime: '',
+    exitTime: '',
     message: '',
   });
 
@@ -25,8 +25,8 @@ const AskPermission = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate intime and outtime
-    if (new Date(`1970-01-01T${data.inTime}:00`) >= new Date(`1970-01-01T${data.outTime}:00`)) {
+    // Validate entryTime and exitTime
+    if (new Date(`1970-01-01T${data.entryTime}:00`) >= new Date(`1970-01-01T${data.exitTime}:00`)) {
       return toast.error('In Time must be before Out Time');
     }
 
@@ -43,8 +43,8 @@ const AskPermission = () => {
           roomName: '',
           doorCode: '',
           date: '',
-          inTime: '',
-          outTime: '',
+          entryTime: '',
+          exitTime: '',
           message: '',
         });
         toast.success('Permission sent successfully');
@@ -122,12 +122,12 @@ const AskPermission = () => {
 
           {/* In Time Field */}
           <div>
-            <label htmlFor="inTime" className="block text-sm text-gray-400 ml-1">In Time</label>
+            <label htmlFor="entryTime" className="block text-sm text-gray-400 ml-1">In Time</label>
             <input
               type="time"
-              id="inTime"
-              name="inTime"
-              value={data.inTime}
+              id="entryTime"
+              name="entryTime"
+              value={data.entryTime}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
@@ -136,12 +136,12 @@ const AskPermission = () => {
 
           {/* Out Time Field */}
           <div>
-            <label htmlFor="outTime" className="block text-sm text-gray-400 ml-1">Out Time</label>
+            <label htmlFor="exitTime" className="block text-sm text-gray-400 ml-1">Out Time</label>
             <input
               type="time"
-              id="outTime"
-              name="outTime"
-              value={data.outTime}
+              id="exitTime"
+              name="exitTime"
+              value={data.exitTime}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required

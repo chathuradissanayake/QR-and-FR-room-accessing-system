@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
 
@@ -88,8 +88,8 @@ const MyPermissions = () => {
               {[
                 { label: "Door", value: permission.door || "N/A" },
                 { label: "Branch", value: permission.branch || "Colombo" },
-                { label: "In Time", value: permission.intime || "N/A" },
-                { label: "Out Time", value: permission.outtime || "N/A" },
+                { label: "In Time", value: permission.entryTime || "N/A" },
+                { label: "Out Time", value: permission.exitTime || "N/A" },
                 {
                   label: "Date",
                   value: permission.date

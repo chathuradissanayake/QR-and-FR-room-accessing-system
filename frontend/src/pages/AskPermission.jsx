@@ -81,7 +81,7 @@ const AskPermission = () => {
           message: '',
         });
         toast.success('Permission request submitted successfully!');
-        navigate('/my-requests');
+        navigate('/mypermissions');
       }
     } catch (error) {
       console.error('Error creating permission request:', error);
@@ -219,7 +219,7 @@ const AskPermission = () => {
                 type="submit"
                 className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
               >
-                Register
+                Submit Request
               </button>
             </div>
           </form>

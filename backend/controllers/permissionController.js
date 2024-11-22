@@ -39,7 +39,23 @@ const getUserPermissionRequests = async (req, res) => {
   }
 };
 
+// Delete a permission request
+const deletePermissionRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedRequest = await PermissionRequest.findByIdAndDelete(id);
+    if (!deletedRequest) {
+      return res.status(404).json({ error: 'Permission request not found' });
+    }
+    res.status(200).json({ message: 'Permission request deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting permission request:', error);
+    res.status(500).json({ error: 'Error deleting permission request' });
+  }
+};
+
 module.exports = {
   createPermissionRequest,
   getUserPermissionRequests,
+  deletePermissionRequest,
 };

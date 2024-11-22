@@ -1,6 +1,21 @@
 import React from 'react';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
-const PendingPermissionCard = ({ permission }) => {
+const PendingPermissionCard = ({ permission, onDelete }) => {
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/permission/delete-permission/${permission._id}`, {
+        withCredentials: true,
+      });
+      onDelete(permission._id);
+      toast.success('Permission request deleted successfully');
+    } catch (error) {
+      console.error('Error deleting permission request:', error);
+      toast.error('Error deleting permission request');
+    }
+  };
+
   return (
     <div className="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
@@ -10,7 +25,7 @@ const PendingPermissionCard = ({ permission }) => {
       <div className="space-y-2 text-gray-600">
         <div className="flex justify-between">
           <span>Door</span>
-          <span className="text-blue-500">{permission.door ? permission.door.location : "N/A"}</span>
+          <span className="text-blue-500">{permission.door ? permission.door.doorName : "N/A"}</span>
         </div>
         <div className="flex justify-between">
           <span>Room</span>
@@ -28,14 +43,15 @@ const PendingPermissionCard = ({ permission }) => {
           <span>Date</span>
           <span className="font-medium text-gray-800">{new Date(permission.date).toLocaleDateString()}</span>
         </div>
-        <div className="flex justify-between">
-          <span>Message</span>
-          <span className="font-medium text-gray-800 bg-gradient-to-r from-blue-100 to-transparent px-2 py-1 rounded">
+        <div>
+          <span className="block text-sm font-medium text-gray-600 mb-2">Message</span>
+          <span className="block mt-2 font-medium text-gray-500  px-2 py-1 rounded border border-gray">
             {permission.message}
           </span>
         </div>
       </div>
       <button
+        onClick={handleDelete}
         className="w-full mt-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600"
       >
         Cancel Permission

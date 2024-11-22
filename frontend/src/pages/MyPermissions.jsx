@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
+import { Toaster } from 'react-hot-toast';
 import ApprovedPermissionCard from "../components/ApprovedPermissionCard";
 import PendingPermissionCard from "../components/PendingPermissionCard";
 import DeniedPermissionCard from "../components/DeniedPermissionCard";
@@ -10,7 +11,7 @@ const MyPermissions = () => {
   const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState("Approved");
+  const [activeTab, setActiveTab] = useState("Pending");
 
   useEffect(() => {
     const fetchPermissions = async () => {
@@ -60,6 +61,7 @@ const MyPermissions = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 py-10 px-6 md:px-16">
+      <Toaster position="top-center" reverseOrder={false} />
       {/* Title Section */}
       <div className="flex items-center space-x-2 mb-8 w-full max-w-md mx-auto">
         <Link to="/" className="flex items-center">

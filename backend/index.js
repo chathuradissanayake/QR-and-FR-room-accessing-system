@@ -28,6 +28,7 @@ app.use(cors({
 
 app.use('/', require('./routes/authRoutes'))
 app.use('/user', require('./routes/userRoutes'))
+app.use('/door', require('./routes/doorRoutes'));
 app.use('/permission', require('./routes/permissionRoutes'))
 
 

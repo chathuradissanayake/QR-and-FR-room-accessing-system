@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LogCard = ({ room, roomcode, door, branch, intime, outtime, date, state }) => {
+const LogCard = ({ room, roomcode, door, branch, entryTime, exitTime, date, state }) => {
 
   const convertToMinutes = (time) => {
     const [timePart, modifier] = time.split(' ');
@@ -16,10 +16,10 @@ const LogCard = ({ room, roomcode, door, branch, intime, outtime, date, state })
 
     return hours * 60 + minutes;
   };
-  // Function to calculate the duration between intime and outtime
-  const calculateDuration = (inTime, outTime) => {
-    const inTotalMinutes = convertToMinutes(inTime);
-    const outTotalMinutes = convertToMinutes(outTime);
+  // Function to calculate the duration between entryTime and exitTime
+  const calculateDuration = (entryTime, exitTime) => {
+    const inTotalMinutes = convertToMinutes(entryTime);
+    const outTotalMinutes = convertToMinutes(exitTime);
 
     // Calculate the difference
     const durationMinutes = outTotalMinutes - inTotalMinutes;
@@ -31,7 +31,7 @@ const LogCard = ({ room, roomcode, door, branch, intime, outtime, date, state })
     return `${hours} hour ${minutes} minutes`;
   };
 
-const duration = calculateDuration(intime, outtime);
+const duration = calculateDuration(entryTime, exitTime);
 
   return (
     <div>
@@ -51,11 +51,11 @@ const duration = calculateDuration(intime, outtime);
             </div>
             <div className='flex justify-between items-center mb-1 '>
             <p className="text-base">In Time</p>
-            <span className='text-gray-500'>{intime}</span>
+            <span className='text-gray-500'>{entryTime}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
             <p className="text-base">Out Time</p>
-            <span className='text-gray-500'>{outtime}</span>
+            <span className='text-gray-500'>{exitTime}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
             <p className="text-base">Duration</p>
@@ -86,10 +86,10 @@ export default LogCard
 
 
 
-// // Function to calculate the duration between inTime and outTime
-// const calculateDuration = (inTime, outTime) => {
-//   const [inHours, inMinutes] = inTime.split(':').map(Number);
-//   const [outHours, outMinutes] = outTime.split(':').map(Number);
+// // Function to calculate the duration between entryTime and exitTime
+// const calculateDuration = (entryTime, exitTime) => {
+//   const [inHours, inMinutes] = entryTime.split(':').map(Number);
+//   const [outHours, outMinutes] = exitTime.split(':').map(Number);
 
 //   // Convert both times to minutes
 //   const inTotalMinutes = inHours * 60 + inMinutes;
@@ -105,4 +105,4 @@ export default LogCard
 //   return `${hours} hour ${minutes} minutes`;
 // };
 
-// const duration = calculateDuration(intime, outtime);
+// const duration = calculateDuration(entryTime, exitTime);

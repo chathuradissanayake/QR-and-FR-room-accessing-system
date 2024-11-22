@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PermissionsDenied = ({ room, roomcode, door, branch, intime, outtime, date, message }) => {
+const PermissionsDenied = ({ room, roomcode, door, branch, entryTime, exitTime, date, message }) => {
 
 
   return (
@@ -21,11 +21,11 @@ const PermissionsDenied = ({ room, roomcode, door, branch, intime, outtime, date
             </div>
             <div className='flex justify-between items-center mb-1 '>
             <p className="text-base">In Time</p>
-            <span className='text-gray-500'>{intime}</span>
+            <span className='text-gray-500'>{entryTime}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
             <p className="text-base">Out Time</p>
-            <span className='text-gray-500'>{outtime}</span>
+            <span className='text-gray-500'>{exitTime}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
             <p className="text-base">Date</p>

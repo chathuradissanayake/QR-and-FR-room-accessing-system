@@ -6,7 +6,7 @@ require('dotenv').config();
 // Ask Permission
 const AskPermission = async (req, res) => {
   try {
-    const { name, roomName, doorCode, date, inTime, outTime, message } = req.body;
+    const { name, roomName, doorCode, date, entryTime, exitTime, message } = req.body;
 
     // Extract the token from the request (either from cookies or authorization header)
     const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
@@ -33,8 +33,8 @@ const AskPermission = async (req, res) => {
       roomName,
       doorCode,
       date,
-      inTime,
-      outTime,
+      entryTime,
+      exitTime,
       message,
     });
 

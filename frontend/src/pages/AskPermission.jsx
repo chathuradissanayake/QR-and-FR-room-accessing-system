@@ -132,7 +132,7 @@ const AskPermission = () => {
                 <option disabled value="">Select the Door</option>
                 {doors.map((door) => (
                   <option key={door._id} value={door._id}>
-                    {door.doorName}
+                    {door.roomName}
                   </option>
                 ))}
               </select>

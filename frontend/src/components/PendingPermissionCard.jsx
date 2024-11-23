@@ -25,7 +25,7 @@ const PendingPermissionCard = ({ permission, onDelete }) => {
       <div className="space-y-2 text-gray-600">
         <div className="flex justify-between">
           <span>Door</span>
-          <span className="text-blue-500">{permission.door ? permission.door.doorName : "N/A"}</span>
+          <span className="text-blue-500">{permission.door ? permission.door.roomName : "N/A"}</span>
         </div>
         <div className="flex justify-between">
           <span>Room</span>

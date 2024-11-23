@@ -35,6 +35,10 @@ const MyPermissions = () => {
     fetchPermissions();
   }, []);
 
+  const handleDelete = (id) => {
+    setPermissions(permissions.filter((permission) => permission._id !== id));
+  };
+
   // Filter permissions based on active tab
   const filteredPermissions = permissions.filter((permission) => {
     if (activeTab === "Approved") return permission.status === "Approved";
@@ -107,6 +111,7 @@ const MyPermissions = () => {
                 <PendingPermissionCard
                   key={permission._id}
                   permission={permission}
+                  onDelete={handleDelete}
                 />
               );
             } else if (activeTab === "Denied") {

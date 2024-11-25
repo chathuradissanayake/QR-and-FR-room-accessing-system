@@ -11,6 +11,22 @@ const getAllDoors = async (req, res) => {
   }
 };
 
+// Get door details by door code
+const getDoorByCode = async (req, res) => {
+  try {
+    const { doorCode } = req.params;
+    const door = await Door.findOne({ doorCode }).populate('approvedUsers');
+    if (!door) {
+      return res.status(404).json({ error: 'Door not found' });
+    }
+    res.json(door);
+  } catch (error) {
+    console.error('Error fetching door details:', error);
+    res.status(500).json({ error: 'Error fetching door details' });
+  }
+};
+
 module.exports = {
   getAllDoors,
+  getDoorByCode,
 };

@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGO_URL)
 .catch((error) => console.log('DB connection failed', error))
 
 require('./models/user');
-require('./models/door'); // Ensure the Door model is registered
+require('./models/door'); 
 require('./models/permissionRequest');
 
 // middleware

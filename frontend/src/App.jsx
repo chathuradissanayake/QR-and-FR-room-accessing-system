@@ -12,6 +12,8 @@ import ChangePassword from "./pages/ChangePassword";
 import ChangeUsername from "./pages/ChangeUsername";
 import ContactUs from "./pages/ContactUs";
 import EntrancePage from "./pages/EntrancePage";
+import Faceid from "./pages/Faceid";
+import FaceRegistration from "./pages/FaceRegistration";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import MarkLeave from "./pages/MarkLeave";
@@ -23,7 +25,6 @@ import Settings from "./pages/Settings";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 import TypeCode from "./pages/TypeCode";
-import Faceid from "./pages/Faceid";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
@@ -161,6 +162,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Faceid />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/face-registration"
+            element={
+              <ProtectedRoute>
+                <FaceRegistration />
               </ProtectedRoute>
             }
           />

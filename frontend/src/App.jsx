@@ -12,7 +12,6 @@ import ChangePassword from "./pages/ChangePassword";
 import ChangeUsername from "./pages/ChangeUsername";
 import ContactUs from "./pages/ContactUs";
 import EntrancePage from "./pages/EntrancePage";
-import Faceid from "./pages/Faceid";
 import FaceRegistration from "./pages/FaceRegistration";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
@@ -157,14 +156,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/face-id"
-            element={
-              <ProtectedRoute>
-                <Faceid />
-              </ProtectedRoute>
-            }
-          />
+         
 
           <Route
             path="/face-registration"

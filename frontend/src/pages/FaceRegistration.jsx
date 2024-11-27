@@ -10,6 +10,7 @@ const FaceRegistration = () => {
     const [message, setMessage] = useState('');
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
+    const [result, setResult] = useState(null); 
 
     const handleNicChange = (e) => {
         setNic(e.target.value);
@@ -80,6 +81,7 @@ const FaceRegistration = () => {
             if (response.ok) {
                 const result = await response.json();
                 setMessage('Image uploaded successfully');
+                setResult(result);
                 console.log(result);
             } else {
                 setMessage('Failed to upload image');
@@ -134,7 +136,7 @@ const FaceRegistration = () => {
                     </div>
 
                     <div className="my-4">
-                        <div className="relative w-full h-64 bg-gray-200 rounded">
+                        <div className="relative w-full h-80 bg-gray-200 rounded">
                             {imagePreview ? (
                                 <img
                                     src={imagePreview}
@@ -189,6 +191,12 @@ const FaceRegistration = () => {
                     </div>
                 </form>
                 {message && <p className="mt-4 text-center text-blue-500">{message}</p>}
+                {result && (
+                <div className='mt-4 text-center text-green-500'>
+                    {/* <h3>API Response:</h3> */}
+                    <pre>{JSON.stringify(result.msg, null, 2)}</pre>
+                </div>
+            )}
             </div>
         </div>
     );

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { GoChevronLeft } from "react-icons/go";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
 import { toast } from 'react-hot-toast';
+import { GoChevronLeft } from "react-icons/go";
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -48,9 +48,9 @@ return (
   
   <div className="title flex items-center space-x-2 mb-8">
   
-      <GoChevronLeft className="cursor-pointer" 
-      // onClick={handleBackNavigation}
-      />
+  <Link to="/">
+        <GoChevronLeft className="cursor-pointer" />
+    </Link>
   
       <span className='font-semibold'>Contact Us</span>
   </div>
@@ -104,7 +104,7 @@ return (
             type="submit"
             className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
           >
-            Register
+            Send message
           </button>
         </div>
       </form>

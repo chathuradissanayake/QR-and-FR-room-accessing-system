@@ -109,7 +109,7 @@ const AskPermission = () => {
                 type="text"
                 id="name"
                 name="name"
-                placeholder="Name"
+                placeholder="User Name"
                 value={data.name}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -149,8 +149,9 @@ const AskPermission = () => {
                 id="roomName"
                 name="roomName"
                 value={data.roomName}
+                placeholder='Company'
                 readOnly
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center  bg-blue-100"
               />
             </div>
 

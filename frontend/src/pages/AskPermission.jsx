@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
+import { Link, useNavigate } from 'react-router-dom';
 
 const AskPermission = () => {
   const [data, setData] = useState({
@@ -109,7 +109,7 @@ const AskPermission = () => {
                 type="text"
                 id="name"
                 name="name"
-                placeholder="Name"
+                placeholder="User Name"
                 value={data.name}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -117,7 +117,7 @@ const AskPermission = () => {
               />
             </div>
 
-            <div>
+            <div >
               <label htmlFor="door" className="sr-only">
                 Door
               </label>
@@ -126,13 +126,15 @@ const AskPermission = () => {
                 name="door"
                 value={data.door}
                 onChange={handleDoorChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${data.door === '' ? 'text-gray-400' : 'text-black'}`}
+                className={`flex w-full px-4 py-2  border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${data.door === '' ? 'text-gray-400' : 'text-black'}`}
                 required
               >
                 <option disabled value="">Select the Door</option>
-                {doors.map((door) => (
+                {doors
+                .sort((a, b) => a.doorCode.localeCompare(b.doorCode))  // Sort alphabetically by doorCode
+                .map((door) => (
                   <option key={door._id} value={door._id}>
-                    {door.roomName}
+                    {door.doorCode} &nbsp; {door.roomName} 
                   </option>
                 ))}
               </select>
@@ -147,8 +149,9 @@ const AskPermission = () => {
                 id="roomName"
                 name="roomName"
                 value={data.roomName}
+                placeholder='Company'
                 readOnly
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center  bg-blue-100"
               />
             </div>
 

@@ -83,7 +83,7 @@ const Profile = () => {
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
-          onClick={() => handleNavigation('/face-id')}
+          onClick={() => handleNavigation('/face-registration')}
         >
           <span className="text-gray-500">Face ID</span>
           <div className="flex items-center space-x-2">

@@ -131,7 +131,7 @@ const AskPermission = () => {
               >
                 <option disabled value="">Select the Door</option>
                 {doors
-                // .sort((a, b) => a.doorCode.localeCompare(b.doorCode))  // Sort alphabetically by doorCode
+                .sort((a, b) => a.doorCode.localeCompare(b.doorCode))  // Sort alphabetically by doorCode
                 .map((door) => (
                   <option key={door._id} value={door._id}>
                     {door.doorCode} &nbsp; {door.roomName} 

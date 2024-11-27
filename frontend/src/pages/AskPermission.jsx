@@ -149,7 +149,7 @@ const AskPermission = () => {
                 id="roomName"
                 name="roomName"
                 value={data.roomName}
-                placeholder='Company'
+                placeholder='Location'
                 readOnly
                 className="w-full px-4 py-2 rounded-lg text-blue-900 text-center  bg-blue-100"
               />

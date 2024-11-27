@@ -11,13 +11,10 @@ const ApprovedPermissionCard = ({ permission }) => {
       </div>
       <div className="space-y-2 text-gray-600">
         <div className="flex justify-between">
-          <span>Door</span>
+          <span>Location</span>
           <span className="text-blue-500">{door ? door.location : "N/A"}</span>
         </div>
-        <div className="flex justify-between">
-          <span>Room</span>
-          <span className="text-blue-500">{roomName}</span>
-        </div>
+      
         <div className="flex justify-between">
           <span>In Time</span>
           <span className="font-medium text-gray-800">{inTime}</span>

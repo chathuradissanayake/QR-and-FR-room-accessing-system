@@ -117,12 +117,6 @@ const EntrancePage = () => {
               <span>Face Scan</span>
               <FaLock className="mt-1" />
             </button>
-          {/* <button className={`bg-blue-500 hover:bg-blue-700 text-white font-sans py-1 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
-            onClick={() => navigate('/face-scan')}
-             // Disable until QR code data is available
-            
-          >Face Scan</button> */}
-            
           </div>
         </div>
       </div>

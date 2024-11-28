@@ -25,6 +25,10 @@ import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 import TypeCode from "./pages/TypeCode";
 
+//dummy face scan page
+import FaceScan from "./pages/FaceScan"
+
+
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
@@ -166,6 +170,17 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/face-scan"
+            element={
+              <ProtectedRoute>
+                <FaceScan />
+              </ProtectedRoute>
+            }
+          />    
+
+
         </Routes>
       </Router>
     </UserContextProvider>

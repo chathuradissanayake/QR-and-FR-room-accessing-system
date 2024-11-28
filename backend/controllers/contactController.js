@@ -3,15 +3,18 @@ const contactUs = require('../models/contactUs');
 // Controller function to handle posting a contact message
 const postContactUs = async (req, res) => {
   try {
-    const { message } = req.body;
+    const {userId, message } = req.body;
 
     // Validate input
     if (!message || typeof message !== 'string') {
       return res.status(400).json({ error: 'Message is required and must be a valid string' });
     }
+    if (!userId || !message) {
+        return res.status(400).json({ error: 'User ID and Message are required' });
+      }
 
     // Save the message to the database
-    const contactUsDB = await contactUs.create({ message });
+    const contactUsDB = await contactUs.create({ userId, message });
 
     // Respond with the created record
     return res.status(201).json({

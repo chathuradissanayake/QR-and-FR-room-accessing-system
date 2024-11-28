@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const contactUsSchema = new Schema({ 
-  
+  userId: {
+    type: String,
+    required: true,
+  },
 
   message: {
     type: String,

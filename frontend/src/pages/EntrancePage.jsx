@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FaQrcode, FaLock } from "react-icons/fa";
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from "react";
+import { FaLock, FaQrcode } from "react-icons/fa";
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { UserContext, UserContextProvider } from '../../context/userContext';
 import QRScanner from "../components/QRScanner";
-import FaceScanner from "../components/FaceScanner"; // Assuming you have a FaceScanner component
-import { UserContextProvider, UserContext } from '../../context/userContext';
 
 const EntrancePage = () => {
   const { user } = useContext(UserContext); // Get the logged-in user's information

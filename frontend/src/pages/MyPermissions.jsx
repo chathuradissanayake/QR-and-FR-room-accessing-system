@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { GoChevronLeft } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import ApprovedPermissionCard from "../components/ApprovedPermissionCard";
 import PendingPermissionCard from "../components/PendingPermissionCard";
@@ -41,9 +41,9 @@ const MyPermissions = () => {
 
   // Filter permissions based on active tab
   const filteredPermissions = permissions.filter((permission) => {
-    if (activeTab === "Approved") return permission.status === "Approved";
-    if (activeTab === "Pending") return permission.status === "Pending";
-    if (activeTab === "Denied") return permission.status === "Denied";
+    if (activeTab === "Approved") return permission.status === "Approved"; // Filter by "Approved" status for Denied tab
+    if (activeTab === "Pending") return permission.status === "Pending"; // Filter by "Pending" status for Denied tab
+    if (activeTab === "Denied") return permission.status === "Rejected"; // Filter by "Rejected" status for Denied tab
     return false;
   });
 

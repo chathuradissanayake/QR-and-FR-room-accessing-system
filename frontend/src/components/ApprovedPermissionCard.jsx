@@ -6,7 +6,7 @@ const ApprovedPermissionCard = ({ permission }) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">{roomName}</h2>
+        <h2 className="text-lg font-semibold">{door.roomName}</h2>
         <span className="text-gray-500 font-bold">{door ? door.doorCode : "N/A"}</span>
       </div>
       <div className="space-y-2 text-gray-600">
@@ -15,7 +15,7 @@ const ApprovedPermissionCard = ({ permission }) => {
           <span className="text-blue-500">{door ? door.roomName : "N/A"}</span>
         </div>
         <div className="flex justify-between">
-          <span>Room</span>
+          <span>Location</span>
           <span className="text-blue-500">{roomName}</span>
         </div>
         <div className="flex justify-between">

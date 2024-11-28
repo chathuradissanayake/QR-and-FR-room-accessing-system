@@ -3,24 +3,7 @@ const { comparePassword } = require('../helper/auth');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const contactUs = require('../models/contactUs');
-// ContactUs
-const getContactUs = async (req, res) => {
 
-  try {
-    const { message } = req.body;
-
-    // Create in database
-    const contactUsDB = await contactUs.create({
-      message,
-    });
-
-    return res.json(contactUsDB);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Error sending message' });
-  }
-};
 
 // Login User
 const loginUser = async (req, res) => {
@@ -71,5 +54,5 @@ const getProfile = async (req, res) => {
 module.exports = {
   loginUser,
   getProfile,
-  getContactUs,
+
 };

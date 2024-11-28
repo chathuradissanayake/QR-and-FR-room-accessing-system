@@ -24,7 +24,7 @@ const ContactUs = () => {
     const { message } = data;
 
     try {
-      const { data: response } = await axios.post('/contactus', {
+      const { data: response } = await axios.post('/contactus/messages', {
         message,
       });
       if (response.error) {

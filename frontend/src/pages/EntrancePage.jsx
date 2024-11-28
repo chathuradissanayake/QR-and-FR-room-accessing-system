@@ -1,12 +1,17 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from "react";
-import { FaLock, FaQrcode } from "react-icons/fa";
+import React, { useState, useEffect, useContext } from "react";
+import { FaQrcode, FaLock } from "react-icons/fa";
 import { GoChevronLeft } from "react-icons/go";
-import { Link } from 'react-router-dom';
-import { UserContext, UserContextProvider } from '../../context/userContext';
+import { Link,useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import QRScanner from "../components/QRScanner";
+import FaceScanner from "../components/FaceScanner"; // Assuming you have a FaceScanner component
+import { UserContextProvider, UserContext } from '../../context/userContext';
+import FaceScan from "../pages/FaceScan";
+
+
 
 const EntrancePage = () => {
+  const navigate = useNavigate();
   const { user } = useContext(UserContext); // Get the logged-in user's information
   const [doorCode, setDoorCode] = useState('');  // State to hold the scanned QR code data
   const [doorName, setDoorName] = useState('');  // State to hold the fetched door name
@@ -62,8 +67,8 @@ const EntrancePage = () => {
   return (
     <UserContextProvider>
       <div className="flex justify-center min-h-screen h-max bg-gray-50">
-        <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
-          <div className="title flex items-center space-x-2 mb-8">
+        <div className="w-full max-w-md p-8 bg-white rounded-md shadow-md">
+          <div className="flex items-center mb-8 space-x-2 title">
             <Link to="/">
               <GoChevronLeft className="cursor-pointer" />
             </Link>
@@ -73,14 +78,14 @@ const EntrancePage = () => {
           {/* QR Code Scanner */}
           <QRScanner scanning={scanning} onScanSuccess={handleScanSuccess} />
 
-          <div className="mt-4 text-center mb-4">
+          <div className="mt-4 mb-4 text-center">
             {doorCode ? (
-              <p className="text-green-600 font-medium">QR code Scanned Successfully</p>
+              <p className="font-medium text-green-600">QR code Scanned Successfully</p>
             ) : (
               <p className="text-gray-500">Point the camera at a QR code</p>
             )}
             {doorName && (
-              <p className="text-blue-600 font-medium">Room Name: {doorName}</p>
+              <p className="font-medium text-blue-600">Room Name: {doorName}</p>
             )}
             {doorName && (
               <p className={`font-medium ${hasAccess ? 'text-green-600' : 'text-red-600'}`}>
@@ -103,7 +108,7 @@ const EntrancePage = () => {
             </button>
           </div>
           <div className="flex justify-center">
-            <button
+            {/* <button
               disabled={!hasAccess} // Disable the button if access is not granted
               className={`${
                 hasAccess ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-300 cursor-not-allowed'
@@ -111,7 +116,13 @@ const EntrancePage = () => {
             >
               <span>Face Scan</span>
               <FaLock className="mt-1" />
-            </button>
+            </button> */}
+          <button className={`bg-blue-500 hover:bg-blue-700 text-white font-sans py-1 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
+            onClick={() => navigate('/face-scan')}
+             // Disable until QR code data is available
+            
+          >Face Scan</button>
+            
           </div>
         </div>
       </div>

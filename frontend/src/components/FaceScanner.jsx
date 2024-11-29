@@ -63,7 +63,7 @@ const FaceScanner = () => {
             console.log(result);
             if (result.msg === "Verification Success.") {
               toast.success('Face verified successfully!');
-              navigate('/success'); // Redirect on success
+              navigate('/'); // Redirect on success
             }
           } else {
             console.error('Error:', response.statusText);

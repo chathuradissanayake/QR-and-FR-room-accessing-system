@@ -10,6 +10,7 @@ const ContactUs = () => {
 
   const [data, setData] = useState({
     message: '',
+    userId: '',
   });
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -21,10 +22,11 @@ const ContactUs = () => {
     console.log('message:', data.message);
 
     // Destructuring data
-    const { message } = data;
+    const { message, userId } = data;
 
     try {
-      const { data: response } = await axios.post('/contactus', {
+      const { data: response } = await axios.post('/contactus/messages', {
+        userId,
         message,
       });
       if (response.error) {
@@ -81,6 +83,22 @@ return (
 
      {/* Form */}
      <form onSubmit={handleSubmit} className="space-y-4">
+     <div>
+              <label htmlFor="userId" className="sr-only">
+                User ID
+              </label>
+              <input
+                type="text"
+                id="userId"
+                name="userId"
+                placeholder="InSP/2020/XXX/ZZZ"
+                value={data.userId}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              />
+            </div>
+
         <div>
           <label htmlFor="message" className="sr-only">
             Name

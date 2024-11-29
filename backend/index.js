@@ -14,6 +14,7 @@ mongoose.connect(process.env.MONGO_URL)
 require('./models/user');
 require('./models/door'); 
 require('./models/permissionRequest');
+require('./models/accessHistory'); 
 
 // middleware
 app.use(express.json());
@@ -29,7 +30,8 @@ app.use(cors({
 app.use('/', require('./routes/authRoutes'))
 app.use('/user', require('./routes/userRoutes'))
 app.use('/door', require('./routes/doorRoutes'));
-app.use('/permission', require('./routes/permissionRoutes'))
+app.use('/permission', require('./routes/permissionRoutes'));
+app.use('/access', require('./routes/accessHistoryRoutes'));
 
 
 const port =process.env.PORT;

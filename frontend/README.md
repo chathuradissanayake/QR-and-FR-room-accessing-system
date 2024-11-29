@@ -28,12 +28,6 @@ Make sure you have the following installed:
 Create a `.env` file in the root of the frontend directory and add the necessary environment variables. Here is an example of what the `.env` file might look like:
 ```
 VITE_API_URL = http://localhost:8000
-
-VITE_API="need to add api the key"
-VITE_USER="need to add username"
-VITE_OTHER="need to add the value of other"
-
-
 ```
 
 ### Running the Application

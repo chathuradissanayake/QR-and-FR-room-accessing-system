@@ -2,21 +2,21 @@ import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 
 const DeniedPermissionCard = ({ permission }) => {
-  const { roomName, door, inTime, outTime, date, message, userName } = permission;
+  const { roomName, door, inTime, outTime, date, message } = permission;
 
   return (
     <div className="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">{roomName}</h2>
+        <h2 className="text-lg font-semibold">{door.roomName}</h2>
         <span className="text-gray-500 font-bold">{door ? door.doorCode : "N/A"}</span>
       </div>
       <div className="space-y-2 text-gray-600">
         <div className="flex justify-between">
           <span>Door</span>
-          <span className="text-blue-500">{door ? door.location : "N/A"}</span>
+          <span className="text-blue-500">{door ? door.roomName : "N/A"}</span>
         </div>
         <div className="flex justify-between">
-          <span>Room</span>
+          <span>Location</span>
           <span className="text-blue-500">{roomName}</span>
         </div>
         <div className="flex justify-between">
@@ -40,10 +40,6 @@ const DeniedPermissionCard = ({ permission }) => {
       </div>
       <div className="flex items-center space-x-3 mt-4">
         <FaUserCircle className="text-purple-600 text-2xl" />
-        <div>
-          <div className="text-sm font-medium text-gray-800">{userName}</div>
-          <div className="text-sm text-gray-500">@{userName.toLowerCase()}</div>
-        </div>
         <div className="ml-auto">
           <span className="px-3 py-1 text-xs font-medium text-white bg-red-500 rounded-full">
             Denied

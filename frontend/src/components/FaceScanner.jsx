@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const FaceScanner = () => {
   const [imagePreview, setImagePreview] = useState(null);
@@ -75,14 +76,15 @@ const FaceScanner = () => {
 
               // Redirect if the result matches the condition
               if (result.msg === "Verification Success.") {
+                toast.success('Face verified successfully!');
                   navigate('/success'); // Change '/success' to your desired route
               }
           } else {
-              setMessage('Failed to upload image');
+            toast.error('Failed to upload image');
               console.error('Error:', response.statusText);
           }
       } catch (error) {
-          setMessage('Error uploading image');
+        toast.error('Failed to upload image');
           console.error('Error:', error);
       }
   };

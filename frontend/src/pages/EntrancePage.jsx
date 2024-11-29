@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import QRScanner from "../components/QRScanner";
 import { UserContextProvider, UserContext } from '../../context/userContext';
-import FaceScan from "../pages/FaceScan";
+import FaceScanner from "../components/FaceScanner";
 
 const EntrancePage = () => {
   const { user } = useContext(UserContext); // Get the logged-in user's information
@@ -121,7 +121,7 @@ const EntrancePage = () => {
               </div>
             </>
           ) : (
-            <FaceScan />
+            <FaceScanner />
           )}
         </div>
       </div>

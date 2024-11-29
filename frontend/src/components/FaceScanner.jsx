@@ -86,6 +86,7 @@ const FaceScanner = () => {
           console.error('Error:', error);
       }
   };
+  
 
   return (
 <div className="flex justify-center min-h-screen bg-gray-50">

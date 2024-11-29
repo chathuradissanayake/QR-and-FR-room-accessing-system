@@ -6,6 +6,7 @@ const timeSchema = new mongoose.Schema({
   exitTime: { type: Date },
 });
 
+
 const Time = mongoose.model('Time', timeSchema);
 
 module.exports = Time;

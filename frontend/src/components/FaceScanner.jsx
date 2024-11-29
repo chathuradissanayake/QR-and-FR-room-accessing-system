@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
@@ -94,8 +95,12 @@ const FaceScanner = () => {
 
         {message && <p className="mt-4 text-center text-blue-500">{message}</p>}
       </div>
+
     </div>
   );
 };
 
+
 export default FaceScanner;
+
+

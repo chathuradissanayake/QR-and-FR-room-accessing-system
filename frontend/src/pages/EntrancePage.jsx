@@ -73,6 +73,7 @@ const EntrancePage = () => {
             <span className='font-semibold'>Scan QR</span>
           </div>
 
+
           {!showFaceScan ? (
             <>
               {/* QR Code Scanner */}
@@ -123,10 +124,13 @@ const EntrancePage = () => {
           ) : (
             <FaceScanner />
           )}
+
         </div>
       </div>
     </UserContextProvider>
   );
 };
 
+
 export default EntrancePage;
+

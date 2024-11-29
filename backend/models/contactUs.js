@@ -15,6 +15,11 @@ const contactUsSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  status: { 
+    type: String, 
+    enum: ['unread', 'read'], 
+    default: 'unread' 
+  }
 });
 
 

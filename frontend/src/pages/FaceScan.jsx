@@ -167,3 +167,5 @@ const FaceScan = () => {
 };
 
 export default FaceScan;
+
+

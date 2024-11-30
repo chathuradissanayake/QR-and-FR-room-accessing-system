@@ -131,8 +131,7 @@ const FaceRegistration = () => {
                             <option value="" disabled>
                                 Select Role
                             </option>
-                            <option value="guest">Guest</option>
-                            <option value="intern">Intern</option>
+                            <option value="guest">Guest</option>    
                             {/* Add more options as needed */}
                         </select>
                     </div>

@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from 'react-router-dom';
+import {UserContext} from "../../context/userContext"
 
 const FaceRegistration = () => {
+    const {user} = useContext(UserContext) // Get logged-in user's information
     const [nic, setNic] = useState('');
     const [loc, setLoc] = useState('');
     const [imagePreview, setImagePreview] = useState(null);
@@ -12,9 +14,11 @@ const FaceRegistration = () => {
     const canvasRef = useRef(null);
     const [result, setResult] = useState(null); 
 
-    const handleNicChange = (e) => {
-        setNic(e.target.value);
-    };
+    useEffect(() => {
+        if(user) {
+            setNic(user.userId)
+        }
+    },[user])
 
     const handleLocChange = (e) => {
         setLoc(e.target.value);
@@ -67,7 +71,7 @@ const FaceRegistration = () => {
         const headers = {
             'api': import.meta.env.VITE_API,
             'user': import.meta.env.VITE_USER,
-            'nic': nic,
+            'nic': user.userId,
             'loc': loc,
         };
 
@@ -110,11 +114,9 @@ const FaceRegistration = () => {
                         <input
                             type="text"
                             id="nic"
-                            value={nic}
-                            onChange={handleNicChange}
-                            required
-                            className="border rounded px-2 py-1 w-full"
-                            placeholder='InSP/YYYY/XX/ZZZ'
+                            value={user.userId}
+                            readOnly
+                            className="border rounded px-2 py-1 w-full bg-gray-100"
                         />
                     </div>
                     <div className="mt-4">

@@ -61,6 +61,7 @@ const FaceScanner = ({ onSuccess }) => {
             if (result.msg === "Verification Success.") {
               toast.success('Face verified successfully!');
 
+
               if (onSuccess) {
                 onSuccess(); // Notify parent component
               }

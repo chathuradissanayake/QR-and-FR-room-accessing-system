@@ -12,6 +12,7 @@ import ChangePassword from "./pages/ChangePassword";
 import ChangeUsername from "./pages/ChangeUsername";
 import ContactUs from "./pages/ContactUs";
 import EntrancePage from "./pages/EntrancePage";
+import FaceRegistration from "./pages/FaceRegistration";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import MarkLeave from "./pages/MarkLeave";
@@ -37,7 +38,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/verify-code" element={<TypeCode />} />
-          
+
           <Route
             path="/"
             element={
@@ -64,8 +65,7 @@ function App() {
             }
           />
 
-         <Route
-          
+          <Route
             path="/entrancepage"
             element={
               <ProtectedRoute>
@@ -148,7 +148,7 @@ function App() {
             }
           />
 
-        <Route
+          <Route
             path="/aboutus"
             element={
               <ProtectedRoute>
@@ -156,7 +156,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+         
 
+          <Route
+            path="/face-registration"
+            element={
+              <ProtectedRoute>
+                <FaceRegistration />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </UserContextProvider>

@@ -1,17 +1,71 @@
-import React, { useState } from 'react';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Toaster } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
-import { Link, useNavigate } from 'react-router-dom';
-import PermissionsApproved from '../components/PermissionsApproved';
-import PermissionsDenied from '../components/PermissionsDenied';
-import PermissionsPending from '../components/PermissionsPending';
+import { Link } from 'react-router-dom';
+import ApprovedPermissionCard from "../components/ApprovedPermissionCard";
+import DeniedPermissionCard from "../components/DeniedPermissionCard";
+import PendingPermissionCard from "../components/PendingPermissionCard";
 
 const MyPermissions = () => {
-  const [activeTab, setActiveTab] = useState('Approved');
-  const tabs = ['Approved', 'Pending', 'Denied'];
-  const navigate = useNavigate();
+  const [permissions, setPermissions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState("Pending");
+
+  useEffect(() => {
+    const fetchPermissions = async () => {
+      try {
+        const response = await axios.get("/permission/my-requests", {
+          withCredentials: true,
+        });
+        if (response.status === 200) {
+          setPermissions(response.data);
+        } else {
+          setError("Failed to fetch permissions. Please try again later.");
+        }
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        setError("An error occurred while fetching permissions.");
+        console.error("Error fetching permissions:", err);
+      }
+    };
+
+    fetchPermissions();
+  }, []);
+
+  const handleDelete = (id) => {
+    setPermissions(permissions.filter((permission) => permission._id !== id));
+  };
+
+  // Filter permissions based on active tab
+  const filteredPermissions = permissions.filter((permission) => {
+    if (activeTab === "Approved") return permission.status === "Approved"; // Filter by "Approved" status for Denied tab
+    if (activeTab === "Pending") return permission.status === "Pending"; // Filter by "Pending" status for Denied tab
+    if (activeTab === "Denied") return permission.status === "Rejected"; // Filter by "Rejected" status for Denied tab
+    return false;
+  });
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-gray-500 text-lg">Loading your permissions...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 text-lg">{error}</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50">
+    <div className="flex  justify-center min-h-screen bg-gray-50">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
         <div className="title flex items-center space-x-2 mb-8">
           <Link to="/">
@@ -19,53 +73,60 @@ const MyPermissions = () => {
           </Link>
           <span className='font-semibold'>My Permissions</span>
         </div>
-        
-        <div className="bg-white text-black  rounded-md">
-          <div className="flex justify-around border-b border-black">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                className={`text-lg font-semibold ${
-                  activeTab === tab ? 'border-b-2 border-black' : 'text-gray-400'
-                }`}
-                onClick={() => setActiveTab(tab)}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-          <div className="p-4">
-            {activeTab === 'Approved' && <PermissionsApproved
-            room="Main Office"
-            roomcode="M06"
-            door="Main Door"
-            branch="Colombo"
-            intime="11:22 AM"
-            outtime="1:44 PM"
-            date="21/08/2024"
-            />}
-            {activeTab === 'Pending' && <PermissionsPending
-           room="Conference Room"
-           roomcode="C06"
-           door="Main Door"
-           branch="Colombo"
-           intime="08:23 AM"
-           outtime="09:12 AM"
-           date="29/08/2024"
-            />}
-            {activeTab === 'Denied' && <PermissionsDenied
-            room="Conference Room"
-            roomcode="C06"
-            door="Main Door"
-            branch="Colombo"
-            intime="08:23 AM"
-            outtime="09:12 AM"
-            date="29/08/2024"
-            message="This is most commonly used to remove a border style that was applied at a smaller breakpoint."
-            />}
-          </div>
-        </div>
+
+      {/* Tabs */}
+      <div className="flex justify-center mb-6">
+        {["Approved", "Pending", "Denied"].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`py-2 px-6 text-sm font-medium ${
+              activeTab === tab
+                ? "text-blue-500 border-b-2 border-blue-500"
+                : "text-gray-500"
+            } focus:outline-none`}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
+
+      {/* Permissions Container */}
+      <div className="w-full max-w-md mx-auto space-y-6">
+        {filteredPermissions.length === 0 ? (
+          <div className="text-center text-gray-500">
+            No {activeTab.toLowerCase()} permissions.
+          </div>
+        ) : (
+          filteredPermissions.map((permission) => {
+            if (activeTab === "Approved") {
+              return (
+                <ApprovedPermissionCard
+                  key={permission._id}
+                  permission={permission}
+                />
+              );
+            } else if (activeTab === "Pending") {
+              return (
+                <PendingPermissionCard
+                  key={permission._id}
+                  permission={permission}
+                  onDelete={handleDelete}
+                />
+              );
+            } else if (activeTab === "Denied") {
+              return (
+                <DeniedPermissionCard
+                  key={permission._id}
+                  permission={permission}
+                />
+              );
+            }
+            return null;
+          })
+        )}
+      </div>
+    </div>
     </div>
   );
 };

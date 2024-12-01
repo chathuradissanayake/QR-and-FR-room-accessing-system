@@ -2,7 +2,7 @@ const History = require("../models/History");
 
 // Create history (unchanged)
 const createHistory = async (req, res) => {
-  const { doorCode, createdAt, userId, location, roomName} = req.body;
+  const { doorCode, createdAt, userId, location, roomName,exitTime} = req.body;
 
   if (!doorCode || !createdAt || !userId) {
     return res.status(400).json({ success: false, message: "All fields are required." });
@@ -15,6 +15,7 @@ const createHistory = async (req, res) => {
       user: { userId},
       location,
       roomName,
+      exitTime,
     });
 
     await newHistory.save();

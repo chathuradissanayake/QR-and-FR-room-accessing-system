@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const historySchema = new Schema({
   doorCode: { type: String, required: true },
   entryTime: { type: Date, required: true },
+  exitTime: { type: Date, default: null },
   location: { type: String},
   roomName: { type: String},
   user: {

@@ -68,7 +68,7 @@ export default function MyLogbook() {
                       })
                     : ""
                 }
-                exitTime={log.exitTime || ""}
+                exitTime={log.exitTime || "N/A"}
                 date={
                   log.entryTime
                     ? new Date(log.entryTime).toLocaleDateString("en-IN")

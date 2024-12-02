@@ -15,6 +15,7 @@ require('./models/user');
 require('./models/door'); 
 require('./models/permissionRequest');
 require('./models/contactUs');
+require('./models/History'); 
 
 // middleware
 app.use(express.json());
@@ -32,7 +33,7 @@ app.use('/user', require('./routes/userRoutes'))
 app.use('/door', require('./routes/doorRoutes'));
 app.use('/permission', require('./routes/permissionRoutes'))
 app.use('/contactus', require('./routes/contactRoutes'))
-
+app.use('/history', require('./routes/historyRoutes'));
 
 const port =process.env.PORT;
 app.listen(port, () =>{console.log(`Server is running on port ${port}`)});

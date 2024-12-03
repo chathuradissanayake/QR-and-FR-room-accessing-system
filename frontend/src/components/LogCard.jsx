@@ -66,8 +66,8 @@ const duration = calculateDuration(entryTime, exitTime);
             <span className='text-gray-500'>{date}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
-            <p className="text-base">State</p>
-            <img src={state} alt={state} className="w-20" />
+            {/* <p className="text-base">State</p>
+            <img src={state} alt={state} className="w-20" /> */}
             </div>
             
             

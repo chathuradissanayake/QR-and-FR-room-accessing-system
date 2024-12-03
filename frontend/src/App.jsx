@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { UserContextProvider } from "../context/userContext";
 
+
 import ProtectedRoute from "./components/ProtectedRoute";
 import AboutUs from "./pages/AboutUs";
 import AppInfo from "./pages/AppInfo";
@@ -71,6 +72,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Settings />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/upload-picture"
+            element={
+              <ProtectedRoute>
+                <ProfilePictureUpload />
               </ProtectedRoute>
             }
           />

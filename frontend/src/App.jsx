@@ -59,6 +59,15 @@ function App() {
           />
 
           <Route
+            path="/upload-picture"
+            element={
+              <ProtectedRoute>
+                <ProfilePictureUpload/>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/settings"
             element={
               <ProtectedRoute>

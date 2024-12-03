@@ -67,7 +67,7 @@ return (
 
       <h2 className="text-lg font-semibold text-gray-800 mb-3">Contact Information</h2>
       <ul className="list-disc list-inside text-gray-600 mb-6 text-sm">
-        <li><strong>Email:</strong> <a href="mailto:support@sltmobitel.com" className="text-blue-500 underline">support@sltmobitel.com</a></li>
+        <li><strong>Email:</strong> <a href="support@sltmobitel.com" className="text-blue-500 underline">support@sltmobitel.com</a></li>
         <li><strong>Phone:</strong> +94 11 32321313</li>
         <li><strong>Address:</strong> SLT mobitel, Lotus Road, Colombo 1</li>
       </ul>
@@ -137,10 +137,3 @@ return (
 };
 
 export default ContactUs;
-
-
-
-
-
-
-

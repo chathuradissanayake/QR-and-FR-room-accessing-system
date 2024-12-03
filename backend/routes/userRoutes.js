@@ -11,7 +11,7 @@ router.put('/change-username', requireAuth, updateUserName);
 // Endpoint to update user password
 router.put('/change-password', requireAuth, updateUserPassword);
 
-
+// Endpoint to update profile picture
 router.put("/profile-picture", updateUserProfilePicture);
 
 module.exports = router;

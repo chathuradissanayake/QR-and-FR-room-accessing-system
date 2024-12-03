@@ -48,7 +48,6 @@ const updateUserPassword = async (req, res) => {
   }
 };
 
-
 // Update Profile Picture
 const updateUserProfilePicture = async (req, res) => {
   const { userId, profilePicture } = req.body;

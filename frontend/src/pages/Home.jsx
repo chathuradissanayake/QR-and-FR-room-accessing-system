@@ -1,9 +1,10 @@
-import React from 'react'
+
 import tab1 from '../assets/tab1.png'
 import DashboardTab from '../components/DashboardTab'
-
-import { useContext } from 'react'
-import { UserContext } from '../../context/userContext'
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserContext } from "../../context/userContext";
 
 const Home = () => {
   const {user} = useContext(UserContext);
@@ -13,6 +14,42 @@ const Home = () => {
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     return date.toLocaleDateString('en-US', options);
   };
+
+
+  const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchLogs = async () => {
+      if (!user || !user.userId) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get(`/history/get-history?userId=${user.userId}`);
+        const logData = response.data;
+        setLogs(logData);
+      } catch (error) {
+        console.error("Error fetching logs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLogs();
+  }, [user]);
+
+  // Find the latest log based on entryTime
+  const latestLog = logs.reduce((latest, log) => {
+    if (!latest || new Date(log.entryTime) > new Date(latest.entryTime)) {
+      return log;
+    }
+    return latest;
+  }, null);
+
+
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -27,17 +64,37 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Info Card */}
-      <div className="bg-gray-800 text-white rounded-lg p-4 mb-6">
-        <div className="flex justify-between items-center">
-          {/* set the current date */}
-          <span className="text-sm">{getCurrentDateAndDay()}</span>
-          <i className="fas fa-calendar-alt"></i> {/* Add icon */}
-        </div>
-        <p className="mt-2">Location: Office Room</p>
-        <p>Last In Time: 10:24 am</p>
-        <p>Last Left Time: -</p>
-      </div>
+      {
+              loading ? (
+                <p className="pl-4 text-m text-black-500"></p>
+              ) : !latestLog ? (
+                <p  className="pl-4 text-m text-black-500"></p>
+              ) : (
+                <div className="bg-gray-800 text-white rounded-lg p-4 mb-6">
+                <div className="flex justify-between items-center">
+                  {/* set the current date */}
+                  <span className="text-sm">{getCurrentDateAndDay()}</span>
+                  <i className="fas fa-calendar-alt"></i> {/* Add icon */}
+                </div>
+                <p className="mt-2">Location: {latestLog.location || "Unknown Location"}</p>
+                <p>Last In Time: {
+                    latestLog.entryTime
+                      ? new Date(latestLog.entryTime).toLocaleTimeString("en-IN", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
+                      : ""
+                  }</p>
+                <p>Last Left Time: {
+                    latestLog.exitTime
+                      ? new Date(latestLog.exitTime).toLocaleTimeString("en-IN", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
+                      : ""
+                      || "Currently In Room"}</p>
+              </div>
+              )}
 
       {/* Reusable Dashboard Tabs */}
       <div className="space-y-4">
@@ -60,15 +117,15 @@ const Home = () => {
           image={tab1}
         />
         <DashboardTab 
-          title="Log Book" 
-          description="My previous accessing" 
-          href="/mylogbook" 
-          image={tab1}
-        />
-        <DashboardTab 
           title="My Permissions" 
           description="Doors and Rooms that I have permission" 
           href="/mypermissions" 
+          image={tab1}
+        />
+        <DashboardTab 
+          title="Log Book" 
+          description="My previous accessing" 
+          href="/mylogbook" 
           image={tab1}
         />
         <DashboardTab 

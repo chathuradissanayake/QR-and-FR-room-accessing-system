@@ -4,7 +4,6 @@ import { FiEdit } from 'react-icons/fi';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
-import avatar from '../assets/avatar.png';
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -49,14 +48,16 @@ const Profile = () => {
 
       {/* Profile Picture and User Info */}
       <div className="flex flex-col items-center mb-6">
-        <div className="relative">
-          <img
-            className="w-24 h-24 rounded-full object-cover"
-            src={avatar} 
-            alt="Profile"
-          />
-          <button className="absolute bottom-0 right-0 p-1 bg-blue-500 rounded-full">
+        <div className="relative ">
+        <img
+          src={user.profilePicture} // Use Base64 string as the image source
+          alt="Profile"
+          className="w-32 h-32 object-cover rounded-full"
+        />
+          <button className="absolute bottom-0 right-0 p-1 bg-black rounded-full">
+          <Link to="/upload-picture">
             <FiEdit className="text-white" />
+          </Link>
           </button>
         </div>
         <h2 className="mt-4 text-xl font-semibold text-gray-800">
@@ -80,6 +81,16 @@ const Profile = () => {
         >
           <span className="text-gray-500">Password</span>
           <FaChevronRight className="text-gray-600" />
+        </div>
+        <div
+          className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
+          onClick={() => handleNavigation('/upload-picture')}
+        >
+          <span className="text-gray-500">Profile Picture</span>
+          <div className="flex items-center space-x-2">
+            
+            <FaChevronRight className="text-gray-600" />
+          </div>
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"

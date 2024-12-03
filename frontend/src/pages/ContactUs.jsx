@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from "react";
 import { toast } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -43,19 +43,22 @@ const ContactUs = () => {
     }
   };
 
+  const handleBackNavigation = () => {
+    navigate(-1);
+  };
+
 return (
   <div className="flex justify-center min-h-screen bg-gray-50">
   <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
 
   
   <div className="title flex items-center space-x-2 mb-8">
-  
-  <Link to="/">
-        <GoChevronLeft className="cursor-pointer" />
-    </Link>
-  
-      <span className='font-semibold'>Contact Us</span>
-  </div>
+    
+        <GoChevronLeft className="cursor-pointer" 
+        onClick={handleBackNavigation}/>
+    
+        <span className='font-semibold'>App Info</span>
+    </div>
 
       <div className="ml-4">
       <p className="text-gray-600 mb-4 text-sm">
@@ -64,7 +67,7 @@ return (
 
       <h2 className="text-lg font-semibold text-gray-800 mb-3">Contact Information</h2>
       <ul className="list-disc list-inside text-gray-600 mb-6 text-sm">
-        <li><strong>Email:</strong> <a href="mailto:support@sltmobitel.com" className="text-blue-500 underline">support@sltmobitel.com</a></li>
+        <li><strong>Email:</strong> <a href="support@sltmobitel.com" className="text-blue-500 underline">support@sltmobitel.com</a></li>
         <li><strong>Phone:</strong> +94 11 32321313</li>
         <li><strong>Address:</strong> SLT mobitel, Lotus Road, Colombo 1</li>
       </ul>
@@ -134,10 +137,3 @@ return (
 };
 
 export default ContactUs;
-
-
-
-
-
-
-

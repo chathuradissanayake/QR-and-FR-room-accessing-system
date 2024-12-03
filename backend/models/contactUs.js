@@ -13,11 +13,7 @@ const contactUsSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: () => {
-      const now = new Date();
-      now.setHours(now.getHours() + 5, now.getMinutes() + 30); // Add +05:30
-      return now;
-    },
+    default: Date.now,
   },
   status: { 
     type: String, 

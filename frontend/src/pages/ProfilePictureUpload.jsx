@@ -1,4 +1,5 @@
 import axios from "axios";
+import Compressor from "compressorjs";
 import React, { useContext, useState } from "react";
 import { toast } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
@@ -17,12 +18,22 @@ const ProfilePictureUpload = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setPreview(reader.result); // Set base64 string for preview
-        setImage(reader.result); // Store the base64 string for upload
-      };
-      reader.readAsDataURL(file);
+      // Compress the image
+      new Compressor(file, {
+        quality: 0.1, // Adjust compression quality (0.0 to 1.0)
+        success: (compressedFile) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            setPreview(reader.result); // Set preview
+            setImage(reader.result); // Store compressed Base64 string
+          };
+          reader.readAsDataURL(compressedFile); // Convert compressed file to Base64
+        },
+        error: (err) => {
+          console.error("Compression error:", err);
+          alert("Failed to compress the image.");
+        },
+      });
     }
   };
 

@@ -45,7 +45,39 @@ const getHistory = async (req, res) => {
   }
 };
 
+const updateExitTime = async (req, res) => {
+  const { userId, exitTime } = req.body;
+
+  if (!userId || !exitTime) {
+    return res.status(400).json({ success: false, message: "User ID and exitTime are required." });
+  }
+
+  try {
+    // Find the latest entry for the user and update the exitTime
+    const updatedHistory = await History.findOneAndUpdate(
+      { "user.userId": userId }, // Match the user ID
+      { $set: { exitTime } }, // Set the new exitTime
+      { sort: { entryTime: -1 }, new: true } 
+    );
+
+    if (!updatedHistory) {
+      return res.status(404).json({ success: false, message: "No active history record found." });
+    }
+
+    res.status(200).json({ success: true, message: "Exit time updated successfully!", updatedHistory });
+  } catch (error) {
+    console.error("Error updating exitTime:", error);
+    res.status(500).json({ success: false, message: "Error updating exitTime." });
+  }
+};
+
 module.exports = {
   createHistory,
   getHistory,
+  updateExitTime,
 };
+
+
+
+
+

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from "react";
 import { toast } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -43,19 +43,22 @@ const ContactUs = () => {
     }
   };
 
+  const handleBackNavigation = () => {
+    navigate(-1);
+  };
+
 return (
   <div className="flex justify-center min-h-screen bg-gray-50">
   <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
 
   
   <div className="title flex items-center space-x-2 mb-8">
-  
-  <Link to="/">
-        <GoChevronLeft className="cursor-pointer" />
-    </Link>
-  
-      <span className='font-semibold'>Contact Us</span>
-  </div>
+    
+        <GoChevronLeft className="cursor-pointer" 
+        onClick={handleBackNavigation}/>
+    
+        <span className='font-semibold'>App Info</span>
+    </div>
 
       <div className="ml-4">
       <p className="text-gray-600 mb-4 text-sm">

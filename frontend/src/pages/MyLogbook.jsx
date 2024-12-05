@@ -5,7 +5,7 @@ import axios from "axios";
 import NotUsed from "../assets/notused.png";
 import Used from "../assets/used.png";
 import LogCard from "../components/LogCard";
-import { UserContext } from "../../context/userContext"; // Assuming you have a UserContext for logged-in user info
+import { UserContext } from "../../context/userContext"; 
 
 export default function MyLogbook() {
   const { user } = useContext(UserContext); // Get logged-in user info
@@ -15,7 +15,6 @@ export default function MyLogbook() {
   useEffect(() => {
     const fetchLogs = async () => {
       if (!user || !user.userId) {
-        console.error("User not logged in or missing userId");
         setLoading(false);
         return;
       }
@@ -68,7 +67,14 @@ export default function MyLogbook() {
                       })
                     : ""
                 }
-                exitTime={log.exitTime || "N/A"}
+                exitTime={
+                  log.exitTime
+                    ? new Date(log.exitTime).toLocaleTimeString("en-IN", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    : ""
+                    || "Currently In Room"}
                 date={
                   log.entryTime
                     ? new Date(log.entryTime).toLocaleDateString("en-IN")

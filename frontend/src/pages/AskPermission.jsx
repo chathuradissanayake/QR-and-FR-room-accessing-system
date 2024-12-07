@@ -1,12 +1,14 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from "../../context/userContext";
 
 const AskPermission = () => {
+  const {user} = useContext(UserContext);
   const [data, setData] = useState({
-    name: '',
+    name: `${user?.firstName || ''} ${user?.lastName || ''}`.trim(),
     roomName: '',
     door: '',
     date: '',
@@ -16,6 +18,7 @@ const AskPermission = () => {
   });
   const [doors, setDoors] = useState([]);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchDoors = async () => {
@@ -72,7 +75,7 @@ const AskPermission = () => {
         toast.error(response.error);
       } else {
         setData({
-          name: '',
+          name: `${user?.firstName || ''} ${user?.lastName || ''}`.trim(),
           roomName: '',
           door: '',
           date: '',
@@ -114,6 +117,7 @@ const AskPermission = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 required
+                readOnly
               />
             </div>
 

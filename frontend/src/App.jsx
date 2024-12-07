@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { UserContextProvider } from "../context/userContext";
 
+
 import ProtectedRoute from "./components/ProtectedRoute";
 import AboutUs from "./pages/AboutUs";
 import AppInfo from "./pages/AppInfo";
@@ -19,6 +20,7 @@ import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
 import Profile from "./pages/Profile";
+import ProfilePictureUpload from "./pages/ProfilePictureUpload";
 import ResetPassword from "./pages/ResetPassword";
 import Settings from "./pages/Settings";
 import SignIn from "./pages/SignIn";
@@ -57,10 +59,28 @@ function App() {
           />
 
           <Route
+            path="/upload-picture"
+            element={
+              <ProtectedRoute>
+                <ProfilePictureUpload/>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/settings"
             element={
               <ProtectedRoute>
                 <Settings />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/upload-picture"
+            element={
+              <ProtectedRoute>
+                <ProfilePictureUpload />
               </ProtectedRoute>
             }
           />

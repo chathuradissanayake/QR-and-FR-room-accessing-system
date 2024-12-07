@@ -1,24 +1,20 @@
-
 import React, { useEffect, useRef, useState } from 'react';
-import { GoChevronLeft } from "react-icons/go";
-import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-const FaceScanner = () => {
-  const [imagePreview, setImagePreview] = useState(null);
+const FaceScanner = ({ onSuccess }) => {
   const [message, setMessage] = useState('');
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-  const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
     startCamera(); // Automatically start the camera when the component loads
   }, []);
 
   useEffect(() => {
+    // Verification loop to periodically check face verification
     const verificationLoop = setInterval(() => {
       captureAndVerifyImage();
-    }, 2000); // Adjust the interval as needed for API responsiveness
+    }, 2000); // Adjust the interval for responsiveness
 
     return () => clearInterval(verificationLoop); // Clear the interval when the component unmounts
   }, []);
@@ -41,6 +37,7 @@ const FaceScanner = () => {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
       context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+
       canvas.toBlob(async (blob) => {
         const formData = new FormData();
         formData.append('image', blob);
@@ -63,10 +60,15 @@ const FaceScanner = () => {
             console.log(result);
             if (result.msg === "Verification Success.") {
               toast.success('Face verified successfully!');
-              navigate('/'); // Redirect on success
+
+
+              if (onSuccess) {
+                onSuccess(); // Notify parent component
+              }
+
             }
           } else {
-            console.error('Error:', response.statusText);
+            console.error('Verification failed:', response.statusText);
           }
         } catch (error) {
           console.error('Error:', error);
@@ -78,29 +80,25 @@ const FaceScanner = () => {
   return (
     <div className="flex justify-center min-h-screen bg-gray-50">
       <div className="w-full max-w-md p-8 bg-white rounded-md shadow-md">
-        <div className="my-4">
-        <h3 className="text-2xl font-bold text-red-600 bg-yellow-100 p-4 border-l-4 border-red-600 rounded shadow-md mb-4 flex items-center">
-        Please Wait! Verifying your identity and processing your success message.
+        <h3 className="text-2xl font-bold text-red-600 bg-yellow-100 p-4 border-l-4 border-red-600 rounded shadow-md mb-4">
+          Please Wait! Verifying your identity...
         </h3>
-          <div className="relative w-full bg-gray-200 rounded h-80">
-            <video
-              ref={videoRef}
-              className="object-cover w-full h-full rounded"
-              autoPlay
-              muted
-            />
-          </div>
-          <canvas ref={canvasRef} className="hidden" width={640} height={480}></canvas>
+
+        <div className="relative w-full bg-gray-200 rounded h-80">
+          <video
+            ref={videoRef}
+            className="object-cover w-full h-full rounded"
+            autoPlay
+            muted
+          />
         </div>
+
+        <canvas ref={canvasRef} className="hidden" width={640} height={480}></canvas>
 
         {message && <p className="mt-4 text-center text-blue-500">{message}</p>}
       </div>
-
     </div>
   );
 };
 
-
 export default FaceScanner;
-
-

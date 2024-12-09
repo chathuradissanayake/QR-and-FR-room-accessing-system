@@ -35,7 +35,7 @@ VITE_API_URL = http://localhost:8000
 VITE_API="need to add api the key"
 VITE_USER="need to add username"
 VITE_OTHER="need to add the value of other"
-
+VITE_MQTT_URL="mqtt_url"
 
 ```
 

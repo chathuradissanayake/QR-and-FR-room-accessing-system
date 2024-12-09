@@ -38,9 +38,10 @@ const EntrancePage = () => {
     };
   }, []);
 
+
   useEffect(() => {
     // Set up MQTT connection
-    const mqttClient = mqtt.connect('wss://broker.emqx.io:8084/mqtt', {
+    const mqttClient = mqtt.connect(import.meta.env.VITE_MQTT_URL, {
       clientId: `mqttjs_${Math.random().toString(16).slice(2, 10)}`,
   });
 

@@ -50,11 +50,11 @@ const duration = calculateDuration(entryTime, exitTime);
             <span className='text-gray-500'>{branch}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
-            <p className="text-base">In Time</p>
+            <p className="text-base">Entry Time</p>
             <span className='text-gray-500'>{entryTime}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
-            <p className="text-base">Out Time</p>
+            <p className="text-base">Exit Time</p>
             <span className='text-gray-500'>{exitTime}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>

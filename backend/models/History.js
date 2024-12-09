@@ -5,10 +5,10 @@ const historySchema = new Schema({
   doorCode: { type: String, required: true },
   entryTime: { type: Date, required: true },
   exitTime: { type: Date, default: null },
-  location: { type: String},
-  roomName: { type: String},
+  location: { type: String },
+  roomName: { type: String },
   user: {
-    userId: { type: String, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
 });
 

@@ -1,10 +1,10 @@
 
-import tab1 from '../assets/tab1.png'
-import DashboardTab from '../components/DashboardTab'
-import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
+import tab1 from '../assets/tab1.png';
+import DashboardTab from '../components/DashboardTab';
 
 const Home = () => {
   const {user} = useContext(UserContext);

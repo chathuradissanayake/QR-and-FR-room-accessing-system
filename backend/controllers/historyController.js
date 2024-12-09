@@ -1,18 +1,25 @@
 const History = require("../models/History");
+const User = require("../models/user")
 
-// Create history (unchanged)
+// Create history
 const createHistory = async (req, res) => {
-  const { doorCode, createdAt, userId, location, roomName,exitTime} = req.body;
+  const { doorCode, createdAt, userId, location, roomName, exitTime } = req.body;
 
   if (!doorCode || !createdAt || !userId) {
     return res.status(400).json({ success: false, message: "All fields are required." });
   }
 
   try {
+    // Fetch the user from the database using the provided userId
+    const user = await User.findOne({ userId });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found." });
+    }
+
     const newHistory = new History({
       doorCode,
       entryTime: createdAt,
-      user: { userId},
+      user: { userId: user._id }, // Use the user's database _id
       location,
       roomName,
       exitTime,
@@ -36,8 +43,14 @@ const getHistory = async (req, res) => {
   }
 
   try {
+    // Fetch the user from the database using the provided userId
+    const user = await User.findOne({ userId });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found." });
+    }
+
     // Fetch logs only for the logged-in user
-    const historyRecords = await History.find({ "user.userId": userId }).sort({ entryTime: -1 });
+    const historyRecords = await History.find({ "user.userId": user._id }).sort({ entryTime: -1 });
     res.status(200).json(historyRecords);
   } catch (error) {
     console.error("Error fetching history records:", error);
@@ -45,6 +58,7 @@ const getHistory = async (req, res) => {
   }
 };
 
+// Update exit time
 const updateExitTime = async (req, res) => {
   const { userId, exitTime } = req.body;
 
@@ -53,11 +67,17 @@ const updateExitTime = async (req, res) => {
   }
 
   try {
+    // Fetch the user from the database using the provided userId
+    const user = await User.findOne({ userId });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found." });
+    }
+
     // Find the latest entry for the user and update the exitTime
     const updatedHistory = await History.findOneAndUpdate(
-      { "user.userId": userId }, // Match the user ID
+      { "user.userId": user._id }, // Match the user ID
       { $set: { exitTime } }, // Set the new exitTime
-      { sort: { entryTime: -1 }, new: true } 
+      { sort: { entryTime: -1 }, new: true }
     );
 
     if (!updatedHistory) {
@@ -76,8 +96,3 @@ module.exports = {
   getHistory,
   updateExitTime,
 };
-
-
-
-
-

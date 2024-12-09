@@ -21,6 +21,9 @@ Make sure you have the following installed:
     ```
 3. Install the dependencies:
     ```sh
+    npm install react-qr-reader --force
+    npm install compressorJs --force
+    npm install mqtt --save --force
     npm install
     ```
 
@@ -32,14 +35,14 @@ VITE_API_URL = http://localhost:8000
 VITE_API="need to add api the key"
 VITE_USER="need to add username"
 VITE_OTHER="need to add the value of other"
-
+VITE_MQTT_URL="mqtt_url"
 
 ```
 
 ### Running the Application
 To start the development server, run:
 ```sh
-npm start
+npm run dev
 ```
 This will start the application on `http://localhost:5173`.
 

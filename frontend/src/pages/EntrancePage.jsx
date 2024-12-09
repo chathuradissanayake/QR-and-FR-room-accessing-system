@@ -6,9 +6,8 @@ import axios from "axios";
 import QRScanner from "../components/QRScanner";
 import { UserContext } from "../../context/userContext";
 import FaceScanner from "../components/FaceScanner";
-
 import { toast } from 'react-hot-toast';
-
+import mqtt from 'mqtt';
 
 const EntrancePage = () => {
   const { user } = useContext(UserContext);
@@ -23,6 +22,9 @@ const EntrancePage = () => {
 
   const navigate = useNavigate();
 
+  const [client, setClient] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
+
   useEffect(() => {
     return () => {
       setDoorCode("");
@@ -35,6 +37,32 @@ const EntrancePage = () => {
       setFaceVerified(false);
     };
   }, []);
+
+
+  useEffect(() => {
+    // Set up MQTT connection
+    const mqttClient = mqtt.connect(import.meta.env.VITE_MQTT_URL, {
+      clientId: `mqttjs_${Math.random().toString(16).slice(2, 10)}`,
+  });
+
+    mqttClient.on('connect', () => {
+        console.log('Connected to MQTT broker');
+        setIsConnected(true);
+    });
+
+    mqttClient.on('error', (err) => {
+        console.error('Connection error: ', err);
+    });
+
+    setClient(mqttClient);
+
+    // Cleanup on component unmount
+    return () => {
+        if (mqttClient) {
+            mqttClient.end();
+        }
+    };
+}, []);
 
   const handleScanSuccess = async (code) => {
     setDoorCode(code);
@@ -52,7 +80,7 @@ const EntrancePage = () => {
       setHasAccess(userHasAccess);
 
       if (!userHasAccess) {
-        alert("Access Denied");
+        toast.error("Access Denied");
       }
     } catch (error) {
       console.error("Error fetching door details:", error);
@@ -66,9 +94,25 @@ const EntrancePage = () => {
 
   const handleUnlockDoor = async () => {
     if (!doorCode) {
-      alert("No door code available. Please scan a QR code first.");
+      toast.error("No door code available. Please scan a QR code first.");
       return;
     }
+    
+
+    if (isConnected) {
+      const topic = 'door/access';
+      const message = JSON.stringify({ action: 'unlock' });
+      client.publish(topic, message, { qos: 0 }, (error) => {
+          if (error) {
+              console.error('Publish error: ', error);
+          } else {
+              console.log('Message published:', message);
+              navigate('/');
+          }
+      });
+  } else {
+      console.log('MQTT client is not connected');
+  }
 
     const createdAt = new Date().toISOString();
 
@@ -101,6 +145,8 @@ const EntrancePage = () => {
     setHasAccess(false);
     setScanning(true);
   };
+
+  
 
   return (
     <div className="flex justify-center min-h-screen h-max bg-gray-50">
@@ -155,7 +201,7 @@ const EntrancePage = () => {
             <div className="flex justify-center">
               <button
                 onClick={handleUnlockDoor}
-                disabled={!faceVerified}
+                disabled={!faceVerified || !isConnected}
                 className={`${
                   faceVerified ? "bg-green-500 hover:bg-green-700" : "bg-gray-300 cursor-not-allowed"
                 } text-white font-sans py-1 rounded-full mb-2 w-40`}

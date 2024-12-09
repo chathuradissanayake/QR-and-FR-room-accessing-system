@@ -6,6 +6,7 @@ import { GoChevronLeft } from "react-icons/go";
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/userContext"; // Ensure UserContext is defined
 
+
 const ProfilePictureUpload = () => {
   const [preview, setPreview] = useState(null);
   const [image, setImage] = useState(null);
@@ -31,7 +32,7 @@ const ProfilePictureUpload = () => {
         },
         error: (err) => {
           console.error("Compression error:", err);
-          alert("Failed to compress the image.");
+          toast.error("Failed to compress the image.");
         },
       });
     }
@@ -41,7 +42,7 @@ const ProfilePictureUpload = () => {
 
   const handleUpload = async () => {
     if (!image) {
-      alert("Please select an image first.");
+      toast.error("Please select an image first.");
       return;
     }
 
@@ -55,7 +56,7 @@ const ProfilePictureUpload = () => {
       navigate('/profile');
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert("Failed to upload the image. Please try again.");
+      toast.error("Failed to upload the image. Please try again.");
     }
   };
 

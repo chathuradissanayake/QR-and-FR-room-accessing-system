@@ -52,8 +52,8 @@ const Home = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-    <div className="max-w-lg mx-auto">
+    <div className="flex justify-center min-h-screen bg-gray-50 ">
+      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
       {/* Header */}
       <div className="mb-6">
         <p className="text-gray-500">Hello,</p>

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import { FaQrcode, FaLock } from "react-icons/fa";
+import axios from "axios";
+import mqtt from 'mqtt';
+import React, { useContext, useEffect, useState } from "react";
+import { toast } from 'react-hot-toast';
+import { FaLock, FaQrcode } from "react-icons/fa";
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import QRScanner from "../components/QRScanner";
 import { UserContext } from "../../context/userContext";
 import FaceScanner from "../components/FaceScanner";
-import { toast } from 'react-hot-toast';
-import mqtt from 'mqtt';
+import QRScanner from "../components/QRScanner";
 
 const EntrancePage = () => {
   const { user } = useContext(UserContext);

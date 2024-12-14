@@ -52,14 +52,14 @@ const Home = () => {
 
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 ">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
       {/* Header */}
       <div className="mb-6">
-        <p className="text-gray-500">Hello,</p>
-        {!!user && (<h1 className="text-2xl font-semibold">  {user.firstName} {user.lastName}</h1>)}
+        <p className="text-gray-500 dark:text-slate-400">Hello,</p>
+        {!!user && (<h1 className="text-2xl font-semibold dark:text-white">  {user.firstName} {user.lastName}</h1>)}
         <div className="flex justify-between items-center mt-2">
-          <span className="text-gray-600">Dashboard</span>
+          <span className="text-gray-600 dark:text-slate-300">Dashboard</span>
           <a href="/profile" className="text-blue-500">My Profile</a>
         </div>
       </div>
@@ -70,7 +70,7 @@ const Home = () => {
               ) : !latestLog ? (
                 <p  className="pl-4 text-m text-black-500"></p>
               ) : (
-                <div className="bg-gray-800 text-white rounded-lg p-4 mb-6">
+                <div className="bg-gray-800 dark:bg-slate-900 text-white rounded-lg p-4 mb-6">
                 <div className="flex justify-between items-center">
                   {/* set the current date */}
                   <span className="text-sm">{getCurrentDateAndDay()}</span>

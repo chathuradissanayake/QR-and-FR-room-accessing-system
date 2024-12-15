@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { UserContext } from "../../context/userContext";
 import NotUsed from "../assets/notused.png";
 import Used from "../assets/used.png";
 import LogCard from "../components/LogCard";
-import { UserContext } from "../../context/userContext"; 
 
 export default function MyLogbook() {
   const { user } = useContext(UserContext); // Get logged-in user info
@@ -34,11 +34,11 @@ export default function MyLogbook() {
   }, [user]);
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
 
         {/* Title Section */}
-        <div className="title flex items-center space-x-2 mb-8">
+        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
           </Link>
@@ -47,11 +47,11 @@ export default function MyLogbook() {
 
         {/* Logs Section */}
         {loading ? (
-          <p>Loading logs...</p>
+          <p className="dark:text-slate-300">Loading logs...</p>
         ) : logs.length === 0 ? (
-          <p>No logs found.</p>
+          <p className="dark:text-slate-300">No logs found.</p>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {logs.map((log, index) => (
               <LogCard
                 key={index}

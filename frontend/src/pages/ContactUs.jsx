@@ -52,35 +52,35 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
-        <div className="title flex items-center space-x-2 mb-8">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <GoChevronLeft className="cursor-pointer" onClick={handleBackNavigation} />
-          <span className="font-semibold">App Info</span>
+          <span className="font-semibold">Contact us</span>
         </div>
 
         <div className="ml-4">
-          <p className="text-gray-600 mb-4 text-sm">
+          <p className="text-gray-600 mb-4 text-sm dark:text-slate-200">
             We are here to help! If you have any questions, concerns, or feedback, please reach out to our customer care team. Your satisfaction is our priority.
           </p>
 
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">Contact Information</h2>
-          <ul className="list-disc list-inside text-gray-600 mb-6 text-sm">
+          <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Contact Information</h2>
+          <ul className="list-disc list-inside text-gray-600 mb-6 dark:text-slate-200 text-sm">
             <li><strong>Email:</strong> <a href="support@sltmobitel.com" className="text-blue-500 underline">support@sltmobitel.com</a></li>
             <li><strong>Phone:</strong> +94 11 32321313</li>
             <li><strong>Address:</strong> SLT Mobitel, Lotus Road, Colombo 1</li>
           </ul>
 
-          <h2 className="text-lg font-semibold text-gray-800 mb-6">Support Hours</h2>
-          <p className="text-gray-600 mb-6 text-sm">
+          <h2 className="text-lg font-semibold text-gray-800 mb-6 dark:text-slate-100">Support Hours</h2>
+          <p className="text-gray-600 mb-6 text-sm dark:text-slate-200">
             <strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM (PST)
             <br />
             <strong>Saturday:</strong> 10:00 AM - 12:00 PM (PST)
             <br />
           </p>
 
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">Feedback</h2>
-          <p className="text-gray-600 mb-4 text-sm">We value your feedback! Please let us know how we can improve your experience.</p>
+          <h2 className="text-lg font-semibold text-gray-800 dark:text-slate-100 mb-3">Feedback</h2>
+          <p className="text-gray-600 mb-4 text-sm dark:text-slate-200">We value your feedback! Please let us know how we can improve your experience.</p>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -95,7 +95,7 @@ const ContactUs = () => {
                 placeholder="InSP/2020/XXX/ZZZ"
                 value={data.userId}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-600 dark:text-slate-100"
                 required
                 readOnly // Prevent editing since it's automatically filled
               />
@@ -103,7 +103,7 @@ const ContactUs = () => {
 
             <div>
               <label htmlFor="message" className="sr-only">
-                Name
+                Message
               </label>
               <textarea
                 id="message"
@@ -112,7 +112,7 @@ const ContactUs = () => {
                 value={data.message}
                 onChange={handleChange}
                 rows="5"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-600 dark:text-slate-100"
                 required
               />
             </div>

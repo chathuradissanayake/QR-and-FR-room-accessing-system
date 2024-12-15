@@ -47,9 +47,9 @@ export default function MyLogbook() {
 
         {/* Logs Section */}
         {loading ? (
-          <p>Loading logs...</p>
+          <p className="dark:text-slate-300">Loading logs...</p>
         ) : logs.length === 0 ? (
-          <p>No logs found.</p>
+          <p className="dark:text-slate-300">No logs found.</p>
         ) : (
           <div className="space-y-4 ">
             {logs.map((log, index) => (

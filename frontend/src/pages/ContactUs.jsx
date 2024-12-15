@@ -103,7 +103,7 @@ const ContactUs = () => {
 
             <div>
               <label htmlFor="message" className="sr-only">
-                Name
+                Message
               </label>
               <textarea
                 id="message"

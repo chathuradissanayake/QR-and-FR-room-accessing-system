@@ -155,7 +155,7 @@ const AskPermission = () => {
                 value={data.roomName}
                 placeholder='Location'
                 readOnly
-                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-blue-300 dark:text-black bg-blue-100"
+                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"
               />
             </div>
 

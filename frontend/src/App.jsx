@@ -192,7 +192,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
+            <Route
               path="/language"
               element={
                 <ProtectedRoute>

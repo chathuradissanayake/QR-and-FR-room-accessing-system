@@ -28,6 +28,7 @@ import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 import ThemeToggle from "./pages/Themetoggle";
 import TypeCode from "./pages/TypeCode";
+import Notification from "./pages/Notification";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
@@ -178,6 +179,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <FaceRegistration />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/notification"
+              element={
+                <ProtectedRoute>
+                  <Notification />
                 </ProtectedRoute>
               }
             />

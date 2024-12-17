@@ -17,6 +17,7 @@ import EntrancePage from "./pages/EntrancePage";
 import FaceRegistration from "./pages/FaceRegistration";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
+import Languages from "./pages/Languages";
 import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
@@ -183,6 +184,7 @@ function App() {
               }
             />
             <Route
+
               path="/notification"
               element={
                 <ProtectedRoute>
@@ -190,6 +192,15 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
+              path="/language"
+              element={
+                <ProtectedRoute>
+                  <Languages />
+                </ProtectedRoute>
+              }
+            />
+
           </Routes>
         </Router>
       </ThemeProvider>

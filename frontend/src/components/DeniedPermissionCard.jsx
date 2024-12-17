@@ -5,12 +5,12 @@ const DeniedPermissionCard = ({ permission }) => {
   const { roomName, door, inTime, outTime, date, message } = permission;
 
   return (
-    <div className="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-lg">
+    <div className="max-w-sm p-4 bg-white dark:bg-slate-700 border border-gray-200 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">{door.roomName}</h2>
-        <span className="text-gray-500 font-bold">{door ? door.doorCode : "N/A"}</span>
+        <h2 className="text-lg font-semibol dark:text-white">{door.roomName}</h2>
+        <span className="font-bold dark:text-white">{door ? door.doorCode : "N/A"}</span>
       </div>
-      <div className="space-y-2 text-gray-600">
+      <div className="space-y-2 text-gray-600 dark:text-slate-200">
         <div className="flex justify-between">
           <span>Door</span>
           <span className="text-blue-500">{door ? door.roomName : "N/A"}</span>
@@ -21,19 +21,19 @@ const DeniedPermissionCard = ({ permission }) => {
         </div>
         <div className="flex justify-between">
           <span>In Time</span>
-          <span className="font-medium text-gray-800">{inTime}</span>
+          <span className="font-medium text-gray-800 dark:text-slate-200">{inTime}</span>
         </div>
         <div className="flex justify-between">
           <span>Out Time</span>
-          <span className="font-medium text-gray-800">{outTime}</span>
+          <span className="font-medium text-gray-800 dark:text-slate-200">{outTime}</span>
         </div>
         <div className="flex justify-between">
           <span>Date</span>
-          <span className="font-medium text-gray-800">{new Date(date).toLocaleDateString()}</span>
+          <span className="font-medium text-gray-800 dark:text-slate-200">{new Date(date).toLocaleDateString()}</span>
         </div>
         <div className="flex justify-between">
           <span>Message</span>
-          <span className="font-medium text-gray-800 bg-gradient-to-r from-red-100 to-transparent px-2 py-1 rounded">
+          <span className="block mt-2 font-mono bg-gray-200 dark:bg-slate-600 rounded-lg text-slate-600 dark:text-slate-200  px-2 py-1  ">
             {message}
           </span>
         </div>
@@ -46,7 +46,7 @@ const DeniedPermissionCard = ({ permission }) => {
           </span>
         </div>
       </div>
-      <div className="p-3 bg-gray-100 rounded-lg text-sm text-gray-600 mt-4">
+      <div className="block mt-2 font-sans bg-gray-200 dark:bg-slate-600 rounded-lg text-red-5S00 dark:text-red-200 px-2 py-1  ">
         Sorry, your request for access has been denied by the admin. This access is currently restricted for you. Try with a different time slot.
       </div>
     </div>

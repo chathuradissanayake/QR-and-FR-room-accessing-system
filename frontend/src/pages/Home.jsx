@@ -57,7 +57,7 @@ const Home = () => {
     }
   }, [user]);
 
-  // Fetch notifications count based on "unread" userstatus and "read" status
+  // Fetch notifications count based on "unread" userstatus
   useEffect(() => {
     const fetchNotifications = async () => {
       if (!user?.userId) return;
@@ -66,12 +66,12 @@ const Home = () => {
         const response = await axios.get(`/contactus/user/${user.userId}`);
         const notifications = response.data; // Assuming this returns an array of notifications
 
-        // Filter notifications where userstatus is "unread" and status is "read"
-        const unreadAndReadCount = notifications.filter(
-          notification => notification.userstatus === "unread" && notification.status === "read"
+        // Filter notifications where userstatus is "unread"
+        const unreadCount = notifications.filter(
+          (notification) => notification.userstatus === "unread" 
         ).length;
-        
-        setNotificationCount(unreadAndReadCount);
+
+        setNotificationCount(unreadCount);
       } catch (error) {
         console.error("Error fetching notifications:", error);
         setNotificationCount(0); // Fallback to 0 if there's an error

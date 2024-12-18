@@ -9,10 +9,10 @@ const contactUsSchema = new Schema({
     type: String,
     required: true,
   },
-  heading: { 
-    type: String, 
-    default: null 
-  },
+  // heading: { 
+  //   type: String, 
+  //   default: null 
+  // },
   reply: { 
     type: String, 
     default: null 
@@ -24,8 +24,8 @@ const contactUsSchema = new Schema({
   },
   userstatus: { 
     type: String, 
-    enum: ['unread', 'read'], 
-    default: 'unread' 
+    enum: ['unread', 'read', 'null'], 
+    default: 'null' 
   },
   user: {
     userId: { 

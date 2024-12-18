@@ -23,9 +23,9 @@ export default function Notification() {
         const response = await axios.get(`/contactus/user/${user.userId}`);
         const logData = response.data;
 
-        // Filter logs to show only those with non-null heading and reply
+        // Filter logs to show only those with non-null reply
         const filteredLogs = logData.filter(
-          (log) => log.reply // Check that heading and reply are not null or empty
+          (log) => log.reply // Check that reply are not null or empty
         );
 
         setLogs(filteredLogs.reverse()); // Reverse the logs array

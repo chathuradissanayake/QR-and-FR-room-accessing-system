@@ -3,7 +3,7 @@ const User = require("../models/user");
 
 
 const postContactUs = async (req, res) => {
-  const { registerId, message, heading, reply, userId, status } = req.body;
+  const { registerId, message, reply, userId, status } = req.body;
 
   if (!message || !userId) {
     return res.status(400).json({ success: false, message: "Message and userId are required." });
@@ -19,7 +19,6 @@ const postContactUs = async (req, res) => {
     const newContactUs = new ContactUs({
       registerId,
       message,
-      heading,
       reply,
       user: { userId: user._id }, // Use the user's _id
       status: status || 'unread', // Default to 'unread' if not provided

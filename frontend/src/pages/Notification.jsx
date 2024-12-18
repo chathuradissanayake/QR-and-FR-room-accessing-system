@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../context/userContext";
 
+
 export default function Notification() {
   const { user } = useContext(UserContext); // Get logged-in user info
   const [logs, setLogs] = useState([]);

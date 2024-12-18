@@ -1,6 +1,7 @@
 const ContactUs = require('../models/contactUs');
 const User = require("../models/user");
 
+
 const postContactUs = async (req, res) => {
   const { registerId, message, heading, reply, userId, status } = req.body;
 

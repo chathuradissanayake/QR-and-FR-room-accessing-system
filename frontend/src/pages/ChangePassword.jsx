@@ -39,11 +39,11 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
 
     
-    <div className="title flex items-center space-x-2 mb-8">
+    <div className="title flex items-center space-x-2 mb-8 dark:text-white">
     
         <GoChevronLeft className="cursor-pointer" 
         onClick={handleBackNavigation}/>
@@ -54,59 +54,59 @@ const ChangePassword = () => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6 ml-4">
           <div>
-            <label htmlFor="oldPassword" className="block text-gray-600 mb-1">Old Password</label>
+            <label htmlFor="oldPassword" className="block text-gray-600 mb-1 dark:text-slate-200">Old Password</label>
             <div className="relative">
               <input
                 type={showOldPassword ? "text" : "password"}
                 id="oldPassword"
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
-                className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-500 focus:outline-none"
                 required
               />
               <div
                 className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                 onClick={() => setShowOldPassword(!showOldPassword)}
               >
-                {showOldPassword ? <FaEye /> : <FaEyeSlash />}
+                {showOldPassword ? <FaEye className="dark:text-slate-200"/> : <FaEyeSlash className="dark:text-slate-200" />}
               </div>
             </div>
           </div>
           <div>
-            <label htmlFor="newPassword" className="block text-gray-600 mb-1">New Password</label>
+            <label htmlFor="newPassword" className="block text-gray-600 mb-1 dark:text-slate-200">New Password</label>
             <div className="relative">
               <input
                 type={showNewPassword ? "text" : "password"}
                 id="newPassword"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-500 focus:outline-none"
                 required
               />
               <div
                 className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                 onClick={() => setShowNewPassword(!showNewPassword)}
               >
-                {showNewPassword ? <FaEye /> : <FaEyeSlash />}
+                {showNewPassword ? <FaEye className="dark:text-slate-200" /> : <FaEyeSlash className="dark:text-slate-200"/>}
               </div>
             </div>
           </div>
           <div>
-            <label htmlFor="confirmPassword" className="block text-gray-600 mb-1">Confirm New Password</label>
+            <label htmlFor="confirmPassword" className="block text-gray-600 mb-1 dark:text-slate-200">Confirm New Password</label>
             <div className="relative">
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-500 focus:outline-none"
                 required
               />
               <div
                 className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-                {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                {showConfirmPassword ? <FaEye className="dark:text-slate-200"/> : <FaEyeSlash className="dark:text-slate-200" />}
               </div>
             </div>
           </div>

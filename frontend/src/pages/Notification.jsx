@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { UserContext } from "../../context/userContext";
 
 
@@ -54,11 +54,10 @@ export default function Notification() {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50">
-      {/* Main Content Section */}
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
-        {/* Title Section */}
-        <div className="title flex items-center space-x-2 mb-8 ">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+        <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+
+        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
           </Link>

@@ -115,7 +115,7 @@ const AskPermission = () => {
                 placeholder="User Name"
                 value={data.name}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-600 dark:text-slate-100 focus:ring-blue-400"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
                 readOnly
               />
@@ -130,7 +130,7 @@ const AskPermission = () => {
                 name="door"
                 value={data.door}
                 onChange={handleDoorChange}
-                className={`flex w-full px-4 py-2  border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-600 dark:text-slate-100 focus:ring-blue-400 ${data.door === '' ? 'text-gray-400' : 'text-black'}`}
+                className={`flex w-full px-4 py-2  border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${data.door === '' ? 'text-gray-400' : 'text-black'}`}
                 required
               >
                 <option disabled value="">Select the Door</option>
@@ -169,7 +169,7 @@ const AskPermission = () => {
                 name="date"
                 value={data.date}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-600 dark:text-slate-100 focus:ring-blue-400 ${data.date === '' ? 'text-gray-400' : 'text-black'}`}
+                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${data.date === '' ? 'text-gray-400' : 'text-black'}`}
                 required
               />
             </div>
@@ -184,7 +184,7 @@ const AskPermission = () => {
                 name="inTime"
                 value={data.inTime}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-600 dark:text-slate-100 focus:ring-blue-400"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />
             </div>
@@ -199,7 +199,7 @@ const AskPermission = () => {
                 name="outTime"
                 value={data.outTime}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-600 dark:text-slate-100 focus:ring-blue-400"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />
             </div>
@@ -216,7 +216,7 @@ const AskPermission = () => {
                 value={data.message}
                 onChange={handleChange}
                 rows="3"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-600 dark:text-slate-100"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-700 dark:text-slate-100"
                 required
               />
             </div>

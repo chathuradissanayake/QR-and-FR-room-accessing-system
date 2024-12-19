@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import NotUsed from "../assets/notused.png";
-import Used from "../assets/used.png";
-import LogCard from "../components/LogCard";
 import { UserContext } from "../../context/userContext";
-import { toast } from "react-hot-toast";
+import LogCard from "../components/LogCard";
 
 export default function MarkLeave() {
   const { user } = useContext(UserContext); // Get logged-in user info
@@ -94,24 +92,24 @@ export default function MarkLeave() {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 ">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
         {/* Title Section */}
-        <div className="title flex items-center space-x-2 mb-8 ">
+        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
           </Link>
           <span className="font-semibold">Leave</span>
         </div>
         <div className="text-left ml-4">
-          <p className="text-m text-black-500 pb-3">
+          <p className="text-m text-black-500 pb-3 dark:text-white">
             If you want to leave, <span className="font-semibold">Confirm</span>
           </p>
         </div>
 
         {/* Logs Section */}
         {loading ? (
-          <p className="pl-4 text-m text-black-500">Loading Room Details ...</p>
+          <p className="pl-4 text-m text-black-500 dark:text-white">Loading Room Details ...</p>
         ) : !latestLog ? (
           <p className="pl-4 text-m text-black-500"></p>
         ) : (

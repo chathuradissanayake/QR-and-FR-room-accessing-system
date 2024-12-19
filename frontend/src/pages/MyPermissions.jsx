@@ -64,10 +64,11 @@ const MyPermissions = () => {
   }
 
   return (
-    <div className="flex  justify-center min-h-screen bg-gray-50">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
-        <div className="title flex items-center space-x-2 mb-8">
+      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
           </Link>
@@ -75,14 +76,14 @@ const MyPermissions = () => {
         </div>
 
       {/* Tabs */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center  mb-6">
         {["Approved", "Pending", "Denied"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`py-2 px-6 text-sm font-medium ${
               activeTab === tab
-                ? "text-blue-500 border-b-2 border-blue-500"
+                ? "text-blue-500 border-b-2 border-blue-500 dark:text-blue-400 dark:border-blue-400"
                 : "text-gray-500"
             } focus:outline-none`}
           >
@@ -92,7 +93,7 @@ const MyPermissions = () => {
       </div>
 
       {/* Permissions Container */}
-      <div className="w-full max-w-md mx-auto space-y-6">
+      <div className="w-full max-w-md mx-auto  space-y-6">
         {filteredPermissions.length === 0 ? (
           <div className="text-center text-gray-500">
             No {activeTab.toLowerCase()} permissions.

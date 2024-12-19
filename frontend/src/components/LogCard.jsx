@@ -34,36 +34,36 @@ const LogCard = ({ room, roomcode, door, branch, entryTime, exitTime, date, stat
 const duration = calculateDuration(entryTime, exitTime);
 
   return (
-    <div>
-      <div className="bg-white shadow rounded-lg pt-3 pb-3 pl-5 pr-5  ">
-          <div>
+    <div >
+      <div className="bg-white dark:bg-slate-600 shadow rounded-lg pt-3 pb-3 pl-5 pr-5  ">
+          <div >
             <div className='flex justify-between items-center mb-4 '>
-            <h2 className="text-lg font-semibold">{room}</h2>
-            <span className='text-black-500'>{roomcode}</span>
+            <h2 className="text-lg font-semibold dark:text-white">{room}</h2>
+            <span className='text-black-500 dark:text-white'>{roomcode}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
-            <p className="text-base">Door</p>
-            <span className='text-gray-500'>{door}</span>
+            <p className="text-base dark:text-slate-100">Door</p>
+            <span className='text-gray-500 dark:text-slate-100'>{door}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
-            <p className="text-base">Branch</p>
-            <span className='text-gray-500'>{branch}</span>
+            <p className="text-base dark:text-slate-100">Branch</p>
+            <span className='text-gray-500 dark:text-slate-100'>{branch}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
-            <p className="text-base">Entry Time</p>
-            <span className='text-gray-500'>{entryTime}</span>
+            <p className="text-base dark:text-slate-100">Entry Time</p>
+            <span className='text-gray-500 dark:text-slate-100'>{entryTime}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
-            <p className="text-base">Exit Time</p>
-            <span className='text-gray-500'>{exitTime}</span>
+            <p className="text-base dark:text-slate-100">Exit Time</p>
+            <span className='text-gray-500 dark:text-slate-100'>{exitTime}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
-            <p className="text-base">Duration</p>
-            <span className='text-gray-500'>{duration}</span>
+            <p className="text-base dark:text-slate-100">Duration</p>
+            <span className='text-gray-500 dark:text-slate-100'>{duration}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
-            <p className="text-base">Date</p>
-            <span className='text-gray-500'>{date}</span>
+            <p className="text-base dark:text-slate-100">Date</p>
+            <span className='text-gray-500 dark:text-slate-100'>{date}</span>
             </div>
             <div className='flex justify-between items-center mb-1 '>
             {/* <p className="text-base">State</p>

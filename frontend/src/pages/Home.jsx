@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { UserContext } from "../../context/userContext";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
+import avatar from "../assets/avatar.png"; // Default avatar image
 import tab1 from "../assets/tab1.png";
 import DashboardTab from "../components/DashboardTab";
-import avatar from "../assets/avatar.png"; // Default avatar image
 
 const Home = () => {
   const { user, setUser } = useContext(UserContext); // Assuming setUser is available
@@ -117,7 +117,7 @@ const Home = () => {
             <img
               src={user?.profilePicture || avatar} // Fallback to default avatar
               alt="User Avatar"
-              className="w-10 h-10 rounded-full cursor-pointer"
+              className="w-16 h-16 rounded-full object-cover cursor-pointer"
               onClick={() => navigate("/profile")}
               onError={(e) => {
                 e.target.onerror = null; // Prevent infinite loop

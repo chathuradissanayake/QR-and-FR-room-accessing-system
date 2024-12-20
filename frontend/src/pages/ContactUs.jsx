@@ -11,9 +11,7 @@ const ContactUs = () => {
 
   // Initialize state with the logged-in user's userId
   const [data, setData] = useState({
-    registerId: '',
     message: '',
-    userId: user?.userId || '', // Use the userId from context
   });
 
   const handleChange = (e) => {
@@ -23,20 +21,20 @@ const ContactUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { message, registerId } = data;
+    const { message } = data;
 
     try {
       const { data: response } = await axios.post('/contactus/messages', {
-        registerId: user.userId,
         message,
-        userId: user.userId,  // Correctly passing the logged-in user's userId
+        user: {
+          objId: user._id, // Passing the logged-in user's ObjectId
+          userId: user.userId,  // Correctly passing the logged-in user's userId
+        },
       });
 
       if (response.success) {
         setData({
-          registerId: '',
           message: '',
-          userId: user?.userId || '', // Reset userId after submission
         });
         toast.success('Message sent successfully');
         navigate('/');
@@ -55,7 +53,7 @@ const ContactUs = () => {
 
   return (
     <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <GoChevronLeft className="cursor-pointer" onClick={handleBackNavigation} />
           <span className="font-semibold">Contact us</span>
@@ -68,8 +66,7 @@ const ContactUs = () => {
 
           <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Contact Information</h2>
           <ul className="list-disc list-inside text-gray-600 mb-6 dark:text-slate-200 text-sm">
-            <li><strong>Email:</strong> <a href="support@sltmobitel.com" className="text-blue-500 underline">support@sltmobitel.com</a></li>
-
+            <li><strong>Email:</strong> <a href="mailto:support@sltmobitel.com" className="text-blue-500 underline">support@sltmobitel.com</a></li>
             <li><strong>Phone:</strong> +94 11 32321313</li>
             <li><strong>Address:</strong> SLT Mobitel, Lotus Road, Colombo 1</li>
           </ul>
@@ -86,22 +83,6 @@ const ContactUs = () => {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-              <label htmlFor="userId" className="sr-only">
-                User ID
-              </label>
-              <input
-                type="text"
-                id="userId"
-                name="userId"
-                placeholder="InSP/2020/XXX/ZZZ"
-                value={data.userId}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-600 dark:text-slate-100"
-                required
-                readOnly // Prevent editing since it's automatically filled
-              />
-            </div>
             <div>
               <label htmlFor="message" className="sr-only">
                 Message

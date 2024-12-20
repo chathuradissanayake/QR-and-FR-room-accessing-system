@@ -73,7 +73,7 @@ const Home = () => {
             <img
               src={user?.profilePicture || avatar} // Fallback to default avatar
               alt="User Avatar"
-              className="w-16 h-16 rounded-full object-cover cursor-pointer"
+              className="w-12 h-12 rounded-full object-cover cursor-pointer"
               onClick={() => navigate("/profile")}
               onError={(e) => {
                 e.target.onerror = null; // Prevent infinite loop

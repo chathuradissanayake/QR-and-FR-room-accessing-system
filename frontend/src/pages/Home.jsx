@@ -87,7 +87,7 @@ const Home = () => {
         {loading ? (
           <p className="text-center text-gray-500">Loading...</p>
         ) : latestLog ? (
-          <div className="bg-gray-800 dark:bg-slate-900 text-white rounded-lg p-4 mb-6">
+          <div className="bg-slate-700 dark:bg-slate-900 text-white rounded-lg p-4 mb-6">
             <div className="flex justify-between items-center">
               <span className="text-sm">{getCurrentDateAndDay()}</span>
               <i className="fas fa-calendar-alt"></i>

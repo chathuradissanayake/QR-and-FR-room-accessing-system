@@ -130,18 +130,23 @@ const AskPermission = () => {
                 name="door"
                 value={data.door}
                 onChange={handleDoorChange}
-                className={`flex w-full px-4 py-2  border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${data.door === '' ? 'text-gray-400' : 'text-black'}`}
+                className={`flex w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
+                  data.door === '' ? 'text-gray-400' : 'text-black'
+                }`}
                 required
               >
-                <option disabled value="">Select the Door</option>
+                <option disabled value="">
+                  Select the Door
+                </option>
                 {doors
-                .sort((a, b) => a.doorCode.localeCompare(b.doorCode))  // Sort alphabetically by doorCode
-                .map((door) => (
-                  <option key={door._id} value={door._id}>
-                    {door.doorCode} &nbsp; {door.roomName} 
-                  </option>
-                ))}
-              </select>
+                  .filter((door) => door.status === 'Active') // Only include doors with "Active" status
+                  .sort((a, b) => a.doorCode.localeCompare(b.doorCode)) // Sort alphabetically by doorCode
+                  .map((door) => (
+                    <option key={door._id} value={door._id}>
+                      {door.doorCode} &nbsp; {door.roomName}
+                    </option>
+                  ))}
+              </select>                                                 
             </div>
 
             <div>

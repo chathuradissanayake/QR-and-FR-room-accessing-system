@@ -65,11 +65,10 @@ const ProfilePictureUpload = () => {
   };
 
   return (
-  <div className="flex justify-center min-h-screen bg-gray-50">
-  <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
 
-  
-  <div className="title flex items-center space-x-2 mb-8">
+    <div className="title flex items-center space-x-2 mb-8 dark:text-white">
     
         <GoChevronLeft className="cursor-pointer" 
         onClick={handleBackNavigation}/>
@@ -82,7 +81,7 @@ const ProfilePictureUpload = () => {
     type="file"
     accept="image/*"
     onChange={handleImageChange}
-    className="my-8"
+    className="block text-gray-600 mb-1 dark:text-slate-200"
   />
   {preview && (
     <img
@@ -93,7 +92,7 @@ const ProfilePictureUpload = () => {
   )}
   <button
     onClick={handleUpload}
-    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mt-8"
   >
     Upload
   </button>

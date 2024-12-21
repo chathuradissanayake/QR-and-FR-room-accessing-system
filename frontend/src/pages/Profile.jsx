@@ -27,7 +27,7 @@ const Profile = () => {
   };
 
   if (loading) {
-    return <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    return <div className="flex justify-center dark:bg-slate-800 items-center min-h-screen">
     <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
   </div>
   }
@@ -37,11 +37,11 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
 
     
-    <div className="title flex items-center space-x-2 mb-8">
+    <div className="title flex items-center space-x-2 mb-8 dark:text-white">
     <Link to="/">
         <GoChevronLeft className="cursor-pointer" />
     </Link>
@@ -68,27 +68,27 @@ const Profile = () => {
       </div>
 
       {/* Profile Details */}
-      <div className="w-full  space-y-4">
-        <div className="flex justify-between items-center py-2 border-b border-gray-300">
-          <span className="text-gray-500">User ID</span>
+      <div className="w-full  space-y-4 ">
+        <div className="flex justify-between items-center py-2 border-b border-gray-300 dark:text-slate-200">
+          <span className="text-gray-500 dark:text-slate-200">User ID</span>
           <span className="text-gray-400">{user.userId}</span> 
         </div>
         <div className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer" onClick={() => handleNavigation('/change-username')}>
-          <span className="text-gray-500">User Name</span>
-          <span className="text-gray-600">{user.firstName} {user.lastName}</span>
+          <span className="text-gray-500 dark:text-slate-200">User Name</span>
+          <span className="text-gray-600 dark:text-slate-300">{user.firstName} {user.lastName}</span>
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
           onClick={() => handleNavigation('/change-password')}
         >
-          <span className="text-gray-500">Password</span>
+          <span className="text-gray-500 dark:text-slate-200">Password</span>
           <FaChevronRight className="text-gray-600" />
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
           onClick={() => handleNavigation('/upload-picture')}
         >
-          <span className="text-gray-500">Profile Picture</span>
+          <span className="text-gray-500 dark:text-slate-200">Profile Picture</span>
           <div className="flex items-center space-x-2">
             
             <FaChevronRight className="text-gray-600" />
@@ -98,7 +98,7 @@ const Profile = () => {
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
           onClick={() => handleNavigation('/face-registration')}
         >
-          <span className="text-gray-500">Face ID</span>
+          <span className="text-gray-500 dark:text-slate-200">Face ID</span>
           <div className="flex items-center space-x-2">
             <FaExclamationCircle className="text-red-500" />
             <FaChevronRight className="text-gray-600" />
@@ -108,14 +108,14 @@ const Profile = () => {
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
           onClick={() => handleNavigation('/app-info')}
         >
-          <span className="text-gray-500">App Information</span>
+          <span className="text-gray-500 dark:text-slate-200">App Information</span>
           <FaChevronRight className="text-gray-600" />
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
           onClick={() => handleNavigation('/contactus')}
         >
-          <span className="text-gray-500">Costumer care</span>
+          <span className="text-gray-500 dark:text-slate-200">Costumer care</span>
           <FaChevronRight className="text-gray-600" />
         </div>
 

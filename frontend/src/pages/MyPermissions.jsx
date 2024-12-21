@@ -49,8 +49,8 @@ const MyPermissions = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p className="text-gray-500 text-lg">Loading your permissions...</p>
+      <div className="flex justify-center items-center min-h-screen dark:bg-slate-800">
+        <p className="text-gray-500 dark:text-slate-200 text-lg">Loading your permissions...</p>
       </div>
     );
   }

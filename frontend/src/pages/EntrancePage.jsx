@@ -149,9 +149,10 @@ const EntrancePage = () => {
   
 
   return (
-    <div className="flex justify-center min-h-screen h-max bg-gray-50">
-      <div className="w-full max-w-md p-8 bg-white rounded-md shadow-md">
-        <div className="flex items-center mb-8 space-x-2 title">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+        <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+
+        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
           </Link>
@@ -190,7 +191,7 @@ const EntrancePage = () => {
                 onClick={() => setShowFaceScan(true)}
                 disabled={!hasAccess}
                 className={`${
-                  hasAccess ? "bg-blue-500 hover:bg-blue-700" : "bg-gray-300 cursor-not-allowed"
+                  hasAccess ? "bg-blue-500  hover:bg-blue-700" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed"
                 } text-white font-sans py-1 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
               >
                 <span>Face Scan</span>
@@ -203,7 +204,7 @@ const EntrancePage = () => {
                 onClick={handleUnlockDoor}
                 disabled={!faceVerified || !isConnected}
                 className={`${
-                  faceVerified ? "bg-green-500 hover:bg-green-700" : "bg-gray-300 cursor-not-allowed"
+                  faceVerified ? "bg-green-500 hover:bg-green-700" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed"
                 } text-white font-sans py-1 rounded-full mb-2 w-40`}
               >
                 Unlock Door

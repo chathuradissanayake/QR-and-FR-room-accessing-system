@@ -11,6 +11,7 @@ const ContactUs = () => {
 
   // Initialize state with the logged-in user's userId
   const [data, setData] = useState({
+    registerId: '',
     message: '',
     userId: user?.userId || '', // Use the userId from context
   });
@@ -22,28 +23,29 @@ const ContactUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('message:', data.message);
-
-    // Destructuring data
-    const { message, userId } = data;
+    const { message, registerId } = data;
 
     try {
       const { data: response } = await axios.post('/contactus/messages', {
-        userId,
+        registerId: user.userId,
         message,
+        userId: user.userId,  // Correctly passing the logged-in user's userId
       });
-      if (response.error) {
-        toast.error(response.error);
-      } else {
+
+      if (response.success) {
         setData({
+          registerId: '',
           message: '',
           userId: user?.userId || '', // Reset userId after submission
         });
         toast.success('Message sent successfully');
         navigate('/');
+      } else {
+        toast.error(response.message);
       }
     } catch (error) {
       console.error(error);
+      toast.error('Error sending message.');
     }
   };
 
@@ -67,6 +69,7 @@ const ContactUs = () => {
           <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Contact Information</h2>
           <ul className="list-disc list-inside text-gray-600 mb-6 dark:text-slate-200 text-sm">
             <li><strong>Email:</strong> <a href="support@sltmobitel.com" className="text-blue-500 underline">support@sltmobitel.com</a></li>
+
             <li><strong>Phone:</strong> +94 11 32321313</li>
             <li><strong>Address:</strong> SLT Mobitel, Lotus Road, Colombo 1</li>
           </ul>
@@ -76,7 +79,6 @@ const ContactUs = () => {
             <strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM (PST)
             <br />
             <strong>Saturday:</strong> 10:00 AM - 12:00 PM (PST)
-            <br />
           </p>
 
           <h2 className="text-lg font-semibold text-gray-800 dark:text-slate-100 mb-3">Feedback</h2>
@@ -84,7 +86,7 @@ const ContactUs = () => {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+          <div>
               <label htmlFor="userId" className="sr-only">
                 User ID
               </label>
@@ -100,7 +102,6 @@ const ContactUs = () => {
                 readOnly // Prevent editing since it's automatically filled
               />
             </div>
-
             <div>
               <label htmlFor="message" className="sr-only">
                 Message

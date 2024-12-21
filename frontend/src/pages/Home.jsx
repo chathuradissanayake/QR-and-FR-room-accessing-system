@@ -19,20 +19,24 @@ const Home = () => {
     const options = { weekday: "long", day: "numeric", month: "long" };
     return date.toLocaleDateString("en-US", options);
   };
-
+  
   useEffect(() => {
-    const fetchLogs = async () => {
-      if (!user || !user.userId) {
-        setLoading(false);
-        return;
-      }
+    console.log("User context value:", user); // Debug: log the user object to verify
 
+    if (!user || !user.userId) {
+      console.warn("User or userId is not available."); // Debug: warn if userId is missing
+      setLoading(false);
+      return;
+    }
+
+    const fetchLogs = async () => {
       try {
+        console.log("Fetching logs for userId:", user.userId); // Debug: log userId being fetched
         const response = await axios.get(`/history/get-history?userId=${user.userId}`);
         const logData = response.data;
         setLogs(logData);
       } catch (error) {
-        console.error("Error fetching logs:", error);
+        console.error("Error fetching logs:", error); // Debug: log error details
       } finally {
         setLoading(false);
       }
@@ -73,7 +77,7 @@ const Home = () => {
             <img
               src={user?.profilePicture || avatar} // Fallback to default avatar
               alt="User Avatar"
-              className="w-16 h-16 rounded-full object-cover cursor-pointer"
+              className="w-12 h-12 rounded-full object-cover cursor-pointer"
               onClick={() => navigate("/profile")}
               onError={(e) => {
                 e.target.onerror = null; // Prevent infinite loop

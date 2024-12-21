@@ -25,13 +25,13 @@ const getContactUsByUser = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    // Validate userId
-    if (!userId) {
-      return res.status(400).json({ message: "User ID is required." });
+    // Validate objId
+    if (!userId || userId === "undefined") {
+      return res.status(400).json({ message: "Invalid or missing user objId." });
     }
 
-    // Query the database with userId (correct schema reference)
-    const contactUsData = await ContactUs.find({ 'user.userId': userId });
+    // Query the database with objId
+    const contactUsData = await ContactUs.find({ "user.objId": userId });
 
     // If no data is found, return 404
     if (!contactUsData || contactUsData.length === 0) {
@@ -40,11 +40,12 @@ const getContactUsByUser = async (req, res) => {
 
     res.status(200).json(contactUsData);
   } catch (error) {
-    console.error("Error fetching contact us data:", error);  // Log the error to console for debugging
+    console.error("Error fetching contact us data:", error);
     res.status(500).json({ message: "Server error while fetching data." });
   }
 };
 
 module.exports = {
-  postContactUs, getContactUsByUser,
+  postContactUs, 
+  getContactUsByUser,
 };

@@ -5,55 +5,59 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 
 export default function Notification() {
-  const { user } = useContext(UserContext); // Get logged-in user info
+  const { user } = useContext(UserContext); // Access user info from context
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);  // For error state
-  const [isUserReady, setIsUserReady] = useState(false); // Flag to manage user readiness
-  const [hasFetched, setHasFetched] = useState(false); // Flag to prevent refetch on component re-render
+  const [error, setError] = useState(null); // For error state
+  const [hasFetched, setHasFetched] = useState(false); // Prevent refetch on re-render
 
-  // Fetch logs based on userId
   useEffect(() => {
-    const fetchLogs = async () => {
-      if (!user || !user.userId || hasFetched) {
-        setLoading(false); // Stop loading if no user is logged in or data has already been fetched
-        setIsUserReady(true);   
-        return; 
-      }
+    if (user) {
+      console.log("User context value:", user); // Log the user object from context
+    }
 
-      setLoading(true); // Show loading spinner while fetching
+    if (!user || !user._id) {
+      setLoading(false);
+      return;
+    }
+
+    const fetchLogs = async () => {
+      if (hasFetched) return; // Prevent duplicate fetches
+      setLoading(true);
 
       try {
-        // Fetch logs using userId as part of the URL
-        const response = await axios.get(`/contactus/user/${user.userId}`);
+        console.log("Fetching logs for userId:", user._id); // Log user._id when fetching logs
+        const response = await axios.get(`/contactus/user/${user._id}`);
         const logData = response.data;
 
-        // Filter logs to show only those with non-null reply
-        const filteredLogs = logData.filter(
-          (log) => log.reply // Check that reply is not null or empty
-        );
+        // Log the user-related objId from ContactUs data for comparison
+        logData.forEach((log) => {
+          console.log(`ContactUs log objId (user reference): ${log.user.objId}`);
+        });
 
-        setLogs(filteredLogs.reverse()); 
-        setError(null);  
+        // Filter logs to show only those where user._id matches the log user.objId
+        const filteredLogs = logData.filter(
+          (log) => log.user.objId.toString() === user._id
+        );
+        console.log("Filtered logs based on matching objId:", filteredLogs);
+
+        setLogs(filteredLogs.reverse());
+        setError(null);
         setHasFetched(true);
       } catch (error) {
         console.error("Error fetching logs:", error);
         setError("Failed to fetch logs. Please try again.");
       } finally {
-        setLoading(false); 
-        setIsUserReady(true); 
+        setLoading(false);
       }
     };
 
-    fetchLogs(); 
-  }, [user, hasFetched]); 
-
-
+    fetchLogs();
+  }, [user, hasFetched]);
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-        <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
-
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600">
+      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
@@ -61,7 +65,6 @@ export default function Notification() {
           <span className="font-semibold">My Notifications</span>
         </div>
 
-        {/* Logs Section */}
         {loading ? (
           <div className="flex justify-center items-center min-h-screen">
             <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
@@ -76,7 +79,6 @@ export default function Notification() {
           </div>
         ) : (
           <div className="space-y-6">
-            {/* Loop through the logs */}
             {logs.map((log) => (
               <div
                 key={log._id}

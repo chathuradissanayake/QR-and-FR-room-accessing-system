@@ -32,14 +32,14 @@ export default function Notification() {
 
         // Log the user-related objId from ContactUs data for comparison
         logData.forEach((log) => {
-          console.log(`ContactUs log objId (user reference): ${log.user.objId}`);
+          console.log(`ContactUs log objId (user reference): ${log.user.objId}, Reply: ${log.reply}`);
         });
 
-        // Filter logs to show only those where user._id matches the log user.objId
+        // Filter logs to show only those where user._id matches the log user.objId and reply is not null
         const filteredLogs = logData.filter(
-          (log) => log.user.objId.toString() === user._id
+          (log) => log.user.objId.toString() === user._id && log.reply !== null
         );
-        console.log("Filtered logs based on matching objId:", filteredLogs);
+        console.log("Filtered logs based on matching objId and non-null reply:", filteredLogs);
 
         setLogs(filteredLogs.reverse());
         setError(null);
@@ -86,7 +86,7 @@ export default function Notification() {
                   log.userstatus === "unread"
                     ? "bg-blue-50 border-l-4 border-blue-500"
                     : "bg-gray-100"
-                } transition-all duration-300 transform hover:scale-105 hover:bg-gray-200`}
+                } transition-all duration-300 hover:bg-gray-200`}
               >
                 <p className="font-semibold text-lg text-gray-800">{log.message}</p>
                 <p className="text-gray-700 bg-blue-100 p-3 rounded-lg shadow-sm">

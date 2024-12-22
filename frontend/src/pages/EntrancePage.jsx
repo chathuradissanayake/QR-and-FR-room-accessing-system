@@ -1,7 +1,7 @@
-import axios from "axios";
-import mqtt from 'mqtt';
 import React, { useContext, useEffect, useState } from "react";
-import { toast } from 'react-hot-toast';
+import axios from "axios";
+import mqtt from "mqtt";
+import { toast } from "react-hot-toast";
 import { FaLock, FaQrcode } from "react-icons/fa";
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import FaceScanner from "../components/FaceScanner";
 import QRScanner from "../components/QRScanner";
 
 const EntrancePage = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext); // Access user from context
   const [doorCode, setDoorCode] = useState("");
   const [location, setlocation] = useState("");
   const [roomName, setroomName] = useState("");
@@ -19,13 +19,14 @@ const EntrancePage = () => {
   const [hasAccess, setHasAccess] = useState(false);
   const [showFaceScan, setShowFaceScan] = useState(false);
   const [faceVerified, setFaceVerified] = useState(false);
+  const [client, setClient] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const [scanEnabled, setScanEnabled] = useState(false);
 
   const navigate = useNavigate();
 
-  const [client, setClient] = useState(null);
-  const [isConnected, setIsConnected] = useState(false);
-
   useEffect(() => {
+    // Reset state on unmount
     return () => {
       setDoorCode("");
       setDoorName("");
@@ -38,31 +39,49 @@ const EntrancePage = () => {
     };
   }, []);
 
-
   useEffect(() => {
     // Set up MQTT connection
     const mqttClient = mqtt.connect(import.meta.env.VITE_MQTT_URL, {
       clientId: `mqttjs_${Math.random().toString(16).slice(2, 10)}`,
-  });
-
-    mqttClient.on('connect', () => {
-        console.log('Connected to MQTT broker');
-        setIsConnected(true);
     });
 
-    mqttClient.on('error', (err) => {
-        console.error('Connection error: ', err);
+    mqttClient.on("connect", () => {
+      console.log("Connected to MQTT broker");
+      setIsConnected(true);
+    });
+
+    mqttClient.on("error", (err) => {
+      console.error("Connection error: ", err);
     });
 
     setClient(mqttClient);
 
     // Cleanup on component unmount
     return () => {
-        if (mqttClient) {
-            mqttClient.end();
-        }
+      if (mqttClient) {
+        mqttClient.end();
+      }
     };
-}, []);
+  }, []);
+
+  useEffect(() => {
+    // Check inTime validity
+    if (user && user.doorAccess) {
+      const now = new Date();
+
+      const isValidAccess = user.doorAccess.some((access) => {
+        if (!access.inTime || !access.date) return false;
+
+        const accessDate = new Date(access.date);
+        const inTime = new Date(`${accessDate.toDateString()} ${access.inTime}`);
+
+        const diffMinutes = Math.abs((inTime - now) / (1000 * 60)); // Difference in minutes
+        return diffMinutes <= 30 && now.toDateString() === accessDate.toDateString(); // Within 30 minutes and same day
+      });
+
+      setScanEnabled(isValidAccess);
+    }
+  }, [user]);
 
   const handleScanSuccess = async (code) => {
     setDoorCode(code);
@@ -97,22 +116,21 @@ const EntrancePage = () => {
       toast.error("No door code available. Please scan a QR code first.");
       return;
     }
-    
 
     if (isConnected) {
-      const topic = 'door/access';
-      const message = JSON.stringify({ action: 'unlock' });
+      const topic = "door/access";
+      const message = JSON.stringify({ action: "unlock" });
       client.publish(topic, message, { qos: 0 }, (error) => {
-          if (error) {
-              console.error('Publish error: ', error);
-          } else {
-              console.log('Message published:', message);
-              navigate('/');
-          }
+        if (error) {
+          console.error("Publish error: ", error);
+        } else {
+          console.log("Message published:", message);
+          navigate("/");
+        }
       });
-  } else {
-      console.log('MQTT client is not connected');
-  }
+    } else {
+      console.log("MQTT client is not connected");
+    }
 
     const createdAt = new Date().toISOString();
 
@@ -146,12 +164,9 @@ const EntrancePage = () => {
     setScanning(true);
   };
 
-  
-
   return (
     <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-        <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
-
+      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
@@ -161,7 +176,7 @@ const EntrancePage = () => {
 
         {!showFaceScan ? (
           <>
-            <QRScanner scanning={scanning} onScanSuccess={handleScanSuccess} />
+            <QRScanner scanning={scanning} onScanSuccess={handleScanSuccess} className="w-full max-w-md p-8" />
 
             <div className="mt-4 mb-4 text-center">
               {doorCode && <p className="font-medium text-green-600">QR Code Scanned Successfully</p>}
@@ -176,9 +191,9 @@ const EntrancePage = () => {
             <div className="flex justify-center">
               <button
                 onClick={startScanning}
-                disabled={scanning}
+                disabled={!scanEnabled || scanning}
                 className={`${
-                  scanning ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
+                  scanning || !scanEnabled ? "bg-gray-300 dark:bg-slate-600 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
                 } text-white font-sans py-1 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
               >
                 <span>Scan QR</span>
@@ -191,10 +206,10 @@ const EntrancePage = () => {
                 onClick={() => setShowFaceScan(true)}
                 disabled={!hasAccess}
                 className={`${
-                  hasAccess ? "bg-blue-500  hover:bg-blue-700" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed"
+                  hasAccess ? "bg-blue-500 hover:bg-blue-700" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed"
                 } text-white font-sans py-1 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
               >
-                <span>Face Scan</span>
+                <span>Scan Face</span>
                 <FaLock className="mt-1" />
               </button>
             </div>

@@ -6,6 +6,7 @@ import { GoChevronLeft } from "react-icons/go";
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/userContext"; // Ensure UserContext is defined
 
+
 const ProfilePictureUpload = () => {
   const [preview, setPreview] = useState(null);
   const [image, setImage] = useState(null);
@@ -31,7 +32,7 @@ const ProfilePictureUpload = () => {
         },
         error: (err) => {
           console.error("Compression error:", err);
-          alert("Failed to compress the image.");
+          toast.error("Failed to compress the image.");
         },
       });
     }
@@ -41,7 +42,7 @@ const ProfilePictureUpload = () => {
 
   const handleUpload = async () => {
     if (!image) {
-      alert("Please select an image first.");
+      toast.error("Please select an image first.");
       return;
     }
 
@@ -55,7 +56,7 @@ const ProfilePictureUpload = () => {
       navigate('/profile');
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert("Failed to upload the image. Please try again.");
+      toast.error("Failed to upload the image. Please try again.");
     }
   };
 
@@ -64,11 +65,10 @@ const ProfilePictureUpload = () => {
   };
 
   return (
-  <div className="flex justify-center min-h-screen bg-gray-50">
-  <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
 
-  
-  <div className="title flex items-center space-x-2 mb-8">
+    <div className="title flex items-center space-x-2 mb-8 dark:text-white">
     
         <GoChevronLeft className="cursor-pointer" 
         onClick={handleBackNavigation}/>
@@ -81,7 +81,7 @@ const ProfilePictureUpload = () => {
     type="file"
     accept="image/*"
     onChange={handleImageChange}
-    className="my-8"
+    className="block text-gray-600 mb-1 dark:text-slate-200"
   />
   {preview && (
     <img
@@ -92,7 +92,7 @@ const ProfilePictureUpload = () => {
   )}
   <button
     onClick={handleUpload}
-    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mt-8"
   >
     Upload
   </button>

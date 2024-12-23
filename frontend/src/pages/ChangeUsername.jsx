@@ -39,11 +39,11 @@ const ChangeUsername = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
 
     
-    <div className="title flex items-center space-x-2 mb-8">
+    <div className="title flex items-center space-x-2 mb-8 dark:text-white">
     
         <GoChevronLeft className="cursor-pointer" 
         onClick={handleBackNavigation}/>
@@ -54,25 +54,25 @@ const ChangeUsername = () => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6 ml-4">
           <div>
-            <label htmlFor="firstName" className="block text-gray-500 mb-1">First Name</label>
+            <label htmlFor="firstName" className="block text-gray-500 mb-1 dark:text-slate-200">First Name</label>
             <input
               type="text"
               id="firstName"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-500 focus:outline-none"
               placeholder="Enter your first name"
               required
             />
           </div>
           <div>
-            <label htmlFor="lastName" className="block text-gray-600 mb-1">Last Name</label>
+            <label htmlFor="lastName" className="block text-gray-600 mb-1 dark:text-slate-200">Last Name</label>
             <input
               type="text"
               id="lastName"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-2 mt-1 border border-gray-300 rounded-xl focus:ring-1 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-500 focus:outline-none"
               placeholder="Enter your last name"
               required
             />

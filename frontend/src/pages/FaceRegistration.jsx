@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from 'react-router-dom';
-import {UserContext} from "../../context/userContext"
+import { UserContext } from "../../context/userContext";
 
 const FaceRegistration = () => {
     const {user} = useContext(UserContext) // Get logged-in user's information
@@ -98,10 +98,10 @@ const FaceRegistration = () => {
     };
 
     return (
-        <div className="flex justify-center min-h-screen bg-gray-50">
-            <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+        <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+        <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
 
-                <div className="title flex items-center space-x-2 mb-8">
+        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
                     <Link to="/profile">
                         <GoChevronLeft className="cursor-pointer" />
                     </Link>
@@ -110,23 +110,23 @@ const FaceRegistration = () => {
 
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="nic">User ID</label>
+                        <label htmlFor="nic" className="block text-gray-600 mb-1 dark:text-slate-200">User ID</label>
                         <input
                             type="text"
                             id="nic"
                             value={user.userId}
                             readOnly
-                            className="border rounded px-2 py-1 w-full bg-gray-100"
+                            className="border rounded px-2 py-1 w-full bg-gray-100  dark:bg-slate-700 dark:text-slate-100"
                         />
                     </div>
                     <div className="mt-4">
-                        <label htmlFor="loc">Role</label>
+                        <label htmlFor="loc" className="block text-gray-600 mb-1 dark:text-slate-200">Role</label>
                         <select
                             id="loc"
                             value={loc}
                             onChange={handleLocChange}
                             required
-                            className="border rounded mb-6 px-2 py-1 w-full"
+                            className="border rounded mb-6 px-2 py-1 w-full  dark:bg-slate-700 dark:text-slate-100"
                         >
                             <option value="" disabled>
                                 Select Role
@@ -137,7 +137,7 @@ const FaceRegistration = () => {
                     </div>
 
                     <div className="my-4">
-                        <div className="relative w-full h-80 bg-gray-200 rounded">
+                        <div className="relative w-full h-80 bg-gray-200 dark:bg-slate-600 rounded">
                             {imagePreview ? (
                                 <img
                                     src={imagePreview}

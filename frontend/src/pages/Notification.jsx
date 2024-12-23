@@ -78,21 +78,37 @@ export default function Notification() {
             <p className="text-gray-500">No notifications available.</p>
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-3">
             {logs.map((log) => (
               <div
                 key={log._id}
-                className={`p-5 rounded-lg shadow-md space-y-3 ${
+                className={`p-5 rounded-lg shadow-md space-y-4 transition-all duration-300 ${
                   log.userstatus === "unread"
-                    ? "bg-blue-50 border-l-4 border-blue-500"
-                    : "bg-gray-100"
-                } transition-all duration-300 hover:bg-gray-200`}
+                    ? "bg-blue-50 dark:bg-slate-900 border-l-4 border-blue-500"
+                    : "bg-gray-100 dark:bg-slate-700"
+                } hover:bg-gray-200`}
               >
-                <p className="font-semibold text-lg text-gray-800">{log.message}</p>
-                <p className="text-gray-700 bg-blue-100 p-3 rounded-lg shadow-sm">
-                  Admin: {log.reply}
-                </p>
-                <p className="text-sm text-gray-500 pl-1">
+                <h2 className="text-lg font-bold text-slate-700 dark:text-slate-300">
+                  Admin Response
+                </h2>
+                <div className="space-y-2">
+                  {/* Message Section */}
+                  <div className="bg-gray-50 dark:bg-slate-800 p-4 rounded-md">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      <span className="font-medium text-slate-700 dark:text-slate-200">Message:</span> {log.message}
+                    </p>
+                  </div>
+
+                  {/* Reply Section */}
+                  <div className="bg-blue-100 dark:bg-slate-500 p-4 rounded-md">
+                    <p className="text-sm text-slate-700 dark:text-slate-200">
+                      <span className="font-medium">Reply:</span> {log.reply}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Timestamp */}
+                <p className="text-sm text-right text-gray-500 dark:text-gray-400">
                   {new Date(log.updatedAt).toLocaleString("en-IN", {
                     timeZone: "Asia/Kolkata",
                     hour12: true,
@@ -106,6 +122,7 @@ export default function Notification() {
               </div>
             ))}
           </div>
+
         )}
       </div>
     </div>

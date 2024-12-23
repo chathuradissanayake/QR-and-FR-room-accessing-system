@@ -165,19 +165,23 @@ const AskPermission = () => {
             </div>
 
             <div>
-              <label htmlFor="date" className="block text-sm text-gray-400 ml-3">
-                Date
-              </label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                value={data.date}
-                onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${data.date === '' ? 'text-gray-400' : 'text-black'}`}
-                required
-              />
-            </div>
+            <label htmlFor="date" className="block text-sm text-gray-400 ml-3">
+              Date
+            </label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={data.date}
+              onChange={handleChange}
+              min={new Date().toISOString().split("T")[0]} // Restricts date to today or later
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
+                data.date === '' ? 'text-gray-400' : 'text-black'
+              }`}
+              required
+            />
+          </div>
+
 
             <div>
               <label htmlFor="inTime" className="block text-sm text-gray-400 ml-3">

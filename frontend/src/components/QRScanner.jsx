@@ -25,14 +25,25 @@ const QRScanner = ({ scanning, onScanSuccess }) => {
   };
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md p-8">
       {scanning && (
-        <QrReader
-          onResult={handleResult}
-          constraints={{ facingMode: 'environment' }} // Use rear camera if available
-          style={{ width: '100%' }}
-          className="rounded-lg shadow-lg"
-        />
+        <>
+          <h3 className="text-2xl font-bold text-red-600 bg-yellow-100 p-4 border-l-4 border-red-600 rounded shadow-md mb-4">
+            Please Scan the QR code...
+          </h3>
+
+          {/* Wrapper to enforce 1:1 aspect ratio */}
+          <div className="relative w-full pt-[100%] bg-gray-200 rounded overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full">
+              <QrReader
+                onResult={handleResult}
+                constraints={{ facingMode: 'environment' }} // Use rear camera if available
+                className="absolute inset-0 w-full h-full object-cover transform scale-150"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

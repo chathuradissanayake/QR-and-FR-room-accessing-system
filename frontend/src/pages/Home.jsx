@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import { FaBell } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import avatar from "../assets/avatar.png"; // Default avatar image
@@ -71,7 +72,7 @@ const Home = () => {
             <div className="relative">
               <button
                 onClick={() => navigate("/notification")}
-                className="text-gray-600 dark:text-slate-300 text-2xl">🔔
+                className="text-yellow-400 text-3xl mt-1  "><FaBell />
               </button>
             </div>
             <img

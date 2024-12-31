@@ -1,5 +1,5 @@
-import React from 'react';
 import axios from 'axios';
+import React from 'react';
 import { toast } from 'react-hot-toast';
 
 const PendingPermissionCard = ({ permission, onDelete }) => {
@@ -17,12 +17,12 @@ const PendingPermissionCard = ({ permission, onDelete }) => {
   };
 
   return (
-    <div className="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-lg">
+    <div className="max-w-sm p-4 bg-white border dark:bg-slate-700 border-gray-200 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">{permission.door.roomName}</h2>
-        <span className="text-gray-500 font-bold">{permission.door ? permission.door.doorCode : "N/A"}</span>
+        <h2 className="text-lg font-semibold dark:text-white">{permission.door.roomName}</h2>
+        <span className="font-bold dark:text-white">{permission.door ? permission.door.doorCode : "N/A"}</span>
       </div>
-      <div className="space-y-2 text-gray-600">
+      <div className="space-y-2 text-gray-600 dark:text-slate-200">
         <div className="flex justify-between">
           <span>Door</span>
           <span className="text-blue-500">{permission.door ? permission.door.roomName : "N/A"}</span>
@@ -33,19 +33,19 @@ const PendingPermissionCard = ({ permission, onDelete }) => {
         </div>
         <div className="flex justify-between">
           <span>In Time</span>
-          <span className="font-medium text-gray-800">{permission.inTime}</span>
+          <span className="font-medium text-gray-800 dark:text-slate-200">{permission.inTime}</span>
         </div>
         <div className="flex justify-between">
           <span>Out Time</span>
-          <span className="font-medium text-gray-800">{permission.outTime}</span>
+          <span className="font-medium text-gray-800 dark:text-slate-200">{permission.outTime}</span>
         </div>
         <div className="flex justify-between">
           <span>Date</span>
-          <span className="font-medium text-gray-800">{new Date(permission.date).toLocaleDateString()}</span>
+          <span className="font-medium text-gray-800 dark:text-slate-200">{new Date(permission.date).toLocaleDateString()}</span>
         </div>
         <div>
-          <span className="block text-sm font-medium text-gray-600 mb-2">Message</span>
-          <span className="block mt-2 font-medium text-gray-500  px-2 py-1 rounded border border-gray">
+          <span className="block text-sm font-medium text-gray-600 dark:text-slate-200 mb-2">Message</span>
+          <span className="block mt-2 font-mono bg-gray-200 dark:bg-slate-600 rounded-lg text-slate-600 dark:text-slate-200  px-2 py-1  ">
             {permission.message}
           </span>
         </div>

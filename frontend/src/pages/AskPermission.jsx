@@ -93,9 +93,9 @@ const AskPermission = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 ">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
-        <div className="title flex items-center space-x-2 mb-8">
+    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
           </Link>
@@ -115,7 +115,7 @@ const AskPermission = () => {
                 placeholder="User Name"
                 value={data.name}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
                 readOnly
               />
@@ -130,18 +130,23 @@ const AskPermission = () => {
                 name="door"
                 value={data.door}
                 onChange={handleDoorChange}
-                className={`flex w-full px-4 py-2  border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${data.door === '' ? 'text-gray-400' : 'text-black'}`}
+                className={`flex w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
+                  data.door === '' ? 'text-gray-400' : 'text-black'
+                }`}
                 required
               >
-                <option disabled value="">Select the Door</option>
+                <option disabled value="">
+                  Select the Door
+                </option>
                 {doors
-                .sort((a, b) => a.doorCode.localeCompare(b.doorCode))  // Sort alphabetically by doorCode
-                .map((door) => (
-                  <option key={door._id} value={door._id}>
-                    {door.doorCode} &nbsp; {door.roomName} 
-                  </option>
-                ))}
-              </select>
+                  .filter((door) => door.status === 'Active') // Only include doors with "Active" status
+                  .sort((a, b) => a.doorCode.localeCompare(b.doorCode)) // Sort alphabetically by doorCode
+                  .map((door) => (
+                    <option key={door._id} value={door._id}>
+                      {door.doorCode} &nbsp; {door.roomName}
+                    </option>
+                  ))}
+              </select>                                                 
             </div>
 
             <div>
@@ -155,24 +160,28 @@ const AskPermission = () => {
                 value={data.roomName}
                 placeholder='Location'
                 readOnly
-                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center  bg-blue-100"
+                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"
               />
             </div>
 
             <div>
-              <label htmlFor="date" className="block text-sm text-gray-400 ml-3">
-                Date
-              </label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                value={data.date}
-                onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${data.date === '' ? 'text-gray-400' : 'text-black'}`}
-                required
-              />
-            </div>
+            <label htmlFor="date" className="block text-sm text-gray-400 ml-3">
+              Date
+            </label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={data.date}
+              onChange={handleChange}
+              min={new Date().toISOString().split("T")[0]} // Restricts date to today or later
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
+                data.date === '' ? 'text-gray-400' : 'text-black'
+              }`}
+              required
+            />
+          </div>
+
 
             <div>
               <label htmlFor="inTime" className="block text-sm text-gray-400 ml-3">
@@ -184,7 +193,7 @@ const AskPermission = () => {
                 name="inTime"
                 value={data.inTime}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />
             </div>
@@ -199,7 +208,7 @@ const AskPermission = () => {
                 name="outTime"
                 value={data.outTime}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />
             </div>
@@ -216,7 +225,7 @@ const AskPermission = () => {
                 value={data.message}
                 onChange={handleChange}
                 rows="3"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-700 dark:text-slate-100"
                 required
               />
             </div>

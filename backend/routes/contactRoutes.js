@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { postContactUs } = require('../controllers/contactController');
-const { getContactUsByUserId, updateUserStatus } = require('../controllers/contactController');
+const { postContactUs, getContactUsByUser } = require('../controllers/contactController');
 
-// post message
+// Post message
 router.post('/messages', postContactUs);
-// get message
-router.get('/user/:userId', getContactUsByUserId);
-router.put('/userstatus/:logId', updateUserStatus);
+
+// Get messages by userId
+router.get('/user/:userId', getContactUsByUser);
 
 module.exports = router;

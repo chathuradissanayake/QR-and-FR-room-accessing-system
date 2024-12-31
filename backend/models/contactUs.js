@@ -2,17 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const contactUsSchema = new Schema({ 
-  registerId: {
-    type: String,
-  },
   message: {
     type: String,
     required: true,
   },
-  // heading: { 
-  //   type: String, 
-  //   default: null 
-  // },
   reply: { 
     type: String, 
     default: null 
@@ -28,13 +21,14 @@ const contactUsSchema = new Schema({
     default: 'null' 
   },
   user: {
-    userId: { 
+    objId: { 
       type: Schema.Types.ObjectId, 
-      ref: 'User', required: true 
+      ref: 'User', 
+      required: true 
     },
+    userId: { type: String },  // ensure this matches the frontend data
   },
-}, { timestamps: { createdAt: true, updatedAt: true } }); // Only createdAt, no updatedAt
+}, { timestamps: { createdAt: true, updatedAt: true } });
 
 const contactUsModel = mongoose.model('ContactUs', contactUsSchema);
-
 module.exports = contactUsModel;

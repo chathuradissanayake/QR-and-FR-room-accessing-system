@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import logo from "../assets/logo.png";
-import { FaEnvelope, FaLock } from 'react-icons/fa'; // Import icons from react-icons
+import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { UserContext } from '../../context/userContext';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -23,8 +25,9 @@ const SignIn = () => {
         return toast.error(data.error);
       } else {
         toast.success('Logged in successfully');
-        localStorage.setItem('token', data.token); 
-        navigate('/'); 
+        localStorage.setItem('token', data.token); // Store the token in local storage
+        setUser(data.user); // Set the user context
+        navigate('/'); // Navigate to the home page
       }
     } catch (error) {
       console.log(error);

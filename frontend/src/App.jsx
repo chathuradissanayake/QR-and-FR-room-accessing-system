@@ -49,9 +49,9 @@ const ScrollToTop = () => {
 
 function App() {
   return (
-    <UserContextProvider>
-      <ThemeProvider>
-        <Router>
+    <ThemeProvider>
+      <Router>
+        <UserContextProvider>
           <ScrollToTop />
           <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
           <Routes>
@@ -214,9 +214,9 @@ function App() {
               }
             />
           </Routes>
-        </Router>
-      </ThemeProvider>
-    </UserContextProvider>
+        </UserContextProvider>
+      </Router>
+    </ThemeProvider>
   );
 }
 

@@ -23,12 +23,13 @@ const SignIn = () => {
 
       if (data.error) {
         return toast.error(data.error);
-      } else {
+      } else if (data.token) {
         toast.success('Logged in successfully');
         localStorage.setItem('token', data.token); // Store the token in local storage
         setUser(data.user); // Set the user context
-        navigate('/'); 
-        window.location.reload(); // Refresh the browser
+        navigate('/'); // Navigate to the home page
+      } else {
+        toast.error('Login failed. No token received.');
       }
     } catch (error) {
       console.log(error);

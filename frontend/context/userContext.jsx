@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode'; 
 
 // Create the context
 export const UserContext = createContext();
@@ -8,26 +10,40 @@ export const UserContext = createContext();
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const { data } = await axios.get('/profile', {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          setUser(data);
+          const decodedToken = jwtDecode(token);
+          const currentTime = Date.now() / 1000;
+
+          if (decodedToken.exp < currentTime) {
+            // Token is expired
+            localStorage.removeItem('token');
+            setUser(null);
+            navigate('/signin');
+          } else {
+            const { data } = await axios.get('/profile', {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            setUser(data);
+          }
         } catch (error) {
           console.log('Error fetching user:', error);
           setUser(null);
+          navigate('/signin');
         }
+      } else {
+        navigate('/signin');
       }
       setLoading(false);
     };
 
     fetchUser();
-  }, []);
+  }, [navigate]);
 
   return (
     <UserContext.Provider value={{ user, setUser, loading }}>

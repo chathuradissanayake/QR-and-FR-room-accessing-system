@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.svg";
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { UserContext } from '../../context/userContext';
 
@@ -27,7 +27,8 @@ const SignIn = () => {
         toast.success('Logged in successfully');
         localStorage.setItem('token', data.token); // Store the token in local storage
         setUser(data.user); // Set the user context
-        navigate('/'); // Navigate to the home page
+        navigate('/'); 
+        window.location.reload(); // Refresh the browser
       }
     } catch (error) {
       console.log(error);

@@ -2,7 +2,7 @@ import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 
 const DeniedPermissionCard = ({ permission }) => {
-  const { roomName, door, inTime, outTime, date, message } = permission;
+  const { roomName,location, door, inTime, outTime, date } = permission;
 
   return (
     <div className="max-w-sm p-4 bg-white dark:bg-slate-700 border border-gray-200 rounded-lg shadow-lg">
@@ -12,12 +12,12 @@ const DeniedPermissionCard = ({ permission }) => {
       </div>
       <div className="space-y-2 text-gray-600 dark:text-slate-200">
         <div className="flex justify-between">
-          <span>Door</span>
-          <span className="text-blue-500">{door ? door.roomName : "N/A"}</span>
+          <span>Room</span>
+          <span className="text-blue-500">{roomName }</span>
         </div>
         <div className="flex justify-between">
           <span>Location</span>
-          <span className="text-blue-500">{roomName}</span>
+          <span className="text-blue-500">{location}</span>
         </div>
         <div className="flex justify-between">
           <span>In Time</span>
@@ -31,13 +31,7 @@ const DeniedPermissionCard = ({ permission }) => {
           <span>Date</span>
           <span className="font-medium text-gray-800 dark:text-slate-200">{new Date(date).toLocaleDateString()}</span>
         </div>
-        <div className="flex justify-between">
-          <span>Message</span>
-          <span className="block mt-2 font-mono bg-gray-200 dark:bg-slate-600 rounded-lg text-slate-600 dark:text-slate-200  px-2 py-1  ">
-            {message}
-          </span>
         </div>
-      </div>
       <div className="flex items-center space-x-3 mt-4">
         <FaUserCircle className="text-purple-600 text-2xl" />
         <div className="ml-auto">

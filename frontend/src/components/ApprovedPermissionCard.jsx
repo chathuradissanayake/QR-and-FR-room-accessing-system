@@ -30,10 +30,10 @@ const ApprovedPermissionCard = ({ permission }) => {
           <span>Date</span>
           <span className="font-medium text-gray-800 dark:text-slate-200">{new Date(date).toLocaleDateString()}</span>
         </div>
-        <div className="flex justify-between">
-          <span>Message</span>
+        <div >
+          <span className="block text-sm font-medium text-gray-600 dark:text-slate-200 mb-2">Message</span>
           <span 
-  className="block mt-2 font-mono bg-gray-200 dark:bg-slate-600 rounded-lg text-slate-600 dark:text-slate-200  px-2 py-1  "
+  className="block mt-2 font-mono bg-gray-200 dark:bg-slate-600 rounded-lg text-slate-600 dark:text-slate-200  px-2 py-1"
 >
   {message}
 </span>

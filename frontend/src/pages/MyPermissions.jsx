@@ -25,6 +25,7 @@ const MyPermissions = () => {
         });
         if (response.status === 200) {
           setPermissions(response.data);
+          console.log("Permissions:", response.data);
         } else {
           setError("Failed to fetch permissions. Please try again later.");
         }

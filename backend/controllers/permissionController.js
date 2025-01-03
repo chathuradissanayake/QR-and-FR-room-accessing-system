@@ -4,7 +4,7 @@ const User = require('../models/user');
 // Create a new permission request
 const createPermissionRequest = async (req, res) => {
   try {
-    const { door, name, roomName, inTime, outTime, date, message } = req.body;
+    const { door, name, roomName, location, inTime, outTime, date, message } = req.body;
     const userId = req.user._id; // Use the user._id from the request object
 
     // Fetch the user object from the database
@@ -19,6 +19,7 @@ const createPermissionRequest = async (req, res) => {
       door,
       name,
       roomName,
+      location,
       inTime,
       outTime,
       date,

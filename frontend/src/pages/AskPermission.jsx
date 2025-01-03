@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/userContext";
 
 const AskPermission = () => {
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [data, setData] = useState({
     name: `${user?.firstName || ''} ${user?.lastName || ''}`.trim(),
     roomName: '',
@@ -18,12 +18,13 @@ const AskPermission = () => {
   });
   const [doors, setDoors] = useState([]);
   const navigate = useNavigate();
-  
 
   useEffect(() => {
     const fetchDoors = async () => {
       try {
+        const token = localStorage.getItem('token');
         const response = await axios.get('/door/doors', {
+          headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
         setDoors(response.data);
@@ -60,6 +61,7 @@ const AskPermission = () => {
     const { name, roomName, door, date, inTime, outTime, message } = data;
 
     try {
+      const token = localStorage.getItem('token');
       const { data: response } = await axios.post('/permission/ask-permission', {
         name,
         roomName,
@@ -69,6 +71,7 @@ const AskPermission = () => {
         outTime,
         message,
       }, {
+        headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
       if (response.error) {
@@ -94,7 +97,7 @@ const AskPermission = () => {
 
   return (
     <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
@@ -165,23 +168,22 @@ const AskPermission = () => {
             </div>
 
             <div>
-            <label htmlFor="date" className="block text-sm text-gray-400 ml-3">
-              Date
-            </label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={data.date}
-              onChange={handleChange}
-              min={new Date().toISOString().split("T")[0]} // Restricts date to today or later
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
-                data.date === '' ? 'text-gray-400' : 'text-black'
-              }`}
-              required
-            />
-          </div>
-
+              <label htmlFor="date" className="block text-sm text-gray-400 ml-3">
+                Date
+              </label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                value={data.date}
+                onChange={handleChange}
+                min={new Date().toISOString().split("T")[0]} // Restricts date to today or later
+                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
+                  data.date === '' ? 'text-gray-400' : 'text-black'
+                }`}
+                required
+              />
+            </div>
 
             <div>
               <label htmlFor="inTime" className="block text-sm text-gray-400 ml-3">

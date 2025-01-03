@@ -22,6 +22,10 @@ const permissionRequestSchema = new Schema(
       type: String,
       required: true,
     },
+    location: {
+      type: String,
+      required: true,
+    },
     roomName: {
       type: String,
       required: true,

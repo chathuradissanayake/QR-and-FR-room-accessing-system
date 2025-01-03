@@ -45,12 +45,12 @@ const SignIn = () => {
           <img
             src={logo}
             alt="Logo"
-            className="h-12"
+            className="h-48"
           />
         </div>
         
         {/* Title */}
-        <h2 className="text-3xl font-bold mb-6 text-center">LOG IN</h2>
+        <h2 className="text-3xl text-gray-700 font-bold mb-6 text-center">LOG IN</h2>
         
         {/* Form */}
         <form onSubmit={handleSubmit}>
@@ -86,12 +86,6 @@ const SignIn = () => {
             </div>
           </div>
 
-          {/* Forgot Password Link */}
-          <div className="flex justify-between items-center mb-6">
-            <span className="text-gray-600">Forgot Password?</span>
-            {/* <a href="/forgot-password" className="text-blue-600 hover:underline">Click Here</a> */}
-          </div>
-
           {/* Submit Button */}
           <button
             type="submit"
@@ -102,12 +96,12 @@ const SignIn = () => {
         </form>
 
         {/* Footer */}
-        {/* <div className="text-center mt-6 text-sm text-gray-600">
+        <div className="text-center mt-6 text-sm text-gray-600">
           Having trouble logging in?{" "}
           <a href="/contact" className="text-blue-600 hover:underline">
             Contact us!
           </a>
-        </div> */}
+        </div>
       </div>
     </div>
   );

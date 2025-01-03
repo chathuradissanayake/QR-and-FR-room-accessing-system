@@ -9,6 +9,7 @@ const AskPermission = () => {
   const { user } = useContext(UserContext);
   const [data, setData] = useState({
     name: `${user?.firstName || ''} ${user?.lastName || ''}`.trim(),
+    location: '',
     roomName: '',
     door: '',
     date: '',
@@ -28,6 +29,7 @@ const AskPermission = () => {
           withCredentials: true,
         });
         setDoors(response.data);
+        console.log('Doors:', response.data);
       } catch (error) {
         console.error('Error fetching doors:', error);
         toast.error('Error fetching doors');
@@ -43,13 +45,19 @@ const AskPermission = () => {
 
   const handleDoorChange = (e) => {
     const selectedDoor = doors.find(door => door._id === e.target.value);
-    setData({ ...data, door: e.target.value, roomName: selectedDoor ? selectedDoor.location : '' });
+    setData({ 
+      ...data, 
+      door: e.target.value, 
+      roomName: selectedDoor ? selectedDoor.roomName : '', 
+      location: selectedDoor ? selectedDoor.location : '' 
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log('Name:', data.name);
+    console.log('location:', data.location);
     console.log('roomName:', data.roomName);
     console.log('door:', data.door);
     console.log('date:', data.date);
@@ -58,12 +66,13 @@ const AskPermission = () => {
     console.log('message:', data.message);
 
     // Destructuring data
-    const { name, roomName, door, date, inTime, outTime, message } = data;
+    const { name, roomName, door, location, date, inTime, outTime, message } = data;
 
     try {
       const token = localStorage.getItem('token');
       const { data: response } = await axios.post('/permission/ask-permission', {
         name,
+        location,
         roomName,
         door,
         date,
@@ -79,6 +88,7 @@ const AskPermission = () => {
       } else {
         setData({
           name: `${user?.firstName || ''} ${user?.lastName || ''}`.trim(),
+          location: '',
           roomName: '',
           door: '',
           date: '',
@@ -161,6 +171,21 @@ const AskPermission = () => {
                 id="roomName"
                 name="roomName"
                 value={data.roomName}
+                placeholder='Room Name'
+                readOnly
+                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="location" className="sr-only">
+                Location
+              </label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                value={data.location}
                 placeholder='Location'
                 readOnly
                 className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"

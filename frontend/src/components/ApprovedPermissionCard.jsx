@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ApprovedPermissionCard = ({ permission }) => {
-  const { roomName, door, inTime, outTime, date, message } = permission;
+  const {roomName, location, door, inTime, outTime, date, message } = permission;
 
   return (
     <div className="p-4 bg-white dark:bg-slate-700 rounded-lg shadow-md">
@@ -11,12 +11,12 @@ const ApprovedPermissionCard = ({ permission }) => {
       </div>
       <div className="space-y-2 text-gray-600 dark:text-slate-200">
         <div className="flex justify-between">
-          <span>Door</span>
-          <span className="text-blue-500 dark:text-blue-400">{door ? door.roomName : "N/A"}</span>
+          <span>Room</span>
+          <span className=" text-gray-800 dark:text-slate-200">{roomName}</span>
         </div>
         <div className="flex justify-between">
           <span>Location</span>
-          <span className="text-blue-500 dark:text-blue-400">{roomName}</span>
+          <span className=" text-gray-800 dark:text-slate-200">{location}</span>
         </div>
         <div className="flex justify-between">
           <span>In Time</span>

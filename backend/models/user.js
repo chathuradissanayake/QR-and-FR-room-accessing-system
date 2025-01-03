@@ -7,6 +7,7 @@ const userSchema = new Schema({
   userId: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  company: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
   profilePicture: { type: String, default: "null" },
   doorAccess: [{
     door: { type: Schema.Types.ObjectId, ref: 'Door' },

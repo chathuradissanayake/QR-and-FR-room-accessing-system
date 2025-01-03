@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import logo from "../assets/logo.png";
-import { FaEnvelope, FaLock } from 'react-icons/fa'; // Import icons from react-icons
+import logo from "../assets/logo.svg";
+import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { UserContext } from '../../context/userContext';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,10 +23,13 @@ const SignIn = () => {
 
       if (data.error) {
         return toast.error(data.error);
-      } else {
+      } else if (data.token) {
         toast.success('Logged in successfully');
-        localStorage.setItem('token', data.token); 
-        navigate('/'); 
+        localStorage.setItem('token', data.token); // Store the token in local storage
+        setUser(data.user); // Set the user context
+        navigate('/'); // Navigate to the home page
+      } else {
+        toast.error('Login failed. No token received.');
       }
     } catch (error) {
       console.log(error);
@@ -40,12 +45,12 @@ const SignIn = () => {
           <img
             src={logo}
             alt="Logo"
-            className="h-12"
+            className="h-48"
           />
         </div>
         
         {/* Title */}
-        <h2 className="text-3xl font-bold mb-6 text-center">LOG IN</h2>
+        <h2 className="text-3xl text-gray-700 font-bold mb-6 text-center">LOG IN</h2>
         
         {/* Form */}
         <form onSubmit={handleSubmit}>
@@ -79,12 +84,6 @@ const SignIn = () => {
                 required
               />
             </div>
-          </div>
-
-          {/* Forgot Password Link */}
-          <div className="flex justify-between items-center mb-6">
-            <span className="text-gray-600">Forgot Password?</span>
-            <a href="/forgot-password" className="text-blue-600 hover:underline">Click Here</a>
           </div>
 
           {/* Submit Button */}

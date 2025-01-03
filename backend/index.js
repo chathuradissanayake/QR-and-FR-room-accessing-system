@@ -16,6 +16,7 @@ require('./models/door');
 require('./models/permissionRequest');
 require('./models/contactUs');
 require('./models/History'); 
+require('./models/company')
 
 // middleware
 app.use(express.json());

@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoChevronLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.svg";
 
 const AboutUs = () => {
     const navigate = useNavigate();

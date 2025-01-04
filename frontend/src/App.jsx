@@ -1,12 +1,11 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Toaster } from "react-hot-toast";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { ThemeProvider } from "../context/ThemeContext"; // Import the ThemeProvider
+import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
+import { ThemeProvider } from "../context/ThemeContext"; 
 import { UserContextProvider } from "../context/userContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// Import all your pages
 import AboutUs from "./pages/AboutUs";
 import AppInfo from "./pages/AppInfo";
 import AskPermission from "./pages/AskPermission";
@@ -21,6 +20,7 @@ import Languages from "./pages/Languages";
 import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
+import Notification from "./pages/Notification";
 import Profile from "./pages/Profile";
 import ProfilePictureUpload from "./pages/ProfilePictureUpload";
 import ResetPassword from "./pages/ResetPassword";
@@ -29,16 +29,30 @@ import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 import ThemeToggle from "./pages/Themetoggle";
 import TypeCode from "./pages/TypeCode";
-import Notification from "./pages/Notification";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  const prevPathname = useRef(pathname);
+
+  useEffect(() => {
+    if (prevPathname.current !== pathname) {
+      prevPathname.current = pathname;
+      window.location.reload();
+    }
+  }, [pathname]);
+
+  return null;
+};
+
 function App() {
   return (
-    <UserContextProvider>
-      <ThemeProvider>
-        <Router>
+    <ThemeProvider>
+      <Router>
+        <UserContextProvider>
+          
           <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
           <Routes>
             <Route path="/signin" element={<SignIn />} />
@@ -79,11 +93,11 @@ function App() {
               }
             />
 
-          <Route
+            <Route
               path="/theme"
               element={
                 <ProtectedRoute>
-                  < ThemeToggle/>
+                  <ThemeToggle />
                 </ProtectedRoute>
               }
             />
@@ -184,7 +198,6 @@ function App() {
               }
             />
             <Route
-
               path="/notification"
               element={
                 <ProtectedRoute>
@@ -200,11 +213,10 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
           </Routes>
-        </Router>
-      </ThemeProvider>
-    </UserContextProvider>
+        </UserContextProvider>
+      </Router>
+    </ThemeProvider>
   );
 }
 

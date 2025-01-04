@@ -20,6 +20,7 @@ import Languages from "./pages/Languages";
 import MarkLeave from "./pages/MarkLeave";
 import MyLogbook from "./pages/MyLogbook";
 import MyPermissions from "./pages/MyPermissions";
+import Notification from "./pages/Notification";
 import Profile from "./pages/Profile";
 import ProfilePictureUpload from "./pages/ProfilePictureUpload";
 import ResetPassword from "./pages/ResetPassword";
@@ -28,7 +29,6 @@ import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
 import ThemeToggle from "./pages/Themetoggle";
 import TypeCode from "./pages/TypeCode";
-import Notification from "./pages/Notification";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
@@ -52,7 +52,7 @@ function App() {
     <ThemeProvider>
       <Router>
         <UserContextProvider>
-          <ScrollToTop />
+          
           <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
           <Routes>
             <Route path="/signin" element={<SignIn />} />

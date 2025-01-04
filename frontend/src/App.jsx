@@ -52,7 +52,7 @@ function App() {
     <ThemeProvider>
       <Router>
         <UserContextProvider>
-          <ScrollToTop />
+          
           <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
           <Routes>
             <Route path="/signin" element={<SignIn />} />

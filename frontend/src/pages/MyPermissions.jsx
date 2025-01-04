@@ -1,13 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Toaster } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from 'react-router-dom';
 import ApprovedPermissionCard from "../components/ApprovedPermissionCard";
 import DeniedPermissionCard from "../components/DeniedPermissionCard";
 import PendingPermissionCard from "../components/PendingPermissionCard";
+import { UserContext } from "../../context/userContext";
 
 const MyPermissions = () => {
+  const { user } = useContext(UserContext);
   const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,11 +18,14 @@ const MyPermissions = () => {
   useEffect(() => {
     const fetchPermissions = async () => {
       try {
+        const token = localStorage.getItem('token');
         const response = await axios.get("/permission/my-requests", {
+          headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
         if (response.status === 200) {
           setPermissions(response.data);
+          console.log("Permissions:", response.data);
         } else {
           setError("Failed to fetch permissions. Please try again later.");
         }

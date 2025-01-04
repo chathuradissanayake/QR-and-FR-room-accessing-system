@@ -1,23 +1,25 @@
 const PermissionRequest = require('../models/permissionRequest');
-const User = require('../models/user'); // Ensure you have the User model
+const User = require('../models/user'); 
 
 // Create a new permission request
 const createPermissionRequest = async (req, res) => {
   try {
-    const { door, name, roomName, inTime, outTime, date, message } = req.body;
+    const { door, name, roomName, location, inTime, outTime, date, message } = req.body;
     const userId = req.user._id; // Use the user._id from the request object
 
     // Fetch the user object from the database
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate('company'); // Ensure company is populated
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
     const newRequest = new PermissionRequest({
       user: userId,
+      company: user.company._id, // Include the company ID from the user object
       door,
       name,
       roomName,
+      location,
       inTime,
       outTime,
       date,
@@ -36,6 +38,7 @@ const createPermissionRequest = async (req, res) => {
     res.status(500).json({ error: 'Error creating permission request' });
   }
 };
+
 
 // Get all permission requests for the logged-in user
 const getUserPermissionRequests = async (req, res) => {

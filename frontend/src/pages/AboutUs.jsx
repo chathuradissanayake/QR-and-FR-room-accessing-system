@@ -26,7 +26,7 @@ const AboutUs = () => {
           <img
             src={logo} // Replace with your logo's URL
             alt="Logo"
-            className="h-22"
+            className="h-40"
           />
         </div>
 

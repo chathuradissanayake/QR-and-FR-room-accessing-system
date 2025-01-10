@@ -24,7 +24,7 @@ const ContactUs = () => {
     const { message } = data;
 
     try {
-      const { data: response } = await axios.post('/contactus/messages', {
+      const { data: response } = await axios.post('/api/contactus/messages', {
         message,
         user: {
           objId: user._id, // Passing the logged-in user's ObjectId

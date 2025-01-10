@@ -22,7 +22,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const { data } = await axios.put('/user/reset-password', { newPassword }, {
+      const { data } = await axios.put('/api/user/reset-password', { newPassword }, {
         withCredentials: true,
       });
       toast.success("Password reset successfully!");

@@ -1,4 +1,4 @@
-const PermissionRequest = require('../models/permissionRequest');
+const PermissionRequest = require('../models/PermissionRequest');
 const User = require('../models/user'); 
 
 // Create a new permission request

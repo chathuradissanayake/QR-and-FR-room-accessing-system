@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import mqtt from "mqtt";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaLock, FaQrcode } from "react-icons/fa";
 import { GoChevronLeft } from "react-icons/go";
@@ -88,7 +88,7 @@ const EntrancePage = () => {
     setScanning(false);
 
     try {
-      const response = await axios.get(`/door/${code}`, { withCredentials: true });
+      const response = await axios.get(`/api/door/${code}`, { withCredentials: true });
       const door = response.data;
       setDoorName(door.doorCode);
       setlocation(door.location);
@@ -135,7 +135,7 @@ const EntrancePage = () => {
     const createdAt = new Date().toISOString();
 
     try {
-      const response = await axios.post("/history/add-history", {
+      const response = await axios.post("/api/history/add-history", {
         doorCode,
         createdAt,
         location,

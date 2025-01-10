@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import logo from "../assets/logo.svg";
 import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
+import logo from "../assets/logo.svg";
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post('/signin', {
+      const { data } = await axios.post('/api/signin', {
         email,
         password,
       });

@@ -33,7 +33,7 @@ const Home = () => {
     const fetchLogs = async () => {
       try {
         console.log("Fetching logs for userId:", user.userId); // Debug: log userId being fetched
-        const response = await axios.get(`/history/get-history?userId=${user.userId}`);
+        const response = await axios.get(`/api/history/get-history?userId=${user.userId}`);
         const logData = response.data;
         setLogs(logData);
       } catch (error) {

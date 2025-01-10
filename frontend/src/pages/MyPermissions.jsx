@@ -1,12 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Toaster } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from 'react-router-dom';
+import { UserContext } from "../../context/userContext";
 import ApprovedPermissionCard from "../components/ApprovedPermissionCard";
 import DeniedPermissionCard from "../components/DeniedPermissionCard";
 import PendingPermissionCard from "../components/PendingPermissionCard";
-import { UserContext } from "../../context/userContext";
 
 const MyPermissions = () => {
   const { user } = useContext(UserContext);
@@ -19,7 +19,7 @@ const MyPermissions = () => {
     const fetchPermissions = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get("/permission/my-requests", {
+        const response = await axios.get("/api/permission/my-requests", {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });

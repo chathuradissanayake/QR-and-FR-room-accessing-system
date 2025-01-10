@@ -48,7 +48,7 @@ const ProfilePictureUpload = () => {
 
     try {
       // Add user ID to the API request
-      const response = await axios.put(`/user/profile-picture`, {
+      const response = await axios.put(`/api/user/profile-picture`, {
         userId: user._id, // Include the logged-in user's ID
         profilePicture: image,
       });

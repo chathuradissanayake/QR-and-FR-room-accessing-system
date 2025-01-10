@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef } from "react";
 import { Toaster } from "react-hot-toast";
 import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
-import { ThemeProvider } from "../context/ThemeContext"; 
+import { ThemeProvider } from "../context/ThemeContext";
 import { UserContextProvider } from "../context/userContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -27,10 +27,10 @@ import ResetPassword from "./pages/ResetPassword";
 import Settings from "./pages/Settings";
 import SignIn from "./pages/SignIn";
 import Success from "./pages/Success";
-import ThemeToggle from "./pages/Themetoggle";
+import ThemeToggle from "./pages/ThemeToggle";
 import TypeCode from "./pages/TypeCode";
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+// axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 const ScrollToTop = () => {

@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'; 
 
 // Create the context
 export const UserContext = createContext();
@@ -26,7 +26,7 @@ export const UserContextProvider = ({ children }) => {
             setUser(null);
             navigate('/signin');
           } else {
-            const { data } = await axios.get('/profile', {
+            const { data } = await axios.get('/api/profile', {
               headers: { Authorization: `Bearer ${token}` },
             });
             setUser(data);

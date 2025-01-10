@@ -23,7 +23,7 @@ const ChangePassword = () => {
     }
 
     try {
-      const { data } = await axios.put('/user/change-password', { oldPassword, newPassword }, {
+      const { data } = await axios.put('/api/user/change-password', { oldPassword, newPassword }, {
         withCredentials: true,
       });
       toast.success("Password changed successfully!");

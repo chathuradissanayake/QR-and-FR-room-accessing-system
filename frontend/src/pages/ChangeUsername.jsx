@@ -22,7 +22,7 @@ const ChangeUsername = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.put('/user/change-username', { firstName, lastName }, {
+      const { data } = await axios.put('/api/user/change-username', { firstName, lastName }, {
         withCredentials: true,
       });
       setUser(data);

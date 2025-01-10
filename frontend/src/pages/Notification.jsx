@@ -27,7 +27,7 @@ export default function Notification() {
 
       try {
         console.log("Fetching logs for userId:", user._id); // Log user._id when fetching logs
-        const response = await axios.get(`/contactus/user/${user._id}`);
+        const response = await axios.get(`/api/contactus/user/${user._id}`);
         const logData = response.data;
 
         // Log the user-related objId from ContactUs data for comparison

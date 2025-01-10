@@ -22,7 +22,7 @@ export default function MarkLeave() {
 
       try {
         const response = await axios.get(
-          `/history/get-history?userId=${user.userId}`
+          `/api/history/get-history?userId=${user.userId}`
         );
         const logData = response.data;
         setLogs(logData);
@@ -66,7 +66,7 @@ export default function MarkLeave() {
     const currentTime = new Date().toISOString(); // Get the current timestamp
 
     try {
-      const response = await axios.post("/history/update-exit-time", {
+      const response = await axios.post("/api/history/update-exit-time", {
         userId: user.userId,
         exitTime: currentTime,
       });

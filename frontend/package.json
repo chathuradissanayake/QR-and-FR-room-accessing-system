@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -27,7 +27,8 @@
     "react-qr-reader": "^3.0.0-beta-1",
     "react-router-dom": "^6.27.0",
     "react-swipeable": "^7.0.2",
-    "react-webcam": "^7.2.0"
+    "react-webcam": "^7.2.0",
+    "rollup": "^4.29.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",

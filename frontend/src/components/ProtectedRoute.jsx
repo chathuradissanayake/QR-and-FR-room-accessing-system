@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen dark:bg-slate-600">
+      <div className="flex justify-center items-center min-h-screen">
         <ThreeDots 
           height="80" 
           width="80" 

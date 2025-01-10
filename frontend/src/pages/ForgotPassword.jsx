@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      await axios.post('/user/forgot-password', { emailOrPhone }, {
+      await axios.post('/api/user/forgot-password', { emailOrPhone }, {
         withCredentials: true,
       });
       toast.success("Verification code sent!");

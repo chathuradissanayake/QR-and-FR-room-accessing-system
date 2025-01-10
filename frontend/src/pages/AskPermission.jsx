@@ -24,7 +24,7 @@ const AskPermission = () => {
     const fetchDoors = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('/door/doors', {
+        const response = await axios.get('/api/door/doors', {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -70,7 +70,7 @@ const AskPermission = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const { data: response } = await axios.post('/permission/ask-permission', {
+      const { data: response } = await axios.post('/api/permission/ask-permission', {
         name,
         location,
         roomName,

@@ -39,8 +39,7 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div>
 
     
     <div className="title flex items-center space-x-2 mb-8 dark:text-white">
@@ -48,7 +47,7 @@ const ChangePassword = () => {
         <GoChevronLeft className="cursor-pointer" 
         onClick={handleBackNavigation}/>
     
-        <span className='font-semibold'>App Info</span>
+        <span className='font-semibold'>Change Password</span>
     </div>
 
         {/* Form */}
@@ -119,7 +118,7 @@ const ChangePassword = () => {
           </button>
         </form>
       </div>
-    </div>
+    
   );
 };
 

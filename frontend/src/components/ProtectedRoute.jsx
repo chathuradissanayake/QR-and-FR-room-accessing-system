@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
-import { ThreeDots } from 'react-loader-spinner';
-import { Navigate } from 'react-router-dom';
-import { UserContext } from '../../context/userContext';
+import React, { useContext } from "react";
+import { ThreeDots } from "react-loader-spinner";
+import { Navigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
+import BottomNavigation from "./BottomNavigation";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(UserContext);
@@ -9,14 +10,12 @@ const ProtectedRoute = ({ children }) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen dark:bg-slate-600">
-        <ThreeDots 
-          height="80" 
-          width="80" 
+        <ThreeDots
+          height="80"
+          width="80"
           radius="9"
-          color="#2564e9" 
+          color="#2564e9"
           ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClassName=""
           visible={true}
         />
       </div>
@@ -27,7 +26,20 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/signin" />;
   }
 
-  return children;
+  return (
+    <div>
+      {/* Main Content */}
+      <div className="pb-12 flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600">
+        <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800"> 
+          {children}
+        </div>
+      </div>
+
+      {/* Bottom Navigation */}
+      <BottomNavigation />
+      
+    </div>
+  );
 };
 
 export default ProtectedRoute;

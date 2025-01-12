@@ -106,8 +106,7 @@ const AskPermission = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div>
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
@@ -268,7 +267,7 @@ const AskPermission = () => {
           </form>
         </div>
       </div>
-    </div>
+   
   );
 };
 

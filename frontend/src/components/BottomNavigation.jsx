@@ -14,13 +14,13 @@ const BottomNavigation = () => {
     <div className='flex justify-center max-h-16 bg-gray-50 dark:bg-slate-600'>
       
 
-        <div class="fixed z-50 w-full h-16 max-w-md rounded-t-lg -translate-x-1/2  border border-gray-200  bottom-0 left-1/2 bg-slate-200 dark:bg-gray-700 dark:border-gray-600 overflow-hidden">
+        <div class="fixed z-50 w-full h-16 max-w-md rounded-t-xl -translate-x-1/2  border border-gray-200  bottom-0 left-1/2 bg-slate-200 dark:bg-gray-700 dark:border-gray-600 overflow-hidden">
             <div class="grid h-full max-w-lg grid-cols-5 mx-auto">
                 
                 
                 <button 
                     onClick={() => navigate("/")} 
-                    className={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 
+                    className={`inline-flex flex-col items-center justify-center px-5 hover:bg-blue-200 dark:hover:bg-gray-800 
                         group ${location.pathname === "/" ? "text-blue-600 dark:text-blue-500" : "text-gray-500 dark:text-gray-400"
                     }`}>
                     <FaHome 
@@ -41,7 +41,7 @@ const BottomNavigation = () => {
 
                 <button 
                     onClick={() => navigate("/askpermission")} 
-                    className={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 
+                    className={`inline-flex flex-col items-center justify-center px-5 hover:bg-blue-200 dark:hover:bg-gray-800 
                         group ${location.pathname === "/askpermission" ? "text-blue-600 dark:text-blue-500" : "text-gray-500 dark:text-gray-400"
                     }`}>
                     <TbShieldLockFilled 
@@ -79,7 +79,7 @@ const BottomNavigation = () => {
 
                 <button 
                     onClick={() => navigate("/settings")} 
-                    className={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 
+                    className={`inline-flex flex-col items-center justify-center px-5 hover:bg-blue-200 dark:hover:bg-gray-800 
                         group ${location.pathname === "/settings" ? "text-blue-600 dark:text-blue-500" : "text-gray-500 dark:text-gray-400"
                     }`}>
                     <IoMdSettings 
@@ -97,7 +97,7 @@ const BottomNavigation = () => {
 
                 <button 
                     onClick={() => navigate("/profile")} 
-                    className={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 
+                    className={`inline-flex flex-col items-center justify-center px-5 hover:bg-blue-200 dark:hover:bg-gray-800 
                         group ${location.pathname === "/profile" ? "text-blue-600 dark:text-blue-500" : "text-gray-500 dark:text-gray-400"
                     }`}>
                     <FaUser 

@@ -5,12 +5,19 @@ const postContactUs = async (req, res) => {
   const { message, user } = req.body;
 
   try {
+    // Fetch the user object from the database
+    const userData = await User.findById(user.objId);
+    if (!userData) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+
     const newMessage = new ContactUs({
       message,
       user: {
         objId: user.objId,
-        userId: user.userId, // Ensure you're passing a valid userId string
+        userId: user.userId, 
       },
+      company: userData.company, // Include the company ID from the user object
     });
 
     await newMessage.save();

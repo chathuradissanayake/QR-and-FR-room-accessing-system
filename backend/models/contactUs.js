@@ -28,6 +28,11 @@ const contactUsSchema = new Schema({
     },
     userId: { type: String },  // ensure this matches the frontend data
   },
+  company: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'Company', 
+    required: true 
+  },
 }, { timestamps: { createdAt: true, updatedAt: true } });
 
 const contactUsModel = mongoose.model('ContactUs', contactUsSchema);

@@ -3,7 +3,8 @@ const Door = require('../models/door');
 // Get all doors
 const getAllDoors = async (req, res) => {
   try {
-    const doors = await Door.find();
+    const companyId = req.user.company._id; 
+    const doors = await Door.find({ company: companyId });
     res.json(doors);
   } catch (error) {
     console.error('Error fetching doors:', error);

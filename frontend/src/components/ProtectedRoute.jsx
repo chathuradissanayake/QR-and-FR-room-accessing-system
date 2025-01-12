@@ -27,14 +27,15 @@ const ProtectedRoute = ({ children }) => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div>
       {/* Main Content */}
       <div className="pb-12 flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600">
-        
-        <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800"> {children}</div></div>
+        <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800"> 
+          {children}
+        </div>
+      </div>
 
       {/* Bottom Navigation */}
-      
       <BottomNavigation />
       
     </div>

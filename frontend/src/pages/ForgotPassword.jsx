@@ -28,8 +28,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex  justify-center min-h-screen h-max bg-gray-50">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div>
         
         {/* Header */}
         <div className="flex items-center mb-8">
@@ -69,7 +68,7 @@ const ForgotPassword = () => {
             Send
           </button>
         </form>
-      </div>
+      
     </div>
   );
 };

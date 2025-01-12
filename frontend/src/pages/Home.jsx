@@ -55,8 +55,8 @@ const Home = () => {
   }, null);
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div >
+      <div >
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>

@@ -7,8 +7,7 @@ const SuccessLeave = () => {
 
   return (
     <>
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md">
+    <div>
 
     
     <div className="title flex items-center space-x-2 mb-8">
@@ -22,7 +21,7 @@ const SuccessLeave = () => {
    
 
 
-      </div>
+      
     </div>
     </>
   );

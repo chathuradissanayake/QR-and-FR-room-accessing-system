@@ -14,7 +14,7 @@ const BottomNavigation = () => {
     <div className='flex justify-center max-h-16 bg-gray-50 dark:bg-slate-600'>
       
 
-        <div class="fixed z-50 w-full h-16 max-w-md rounded-t-lg -translate-x-1/2  border border-gray-200  bottom-0 left-1/2 bg-slate-200 dark:bg-gray-700 dark:border-gray-600">
+        <div class="fixed z-50 w-full h-16 max-w-md rounded-t-lg -translate-x-1/2  border border-gray-200  bottom-0 left-1/2 bg-slate-200 dark:bg-gray-700 dark:border-gray-600 overflow-hidden">
             <div class="grid h-full max-w-lg grid-cols-5 mx-auto">
                 
                 

@@ -35,7 +35,7 @@ const duration = calculateDuration(entryTime, exitTime);
 
   return (
     <div >
-      <div className="bg-white dark:bg-slate-600 shadow rounded-lg pt-3 pb-3 pl-5 pr-5  ">
+      <div className="bg-slate-100 dark:bg-slate-600 shadow rounded-lg pt-3 pb-3 pl-5 pr-5  ">
           <div >
             <div className='flex justify-between items-center mb-4 '>
             <h2 className="text-lg font-semibold dark:text-white">{room}</h2>

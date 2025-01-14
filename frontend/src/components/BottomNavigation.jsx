@@ -14,7 +14,7 @@ const BottomNavigation = () => {
     <div className='flex justify-center max-h-16 bg-gray-50 dark:bg-slate-600'>
       
 
-        <div class="fixed z-50 w-full h-16 max-w-md rounded-t-xl -translate-x-1/2  border border-gray-200  bottom-0 left-1/2 bg-slate-200 dark:bg-gray-700 dark:border-gray-600 overflow-hidden">
+        <div class="fixed z-50 w-full h-16 max-w-md rounded-t-xl -translate-x-1/2  border-t border-gray-200  bottom-0 left-1/2 bg-slate-200 dark:bg-slate-700 dark:border-slate-700 overflow-hidden">
             <div class="grid h-full max-w-lg grid-cols-5 mx-auto">
                 
                 
@@ -29,9 +29,9 @@ const BottomNavigation = () => {
                         aria-hidden="true"
                     />
 
-                    <span className="absolute bottom-0 hidden group-hover:flex items-center justify-center px-3 py-1 text-xs font-light dark:text-slate-400">
+                    {/* <span className="absolute bottom-0 hidden group-hover:flex items-center justify-center px-3 py-1 text-xs font-light dark:text-slate-400">
                         Home
-                    </span>
+                    </span> */}
                             
                 </button>
                 
@@ -50,9 +50,9 @@ const BottomNavigation = () => {
                         aria-hidden="true"
                     />
 
-                    <span className="absolute bottom-0 hidden group-hover:flex items-center justify-center px-3 py-1 text-xs font-light dark:text-slate-400">
+                    {/* <span className="absolute bottom-0 hidden group-hover:flex items-center justify-center px-3 py-1 text-xs font-light dark:text-slate-400">
                         Ask Permission
-                    </span>
+                    </span> */}
                             
                 </button>
 
@@ -88,9 +88,9 @@ const BottomNavigation = () => {
                         aria-hidden="true"
                     />
 
-                    <span className="absolute bottom-0 hidden group-hover:flex items-center justify-center px-3 py-1 text-xs font-light dark:text-slate-400">
+                    {/* <span className="absolute bottom-0 hidden group-hover:flex items-center justify-center px-3 py-1 text-xs font-light dark:text-slate-400">
                         Settings
-                    </span>
+                    </span> */}
                             
                 </button>
 
@@ -106,9 +106,9 @@ const BottomNavigation = () => {
                         aria-hidden="true"
                     />
 
-                    <span className="absolute bottom-0 hidden group-hover:flex items-center justify-center px-3 py-1 text-xs font-light dark:text-slate-400">
+                    {/* <span className="absolute bottom-0 hidden group-hover:flex items-center justify-center px-3 py-1 text-xs font-light dark:text-slate-400">
                         Profile
-                    </span>
+                    </span> */}
                             
                 </button>
             </div>

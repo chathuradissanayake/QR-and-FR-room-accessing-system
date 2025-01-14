@@ -2,4 +2,8 @@
   root * /srv
   file_server
   try_files {path} /index.html
+  @apiPath path_regexp api ^/api/(.*)$
+  route @apiPath {
+    reverse_proxy backend:8080
+  }
 }

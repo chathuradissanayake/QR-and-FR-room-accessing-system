@@ -4,7 +4,7 @@ const ApprovedPermissionCard = ({ permission }) => {
   const {roomName, location, door, inTime, outTime, date, message } = permission;
 
   return (
-    <div className="p-4 bg-white dark:bg-slate-700 rounded-lg shadow-md">
+    <div className="p-4 bg-slate-100 dark:bg-slate-700 rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold dark:text-white">{door.roomName}</h2>
         <span className=" dark:text-white font-bold">{door ? door.doorCode : "N/A"}</span>

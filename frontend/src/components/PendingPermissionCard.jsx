@@ -5,7 +5,9 @@ import { toast } from 'react-hot-toast';
 const PendingPermissionCard = ({ permission, onDelete }) => {
   const handleDelete = async () => {
     try {
-      await axios.delete(`/permission/delete-permission/${permission._id}`, {
+      const token = localStorage.getItem('token');
+      await axios.delete(`/api/permission/delete-permission/${permission._id}`, {
+        headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
       onDelete(permission._id);

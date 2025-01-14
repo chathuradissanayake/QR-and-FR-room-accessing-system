@@ -162,7 +162,7 @@ const AskPermission = () => {
             </div>
 
             <div>
-              <label htmlFor="roomName" className="sr-only">
+              <label htmlFor="roomName" className="">
                 Room
               </label>
               <input
@@ -177,7 +177,7 @@ const AskPermission = () => {
             </div>
 
             <div>
-              <label htmlFor="location" className="sr-only">
+              <label htmlFor="location" className="">
                 Location
               </label>
               <input

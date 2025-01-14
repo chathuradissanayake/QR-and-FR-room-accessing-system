@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const DashboardTab = ({ title, description, href, image }) => {
     return (
-      <Link to={href} className="block bg-gray-200 dark:bg-slate-600 p-4 rounded-lg hover:bg-gray-300">
+      <Link to={href} className="block transform hover:scale-105 transition-transform duration-300 ease-in-out bg-gray-200 dark:bg-slate-600 p-4 rounded-lg dark:hover:bg-slate-700 hover:bg-gray-300">
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-lg font-semibold dark:text-slate-200">{title}</h2>

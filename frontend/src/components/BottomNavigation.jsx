@@ -24,7 +24,7 @@ const BottomNavigation = () => {
                         group ${location.pathname === "/" ? "text-blue-600 dark:text-blue-500" : "text-gray-500 dark:text-gray-400"
                     }`}>
                     <FaHome 
-                        className={`group-hover:text-blue-600 dark:group-hover:text-blue-500 w-6 h-6`}
+                        className={`group-hover:text-blue-600 dark:group-hover:text-blue-500 w-6 h-6 transform hover:scale-125 transition-transform duration-300 ease-in-out`}
                         fill="currentColor"
                         aria-hidden="true"
                     />
@@ -45,7 +45,7 @@ const BottomNavigation = () => {
                         group ${location.pathname === "/askpermission" ? "text-blue-600 dark:text-blue-500" : "text-gray-500 dark:text-gray-400"
                     }`}>
                     <TbShieldLockFilled 
-                        className={`group-hover:text-blue-600 dark:group-hover:text-blue-500 w-6 h-6`}
+                        className={`group-hover:text-blue-600 dark:group-hover:text-blue-500 w-6 h-6 transform hover:scale-125 transition-transform duration-300 ease-in-out`}
                         fill="currentColor"
                         aria-hidden="true"
                     />
@@ -63,7 +63,7 @@ const BottomNavigation = () => {
                     class={`inline-flex items-center justify-center w-16 h-16 font-medium  rounded-lg hover:bg-blue-300 dark:hover:bg-slate-800 group ${location.pathname === "/entrancepage" ? "text-slate-800 dark:text-blue-500 bg-blue-300 dark:bg-slate-800" : "text-slate-700 dark:text-slate-200 bg-slate-300 dark:bg-slate-600"}`}>
                     
                     <MdOutlineQrCodeScanner
-                        className={`group-hover:text-slate-800 dark:group-hover:text-blue-500 w-10 h-10`}
+                        className={`group-hover:text-slate-800 dark:group-hover:text-blue-500 w-10 h-10 transform hover:scale-125 transition-transform duration-300 ease-in-out`}
                         fill="currentColor"
                         aria-hidden="true"
                     />
@@ -83,7 +83,7 @@ const BottomNavigation = () => {
                         group ${location.pathname === "/settings" ? "text-blue-600 dark:text-blue-500" : "text-gray-500 dark:text-gray-400"
                     }`}>
                     <IoMdSettings 
-                        className={`group-hover:text-blue-600 dark:group-hover:text-blue-500 w-6 h-6`}
+                        className={`group-hover:text-blue-600 dark:group-hover:text-blue-500 w-6 h-6 transform hover:scale-125 transition-transform duration-300 ease-in-out`}
                         fill="currentColor"
                         aria-hidden="true"
                     />
@@ -101,7 +101,7 @@ const BottomNavigation = () => {
                         group ${location.pathname === "/profile" ? "text-blue-600 dark:text-blue-500" : "text-gray-500 dark:text-gray-400"
                     }`}>
                     <FaUser 
-                        className={`group-hover:text-blue-600 dark:group-hover:text-blue-500 w-6 h-6`}
+                        className={`group-hover:text-blue-600 dark:group-hover:text-blue-500 w-6 h-6 transform hover:scale-125 transition-transform duration-300 ease-in-out`}
                         fill="currentColor"
                         aria-hidden="true"
                     />

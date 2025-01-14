@@ -3,8 +3,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaBell } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
+import askpermission from "../assets/askpermission.png";
 import avatar from "../assets/avatar.png"; // Default avatar image
-import tab1 from "../assets/tab1.png";
+import contact from "../assets/contactus.png";
+import goin from "../assets/go-in.png";
+import leave from "../assets/leave.png";
+import logbook from "../assets/logbook.png";
+import permissions from "../assets/permissions.png";
+import settings from "../assets/settings.png";
+
 import DashboardTab from "../components/DashboardTab";
 
 const Home = () => {
@@ -127,43 +134,43 @@ const Home = () => {
             title="Go In"
             description="Scan the QR and Face"
             href="/entrancepage"
-            image={tab1}
+            image={goin}
           />
           <DashboardTab
             title="Leave"
             description="Mark the Leave"
             href="/markleave"
-            image={tab1}
+            image={leave}
           />
           <DashboardTab
             title="Ask Permission"
             description="Asking permission for Access room"
             href="/askpermission"
-            image={tab1}
+            image={askpermission}
           />
           <DashboardTab
             title="My Permissions"
             description="Doors and Rooms that I have permission"
             href="/mypermissions"
-            image={tab1}
+            image={permissions}
           />
           <DashboardTab
             title="Log Book"
             description="My previous accessing"
             href="/mylogbook"
-            image={tab1}
+            image={logbook}
           />
           <DashboardTab
             title="Settings"
             description="Account settings and App settings"
             href="/settings"
-            image={tab1}
+            image={settings}
           />
           <DashboardTab
             title="Contact Us"
             description="Contact us for Emergency"
             href="/contactus"
-            image={tab1}
+            image={contact}
           />
         </div>
       </div>

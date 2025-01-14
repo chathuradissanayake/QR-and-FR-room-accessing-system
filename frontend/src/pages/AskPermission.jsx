@@ -105,14 +105,6 @@ const AskPermission = () => {
     }
   };
 
-  // Function to get the current time in HH:MM format
-  const getCurrentTime = () => {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    return `${hours}:${minutes}`;
-  };
-
   return (
     <div>
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
@@ -227,7 +219,6 @@ const AskPermission = () => {
                 name="inTime"
                 value={data.inTime}
                 onChange={handleChange}
-                min={getCurrentTime()} // Restricts time to current time or later
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />
@@ -243,7 +234,6 @@ const AskPermission = () => {
                 name="outTime"
                 value={data.outTime}
                 onChange={handleChange}
-                min={data.inTime} // Restricts time to inTime or later
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />

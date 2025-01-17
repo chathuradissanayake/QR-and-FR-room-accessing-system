@@ -238,7 +238,7 @@ const FaceRegistration = () => {
             </form>
 
             {registrationCount >= 5 && (
-                <p className="text-sm text-red-600 dark:text-red-400">
+                <p className=" mt-4 p-4 text-sm text-blue-600 dark:text-blue-400">
                     Your registration is complete.
                 </p>
             )}

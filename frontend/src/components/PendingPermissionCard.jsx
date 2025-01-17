@@ -19,7 +19,7 @@ const PendingPermissionCard = ({ permission, onDelete }) => {
   };
 
   return (
-    <div className="max-w-sm p-4 bg-slate-100 border dark:bg-slate-700 rounded-lg shadow-lg">
+    <div className="max-w-sm p-4 bg-slate-100 dark:bg-slate-700 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold dark:text-white">{permission.door.roomName}</h2>
         <span className="font-bold dark:text-white">{permission.door ? permission.door.doorCode : "N/A"}</span>

@@ -48,6 +48,8 @@ const FaceRegistration = () => {
                 videoRef.current.play();
                 console.log("Camera started successfully");
             }
+            // Show the result section when the camera starts
+            setResult({ msg: 'Camera started' });
         } catch (error) {
             console.error("Error accessing camera:", error);
             setMessage("Unable to access the camera.");
@@ -286,7 +288,8 @@ const FaceRegistration = () => {
                             </p>
                             {/* Show count for Registration Success and Maximum times registered */}
                             {(result.msg === "Registration Success" ||
-                            result.msg === "Maximum times registered") && (
+                            result.msg === "Maximum times registered" ||
+                            result.msg === "Camera started") && (
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
                                     Registration Count: {registrationCount}/5
                                 </p>

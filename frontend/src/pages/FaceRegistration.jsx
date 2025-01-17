@@ -2,15 +2,16 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from 'react-router-dom';
 import { UserContext } from "../../context/userContext";
+import axios from 'axios';
 
 const FaceRegistration = () => {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [nic, setNic] = useState('');
     const [imagePreview, setImagePreview] = useState(null);
     const [image, setImage] = useState(null);
     const [message, setMessage] = useState('');
     const [result, setResult] = useState(null);
-    const [registrationCount, setRegistrationCount] = useState(0); // For tracking successful registrations
+    const [registrationCount, setRegistrationCount] = useState(user.faceCount || 0); // Initialize with user's faceCount
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -94,13 +95,28 @@ const FaceRegistration = () => {
 
                 // Update count only if "Registration Success"
                 if (resultData.msg === "Registration Success") {
-                    setRegistrationCount((prevCount) => Math.min(prevCount + 1, 5));
-                    console.log("Registration count updated:", registrationCount + 1);
+                    const newCount = Math.min(registrationCount + 1, 5);
+                    setRegistrationCount(newCount);
+                    // Update faceCount in the backend
+                    await axios.post('/api/user/update-face-count', {
+                        userId: user.userId,
+                        faceCount: newCount
+                    });
+                    // Update user context
+                    setUser((prevUser) => ({ ...prevUser, faceCount: newCount }));
+                    console.log("Registration count updated:", newCount);
                 }
 
                 // Handle "Maximum times registered"
                 if (resultData.msg === "Maximum times registered") {
                     setRegistrationCount(5); // Set count to 5/5
+                    // Update faceCount in the backend
+                    await axios.post('/api/user/update-face-count', {
+                        userId: user.userId,
+                        faceCount: 5
+                    });
+                    // Update user context
+                    setUser((prevUser) => ({ ...prevUser, faceCount: 5 }));
                     console.log("Maximum registrations reached, count set to 5/5");
                 }
 
@@ -117,147 +133,143 @@ const FaceRegistration = () => {
 
     return (
         <div>
+            <div className="title flex items-center space-x-2 mb-8 dark:text-white">
+                <Link to="/profile">
+                    <GoChevronLeft className="cursor-pointer" />
+                </Link>
+                <span className="font-semibold">Face Registration</span>
+            </div>
 
-                <div className="title flex items-center space-x-2 mb-8 dark:text-white">
-                    <Link to="/profile">
-                        <GoChevronLeft className="cursor-pointer" />
-                    </Link>
-                    <span className="font-semibold">Face Registration</span>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="nic" className="block text-gray-600 mb-1 dark:text-slate-200">User ID</label>
+                    <input
+                        type="text"
+                        id="nic"
+                        value={user.userId}
+                        readOnly
+                        className="border rounded px-2 py-1 w-full bg-gray-100 dark:bg-slate-700 dark:text-slate-100"
+                    />
                 </div>
 
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="nic" className="block text-gray-600 mb-1 dark:text-slate-200">User ID</label>
-                        <input
-                            type="text"
-                            id="nic"
-                            value={user.userId}
-                            readOnly
-                            className="border rounded px-2 py-1 w-full bg-gray-100 dark:bg-slate-700 dark:text-slate-100"
-                        />
-                    </div>
-
-                    <div className="my-4">
-                        <div className="relative w-full h-80 bg-gray-200 dark:bg-slate-600 rounded">
-                            {imagePreview ? (
-                                <img
-                                    src={imagePreview}
-                                    alt="Captured"
-                                    className="w-full h-full object-cover rounded"
-                                />
-                            ) : (
-                                <video
-                                    ref={videoRef}
-                                    className="w-full h-full object-cover rounded"
-                                    autoPlay
-                                    muted
-                                />
-                            )}
-                        </div>
-                        <canvas ref={canvasRef} className="hidden" width={640} height={480}></canvas>
-                        {!imagePreview ? (
-                            <div className='flex justify-between'>
-                                <button
-                                    type="button"
-                                    onClick={startCamera}
-                                    className="w-full mt-2 px-4 py-2 bg-blue-500 text-white rounded"
-                                >
-                                    Start Camera
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={captureImage}
-                                    className="w-full mt-2 ml-2 px-4 py-2 bg-green-500 text-white rounded"
-                                >
-                                    Capture Image
-                                </button>
-                            </div>
+                <div className="my-4">
+                    <div className="relative w-full h-80 bg-gray-200 dark:bg-slate-600 rounded">
+                        {imagePreview ? (
+                            <img
+                                src={imagePreview}
+                                alt="Captured"
+                                className="w-full h-full object-cover rounded"
+                            />
                         ) : (
-                            <button
-                                type="button"
-                                onClick={recaptureImage}
-                                className="w-full mt-2 px-4 py-2 bg-orange-500 text-white rounded"
-                            >
-                                Recapture
-                            </button>
+                            <video
+                                ref={videoRef}
+                                className="w-full h-full object-cover rounded"
+                                autoPlay
+                                muted
+                            />
                         )}
                     </div>
-
-                    <div>
+                    <canvas ref={canvasRef} className="hidden" width={640} height={480}></canvas>
+                    {!imagePreview ? (
+                        <div className='flex justify-between'>
+                            <button
+                                type="button"
+                                onClick={startCamera}
+                                className="w-full mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+                            >
+                                Start Camera
+                            </button>
+                            <button
+                                type="button"
+                                onClick={captureImage}
+                                className="w-full mt-2 ml-2 px-4 py-2 bg-green-500 text-white rounded"
+                            >
+                                Capture Image
+                            </button>
+                        </div>
+                    ) : (
                         <button
-                            type="submit"
-                            className="w-full mt-4 px-4 py-2 bg-indigo-500 text-white rounded"
+                            type="button"
+                            onClick={recaptureImage}
+                            className="w-full mt-2 px-4 py-2 bg-orange-500 text-white rounded"
                         >
-                            Submit
+                            Recapture
                         </button>
+                    )}
+                </div>
+
+                <div>
+                    <button
+                        type="submit"
+                        className="w-full mt-4 px-4 py-2 bg-indigo-500 text-white rounded"
+                        disabled={registrationCount >= 5} // Disable button if count is 5 or more
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
+
+            {result && (
+                <div className="mt-4 p-4 shadow-md rounded-md bg-white dark:bg-slate-800 border">
+                    <div className="flex items-center space-x-3">
+                        <div className="flex-shrink-0">
+                            {/* Conditionally render the X icon for "Cannot Register" */}
+                            {result.msg === "Registration Success" ? (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6 text-green-500"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 10-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 000-1.414z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                            ) : (
+                                // X (cross) icon for "Cannot Register"
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6 text-red-500"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 011.414 1.414L11.414 9l4.293 4.293a1 1 11-1.414 1.414L10 10.414l-4.293 4.293a1 1 11-1.414-1.414L8.586 9 4.293 4.707a1 1 010-1.414z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                            )}
+                        </div>
+                        <div>
+                            <h3
+                                className={`text-lg font-semibold ${
+                                    result.msg === "Registration Success"
+                                        ? "text-green-600"
+                                        : "text-red-600"
+                                }`}
+                            >
+                                {result.msg === "Registration Success"
+                                    ? "Registration Successful"
+                                    : "Cannot Register"}
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                {result.msg}
+                            </p>
+                            {/* Show count for Registration Success and Maximum times registered */}
+                            {(result.msg === "Registration Success" ||
+                            result.msg === "Maximum times registered") && (
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Registration Count: {registrationCount}/5
+                                </p>
+                            )}
+                        </div>
                     </div>
-                </form>
-
-                {result && (
-    <div className="mt-4 p-4 shadow-md rounded-md bg-white dark:bg-slate-800 border">
-        <div className="flex items-center space-x-3">
-            <div className="flex-shrink-0">
-                {/* Conditionally render the X icon for "Cannot Register" */}
-                {result.msg === "Registration Success" ? (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-green-500"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 10-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
-                            clipRule="evenodd"
-                        />
-                    </svg>
-                ) : (
-                    // X (cross) icon for "Cannot Register"
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-red-500"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            fillRule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 0 111.414 1.414L11.414 9l4.293 4.293a1 1 0 11-1.414 1.414L10 10.414l-4.293 4.293a1 1 0 11-1.414-1.414L8.586 9 4.293 4.707a1 1 0 010-1.414z"
-                            clipRule="evenodd"
-                        />
-                    </svg>
-                )}
-            </div>
-            <div>
-                <h3
-                    className={`text-lg font-semibold ${
-                        result.msg === "Registration Success"
-                            ? "text-green-600"
-                            : "text-red-600"
-                    }`}
-                >
-                    {result.msg === "Registration Success"
-                        ? "Registration Successful"
-                        : "Cannot Register"}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {result.msg}
-                </p>
-                {/* Show count for Registration Success and Maximum times registered */}
-                {(result.msg === "Registration Success" ||
-                result.msg === "Maximum times registered") && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Registration Count: {registrationCount}/5
-                    </p>
-                )}
-            </div>
+                </div>
+            )}
         </div>
-    </div>
-)}
-
-
-            
-        </div>
-        
     );
 };
 

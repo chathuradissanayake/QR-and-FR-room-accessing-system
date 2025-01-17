@@ -31,6 +31,10 @@ const FaceRegistration = () => {
             const encodedUserId = encodeURIComponent(userId);
             const response = await axios.get(`/api/user/face-count/${encodedUserId}`);
             setRegistrationCount(response.data.faceCount);
+            if (response.data.faceCount >= 5) {
+                setMessage('You have reached the maximum number of uploads (5/5).');
+                setResult({ msg: 'Maximum times registered' });
+            }
         } catch (error) {
             console.error('Error fetching face count:', error);
         }
@@ -116,6 +120,10 @@ const FaceRegistration = () => {
                     // Update user context
                     setUser((prevUser) => ({ ...prevUser, faceCount: newCount }));
                     console.log("Registration count updated:", newCount);
+                    if (newCount >= 5) {
+                        setMessage('You have reached the maximum number of uploads (5/5).');
+                        setResult({ msg: 'Maximum times registered' });
+                    }
                 }
 
                 // Handle "Maximum times registered"
@@ -129,6 +137,7 @@ const FaceRegistration = () => {
                     // Update user context
                     setUser((prevUser) => ({ ...prevUser, faceCount: 5 }));
                     console.log("Maximum registrations reached, count set to 5/5");
+                    setMessage('You have reached the maximum number of uploads (5/5).');
                 }
 
                 setMessage(resultData.msg);
@@ -219,6 +228,12 @@ const FaceRegistration = () => {
                     </button>
                 </div>
             </form>
+
+            {registrationCount >= 5 && (
+                <p className="text-sm text-red-600 dark:text-red-400">
+                    You have reached the maximum number of uploads (5/5).
+                </p>
+            )}
 
             {result && (
                 <div className="mt-4 p-4 shadow-md rounded-md bg-white dark:bg-slate-800 border">

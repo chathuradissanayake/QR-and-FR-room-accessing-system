@@ -34,6 +34,9 @@ const FaceRegistration = () => {
             if (response.data.faceCount >= 5) {
                 setMessage('You have reached the maximum number of uploads (5/5).');
                 setResult({ msg: 'Maximum times registered' });
+            } else {
+                setMessage('Register your face with different looks.');
+                setResult({ msg: 'Camera started' });
             }
         } catch (error) {
             console.error('Error fetching face count:', error);
@@ -49,6 +52,7 @@ const FaceRegistration = () => {
                 console.log("Camera started successfully");
             }
             // Show the result section when the camera starts
+            setMessage('Register your face with different looks.');
             setResult({ msg: 'Camera started' });
         } catch (error) {
             console.error("Error accessing camera:", error);
@@ -125,6 +129,8 @@ const FaceRegistration = () => {
                     if (newCount >= 5) {
                         setMessage('You have reached the maximum number of uploads (5/5).');
                         setResult({ msg: 'Maximum times registered' });
+                    } else {
+                        setMessage('Register your face with different looks.');
                     }
                 }
 
@@ -241,8 +247,8 @@ const FaceRegistration = () => {
                 <div className="mt-4 p-4 shadow-md rounded-md bg-white dark:bg-slate-800 border">
                     <div className="flex items-center space-x-3">
                         <div className="flex-shrink-0">
-                            {/* Conditionally render the X icon for "Cannot Register" */}
-                            {result.msg === "Registration Success" ? (
+                            {/* Conditionally render the checkmark icon for "Camera started" */}
+                            {result.msg === "Camera started" || result.msg === "Registration Success" ? (
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6 text-green-500"
@@ -274,13 +280,13 @@ const FaceRegistration = () => {
                         <div>
                             <h3
                                 className={`text-lg font-semibold ${
-                                    result.msg === "Registration Success"
+                                    result.msg === "Camera started" || result.msg === "Registration Success"
                                         ? "text-green-600"
                                         : "text-red-600"
                                 }`}
                             >
-                                {result.msg === "Registration Success"
-                                    ? "Registration Successful"
+                                {result.msg === "Camera started" || result.msg === "Registration Success"
+                                    ? "Ready to Register"
                                     : "Cannot Register"}
                             </h3>
                             <p className="text-sm text-gray-600 dark:text-gray-400">

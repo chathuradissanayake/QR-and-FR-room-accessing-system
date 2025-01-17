@@ -11,7 +11,7 @@ const FaceRegistration = () => {
     const [image, setImage] = useState(null);
     const [message, setMessage] = useState('');
     const [result, setResult] = useState(null);
-    const [registrationCount, setRegistrationCount] = useState(user.faceCount || 0); // Initialize with user's faceCount
+    const [registrationCount, setRegistrationCount] = useState(0); 
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -22,8 +22,19 @@ const FaceRegistration = () => {
         if (user) {
             setNic(user.userId);
             console.log("User ID set:", user.userId);
+            fetchFaceCount(user.userId); 
         }
     }, [user]);
+
+    const fetchFaceCount = async (userId) => {
+        try {
+            const encodedUserId = encodeURIComponent(userId);
+            const response = await axios.get(`/api/user/face-count/${encodedUserId}`);
+            setRegistrationCount(response.data.faceCount);
+        } catch (error) {
+            console.error('Error fetching face count:', error);
+        }
+    };
 
     const startCamera = async () => {
         try {

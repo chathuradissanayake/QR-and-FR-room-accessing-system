@@ -72,9 +72,32 @@ const updateUserProfilePicture = async (req, res) => {
   }
 };
 
+//update face-count
+const updateFaceCount = async (req, res) => {
+  const { userId, faceCount } = req.body;
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { userId },
+      { faceCount },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    res.status(200).json({ msg: 'Face count updated', faceCount: user.faceCount });
+  } catch (error) {
+    console.error('Error updating face count:', error);
+    res.status(500).json({ msg: 'Internal server error' });
+  }
+};
+
 
 module.exports = {
   updateUserName,
   updateUserPassword, 
   updateUserProfilePicture,
+  updateFaceCount
 };

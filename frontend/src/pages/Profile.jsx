@@ -4,6 +4,7 @@ import { FiEdit } from 'react-icons/fi';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
+import avatar from "../assets/avatar.png"; // Default avatar image
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -51,7 +52,7 @@ const Profile = () => {
       <div className="flex flex-col items-center mb-6">
         <div className="relative ">
         <img
-          src={user.profilePicture} // Use Base64 string as the image source
+          src={user?.profilePicture || avatar} // Use Base64 string as the image source
           alt="Profile"
           className="w-32 h-32 object-cover rounded-full"
         />

@@ -10,7 +10,8 @@ export default function MarkLeave() {
   const { user } = useContext(UserContext); // Get logged-in user info
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [hasLeftRoom, setHasLeftRoom] = useState(false); // New state
+  const [latestLog, setLatestLog] = useState(null);
+  const [hasLeftRoom, setHasLeftRoom] = useState(false); // Track if user has left
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,15 +28,18 @@ export default function MarkLeave() {
         const logData = response.data;
         setLogs(logData);
 
-        // Check if the latest log already has an exitTime
-        const latestLog = logData.reduce((latest, log) => {
+        // Determine the latest log
+        const latest = logData.reduce((latest, log) => {
           if (!latest || new Date(log.entryTime) > new Date(latest.entryTime)) {
             return log;
           }
           return latest;
         }, null);
 
-        if (latestLog && latestLog.exitTime) {
+        setLatestLog(latest);
+
+        // Check if the user has already left the room
+        if (latest && latest.exitTime) {
           setHasLeftRoom(true);
         }
       } catch (error) {
@@ -48,22 +52,13 @@ export default function MarkLeave() {
     fetchLogs();
   }, [user]);
 
-  // Find the latest log based on entryTime
-  const latestLog = logs.reduce((latest, log) => {
-    if (!latest || new Date(log.entryTime) > new Date(latest.entryTime)) {
-      return log;
-    }
-    return latest;
-  }, null);
-
-  // Handle Leave Now button click
   const handleLeaveNow = async () => {
     if (!user || !user.userId) {
       console.error("User not logged in or missing userId");
       return;
     }
 
-    const currentTime = new Date().toISOString(); // Get the current timestamp
+    const currentTime = new Date().toISOString(); // Current timestamp
 
     try {
       const response = await axios.post("/api/history/update-exit-time", {
@@ -73,9 +68,9 @@ export default function MarkLeave() {
 
       if (response.data.success) {
         toast.success("Exit time updated successfully!");
-        setHasLeftRoom(true); // Set user as having left the room
-        navigate("/");
-        // Optionally refresh logs to reflect changes
+        setHasLeftRoom(true); // Mark as left
+        navigate("/"); // Redirect user
+        // Optionally update the logs
         setLogs((prevLogs) =>
           prevLogs.map((log) =>
             log._id === response.data.updatedHistory._id
@@ -83,6 +78,10 @@ export default function MarkLeave() {
               : log
           )
         );
+        setLatestLog((prevLog) => ({
+          ...prevLog,
+          exitTime: response.data.updatedHistory.exitTime,
+        }));
       } else {
         toast.error("Failed to update exit time.");
       }
@@ -93,61 +92,60 @@ export default function MarkLeave() {
 
   return (
     <div>
-        {/* Title Section */}
-        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
-          <Link to="/">
-            <GoChevronLeft className="cursor-pointer" />
-          </Link>
-          <span className="font-semibold">Leave</span>
+      {/* Title Section */}
+      <div className="title flex items-center space-x-2 mb-8 dark:text-white">
+        <Link to="/">
+          <GoChevronLeft className="cursor-pointer" />
+        </Link>
+        <span className="font-semibold">Leave</span>
+      </div>
+
+      {/* Logs Section */}
+      {loading ? (
+        <p className="pl-4 text-m text-black-500 dark:text-white"></p>
+      ) : !latestLog ? (
+        <div className="flex justify-center items-center py-8">
+        <p className="pl-4 text-gray-500">You are not in a Room.</p>
         </div>
-        <div className="text-left ml-4">
-          <p className="text-m text-black-500 pb-3 dark:text-white">
-            If you want to leave, <span className="font-semibold">Confirm</span>
+      ) : (
+        <LogCard
+          room="Room"
+          roomcode={latestLog.doorCode || "Unknown Code"}
+          door={latestLog.roomName || "Unknown Room"}
+          branch={latestLog.location || "Unknown Location"}
+          entryTime={
+            latestLog.entryTime
+              ? new Date(latestLog.entryTime).toLocaleTimeString("en-IN", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              : ""
+          }
+          exitTime={
+            latestLog.exitTime
+              ? new Date(latestLog.exitTime).toLocaleTimeString("en-IN", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              : "Currently In Room"
+          }
+          date={
+            latestLog.entryTime
+              ? new Date(latestLog.entryTime).toLocaleDateString("en-IN")
+              : ""
+          }
+        />
+      )}
+
+      {/* Button Section */}
+      <div className="py-3">
+        {hasLeftRoom || (latestLog && latestLog.exitTime) ? (
+          <p className="text-center text-gray-500">
+            You have already left the room.
           </p>
-        </div>
-
-        {/* Logs Section */}
-        {loading ? (
-          <p className="pl-4 text-m text-black-500 dark:text-white">Loading Room Details ...</p>
-        ) : !latestLog ? (
-          <p className="pl-4 text-m text-black-500"></p>
         ) : (
-          <LogCard 
-            room="Room"
-            roomcode={latestLog.doorCode || "Unknown Code"}
-            door={latestLog.roomName || "Unknown Room"}
-            branch={latestLog.location || "Unknown Location"}
-            entryTime={
-              latestLog.entryTime
-                ? new Date(latestLog.entryTime).toLocaleTimeString("en-IN", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-                : ""
-            }
-            exitTime={
-              latestLog.exitTime
-                ? new Date(latestLog.exitTime).toLocaleTimeString("en-IN", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-                : "Currently In Room"
-            }
-            date={
-              latestLog.entryTime
-                ? new Date(latestLog.entryTime).toLocaleDateString("en-IN")
-                : ""
-            }
-          />
-        )}
-
-        {/* Button Section */}
-        <div className="py-3">
-          {hasLeftRoom ? (
-            <p className="text-center text-gray-500">
-              You have already left the room.
-            </p>
-          ) : (
+          latestLog &&
+          latestLog.exitTime === null && ( // Ensure button only appears when exitTime is null
             <button
               onClick={handleLeaveNow}
               type="button"
@@ -155,12 +153,9 @@ export default function MarkLeave() {
             >
               Leave Now
             </button>
-          )}
-        </div>
-      
+          )
+        )}
+      </div>
     </div>
   );
 }
-
-
-

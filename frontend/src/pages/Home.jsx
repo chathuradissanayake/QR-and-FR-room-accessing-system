@@ -97,7 +97,7 @@ const Home = () => {
 
         {/* Latest Log Section */}
         {loading ? (
-          <p className="text-center text-gray-500">Loading...</p>
+          <p className="text-center text-gray-500"></p>
         ) : latestLog ? (
           <div className="bg-slate-700 dark:bg-slate-900 text-white rounded-lg p-4 mb-6">
             <div className="flex justify-between items-center">
@@ -125,7 +125,7 @@ const Home = () => {
             </p>
           </div>
         ) : (
-          <p className="text-center text-gray-500">No logs available.</p>
+          <p className="text-center text-gray-500"></p>
         )}
 
         {/* Reusable Dashboard Tabs */}

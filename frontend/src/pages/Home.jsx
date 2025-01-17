@@ -65,7 +65,7 @@ const Home = () => {
     <div >
       <div >
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-4">
           <div>
             <p className="text-gray-500 dark:text-slate-400">Hello,</p>
             {!!user && (
@@ -73,7 +73,7 @@ const Home = () => {
                 {user.firstName} {user.lastName}
               </h1>
             )}
-            <p className="text-gray-600 dark:text-slate-300">Dashboard</p>
+            
           </div>
           <div className="flex items-center space-x-4">
             <div className="relative">
@@ -97,16 +97,19 @@ const Home = () => {
 
         {/* Latest Log Section */}
         {loading ? (
+          
           <p className="text-center text-gray-500"></p>
         ) : latestLog ? (
+          <div>
+          <p className="text-gray-600 dark:text-slate-300 mb-2">Dashboard</p>
           <div className="bg-slate-700 dark:bg-slate-900 text-white rounded-lg p-4 mb-6">
             <div className="flex justify-between items-center">
               <span className="text-sm">{getCurrentDateAndDay()}</span>
               <i className="fas fa-calendar-alt"></i>
             </div>
-            <p className="mt-2">Location: {latestLog.location || "Unknown Location"}</p>
+            <p className="mt-2">Room:&nbsp;&nbsp; {latestLog.roomName || "Unknown Room"}</p>
             <p>
-              Last In Time:{" "}
+              Last In Time:&nbsp;
               {latestLog.entryTime
                 ? new Date(latestLog.entryTime).toLocaleTimeString("en-IN", {
                     hour: "2-digit",
@@ -115,7 +118,7 @@ const Home = () => {
                 : "N/A"}
             </p>
             <p>
-              Last Left Time:{" "}
+              Last Left Time:&nbsp;
               {latestLog.exitTime
                 ? new Date(latestLog.exitTime).toLocaleTimeString("en-IN", {
                     hour: "2-digit",
@@ -123,6 +126,7 @@ const Home = () => {
                   })
                 : "Currently In Room"}
             </p>
+          </div>
           </div>
         ) : (
           <p className="text-center text-gray-500"></p>

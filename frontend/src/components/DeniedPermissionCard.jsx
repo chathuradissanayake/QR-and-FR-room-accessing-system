@@ -5,7 +5,7 @@ const DeniedPermissionCard = ({ permission }) => {
   const { roomName,location, door, inTime, outTime, date } = permission;
 
   return (
-    <div className="max-w-sm p-4 bg-white dark:bg-slate-700 border border-gray-200 rounded-lg shadow-lg">
+    <div className="max-w-sm p-4 bg-slate-100 dark:bg-slate-700  rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibol dark:text-white">{door.roomName}</h2>
         <span className="font-bold dark:text-white">{door ? door.doorCode : "N/A"}</span>

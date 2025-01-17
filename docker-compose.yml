@@ -2,7 +2,7 @@ name: securepass-user
 services:
   backend:
     build: ./backend
-    image: 'securepass-user-be:1.0.0'
+    image: 'securepass-user-be:1.0.2'
     ports:
       - '8080:8080'
     environment:
@@ -11,7 +11,7 @@ services:
 
   frontend:
     build: ./frontend
-    image: 'securepass-user-fe:1.0.0'
+    image: 'securepass-user-fe:1.0.2'
     ports:
       - '3001:80'
     depends_on:

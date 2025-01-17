@@ -46,9 +46,11 @@ export default function MyLogbook() {
 
         {/* Logs Section */}
         {loading ? (
-          <p className="dark:text-slate-300">Loading logs...</p>
+          <p className="dark:text-slate-300"></p>
         ) : logs.length === 0 ? (
-          <p className="dark:text-slate-300">No logs found.</p>
+          <div className="flex justify-center items-center py-8">
+          <p className="pl-4 text-gray-500">No log details.</p>
+          </div>
         ) : (
           <div className="space-y-4 ">
             {logs.map((log, index) => (

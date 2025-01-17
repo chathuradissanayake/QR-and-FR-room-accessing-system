@@ -127,7 +127,7 @@ const AskPermission = () => {
                 placeholder="User Name"
                 value={data.name}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
                 readOnly
               />
@@ -142,7 +142,7 @@ const AskPermission = () => {
                 name="door"
                 value={data.door}
                 onChange={handleDoorChange}
-                className={`flex w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
+                className={`flex w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
                   data.door === '' ? 'text-gray-400' : 'text-black'
                 }`}
                 required
@@ -162,7 +162,7 @@ const AskPermission = () => {
             </div>
 
             <div>
-              <label htmlFor="roomName" className="">
+              <label htmlFor="roomName" className="block text-sm text-gray-400 ml-3">
                 Room
               </label>
               <input
@@ -177,7 +177,7 @@ const AskPermission = () => {
             </div>
 
             <div>
-              <label htmlFor="location" className="">
+              <label htmlFor="location" className="block text-sm text-gray-400 ml-3">
                 Location
               </label>
               <input
@@ -202,7 +202,7 @@ const AskPermission = () => {
                 value={data.date}
                 onChange={handleChange}
                 min={new Date().toISOString().split("T")[0]} // Restricts date to today or later
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
+                className={`w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
                   data.date === '' ? 'text-gray-400' : 'text-black'
                 }`}
                 required
@@ -219,7 +219,7 @@ const AskPermission = () => {
                 name="inTime"
                 value={data.inTime}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />
             </div>
@@ -234,7 +234,7 @@ const AskPermission = () => {
                 name="outTime"
                 value={data.outTime}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />
             </div>
@@ -251,7 +251,7 @@ const AskPermission = () => {
                 value={data.message}
                 onChange={handleChange}
                 rows="3"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-700 dark:text-slate-100"
+                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-700 dark:text-slate-100"
                 required
               />
             </div>

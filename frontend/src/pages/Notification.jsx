@@ -46,7 +46,7 @@ export default function Notification() {
         setHasFetched(true);
       } catch (error) {
         console.error("Error fetching logs:", error);
-        setError("Failed to fetch logs. Please try again.");
+        // setError("Failed to fetch logs. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -66,7 +66,7 @@ export default function Notification() {
 
         {loading ? (
           <div className="flex justify-center items-center min-h-screen">
-            <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            {/* <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div> */}
           </div>
         ) : error ? (
           <div className="flex justify-center items-center py-8">

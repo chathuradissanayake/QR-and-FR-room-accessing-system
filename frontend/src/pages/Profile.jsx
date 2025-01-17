@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FaChevronRight, FaExclamationCircle } from 'react-icons/fa';
+import { FaChevronRight } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
@@ -51,11 +51,11 @@ const Profile = () => {
       {/* Profile Picture and User Info */}
       <div className="flex flex-col items-center mb-6">
         <div className="relative ">
-        <img
-          src={user?.profilePicture || avatar} // Use Base64 string as the image source
-          alt="Profile"
+          <img
+          src={user.profilePicture || avatar}
+          onError={(e) => (e.target.src = avatar)}
           className="w-32 h-32 object-cover rounded-full"
-        />
+          />
           <button className="absolute bottom-0 right-0 p-1 bg-black rounded-full">
           <Link to="/upload-picture">
             <FiEdit className="text-white" />
@@ -100,7 +100,7 @@ const Profile = () => {
         >
           <span className="text-gray-500 dark:text-slate-200">Face ID</span>
           <div className="flex items-center space-x-2">
-            <FaExclamationCircle className="text-red-500" />
+            {/* <FaExclamationCircle className="text-red-500" /> */}
             <FaChevronRight className="text-gray-600" />
           </div>
         </div>

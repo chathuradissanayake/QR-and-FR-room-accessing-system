@@ -7,6 +7,6 @@ const requireAuth = require('../middleware/authMiddleware'); // Import the middl
 router.get('/doors', requireAuth, getAllDoors); // Apply the middleware
 
 // Endpoint to get door details by door code
-router.get('/:doorCode', requireAuth, getDoorByCode); // Apply the middleware
+router.get('/:doorCode', getDoorByCode); // Apply the middleware
 
 module.exports = router;

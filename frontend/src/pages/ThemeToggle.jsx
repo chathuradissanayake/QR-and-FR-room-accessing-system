@@ -50,7 +50,7 @@ const ThemeToggle = () => {
         <button
           className={`flex items-center p-3 rounded-md cursor-pointer transition ${
             theme === "dark"
-              ? "bg-blue-300 text-white shadow-lg"
+              ? "bg-blue-600 text-white shadow-lg"
               : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
           }`}
           onClick={() => handleSelectTheme("dark")}

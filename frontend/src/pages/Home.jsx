@@ -11,13 +11,11 @@ import leave from "../assets/leave.png";
 import logbook from "../assets/logbook.png";
 import permissions from "../assets/permissions.png";
 import settings from "../assets/settings.png";
-
 import DashboardTab from "../components/DashboardTab";
 
 const Home = () => {
   const { user, setUser } = useContext(UserContext); // Assuming setUser is available
   const navigate = useNavigate();
-
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -62,8 +60,8 @@ const Home = () => {
   }, null);
 
   return (
-    <div >
-      <div >
+    <div>
+      <div>
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
           <div>
@@ -73,13 +71,12 @@ const Home = () => {
                 {user.firstName} {user.lastName}
               </h1>
             )}
-            
           </div>
           <div className="flex items-center space-x-4">
             <div className="relative">
               <button
                 onClick={() => navigate("/notification")}
-                className="text-yellow-400 text-3xl mt-1  "><FaBell />
+                className="text-yellow-400 text-3xl mt-1"><FaBell />
               </button>
             </div>
             <img
@@ -95,38 +92,51 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Show message if face registration is not complete (user.faceCount = 0) */}
+        {user?.faceCount === 0 && (
+        <div className="bg-red-200 text-red-700 p-4 mb-6 rounded-lg">
+            Face Registration not complete. Please complete the registration process.{" "}
+            <button
+                onClick={() => navigate("/face-registration")}
+                className="text-blue-500 hover:text-blue-700"
+            >
+                Click here
+            </button>
+        </div>
+        )}
+
+
         {/* Latest Log Section */}
         {loading ? (
-          
           <p className="text-center text-gray-500"></p>
         ) : latestLog ? (
           <div>
-          <p className="text-gray-600 dark:text-slate-300 mb-2">Dashboard</p>
-          <div className="bg-slate-700 dark:bg-slate-900 text-white rounded-lg p-4 mb-6">
-            <div className="flex justify-between items-center">
-              <span className="text-sm">{getCurrentDateAndDay()}</span>
-              <i className="fas fa-calendar-alt"></i>
+            <p className="text-gray-600 dark:text-slate-300 mb-2">Dashboard</p>
+            <div className="bg-slate-700 dark:bg-slate-900 text-white rounded-lg p-4 mb-6">
+              <div className="flex justify-between items-center">
+                <span className="text-sm">{getCurrentDateAndDay()}</span>
+                <i className="fas fa-calendar-alt"></i>
+              </div>
+              <p className="mt-2">Room:&nbsp;&nbsp; {latestLog.roomName || "Unknown Room"}</p>
+              <p>
+                Last In Time:&nbsp;
+                {latestLog.entryTime
+                  ? new Date(latestLog.entryTime).toLocaleTimeString("en-IN", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })
+                  : "N/A"}
+              </p>
+              <p>
+                Last Left Time:&nbsp;
+                {latestLog.exitTime
+                  ? new Date(latestLog.exitTime).toLocaleTimeString("en-IN", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })
+                  : "Currently In Room"}
+              </p>
             </div>
-            <p className="mt-2">Room:&nbsp;&nbsp; {latestLog.roomName || "Unknown Room"}</p>
-            <p>
-              Last In Time:&nbsp;
-              {latestLog.entryTime
-                ? new Date(latestLog.entryTime).toLocaleTimeString("en-IN", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-                : "N/A"}
-            </p>
-            <p>
-              Last Left Time:&nbsp;
-              {latestLog.exitTime
-                ? new Date(latestLog.exitTime).toLocaleTimeString("en-IN", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-                : "Currently In Room"}
-            </p>
-          </div>
           </div>
         ) : (
           <p className="text-center text-gray-500"></p>

@@ -6,9 +6,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/userContext";
 
 const AskPermission = () => {
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [data, setData] = useState({
     name: `${user?.firstName || ''} ${user?.lastName || ''}`.trim(),
+    location: '',
     roomName: '',
     door: '',
     date: '',
@@ -18,15 +19,17 @@ const AskPermission = () => {
   });
   const [doors, setDoors] = useState([]);
   const navigate = useNavigate();
-  
 
   useEffect(() => {
     const fetchDoors = async () => {
       try {
-        const response = await axios.get('/door/doors', {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('/api/door/doors', {
+          headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
         setDoors(response.data);
+        console.log('Doors:', response.data);
       } catch (error) {
         console.error('Error fetching doors:', error);
         toast.error('Error fetching doors');
@@ -42,13 +45,19 @@ const AskPermission = () => {
 
   const handleDoorChange = (e) => {
     const selectedDoor = doors.find(door => door._id === e.target.value);
-    setData({ ...data, door: e.target.value, roomName: selectedDoor ? selectedDoor.location : '' });
+    setData({ 
+      ...data, 
+      door: e.target.value, 
+      roomName: selectedDoor ? selectedDoor.roomName : '', 
+      location: selectedDoor ? selectedDoor.location : '' 
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log('Name:', data.name);
+    console.log('location:', data.location);
     console.log('roomName:', data.roomName);
     console.log('door:', data.door);
     console.log('date:', data.date);
@@ -57,11 +66,13 @@ const AskPermission = () => {
     console.log('message:', data.message);
 
     // Destructuring data
-    const { name, roomName, door, date, inTime, outTime, message } = data;
+    const { name, roomName, door, location, date, inTime, outTime, message } = data;
 
     try {
-      const { data: response } = await axios.post('/permission/ask-permission', {
+      const token = localStorage.getItem('token');
+      const { data: response } = await axios.post('/api/permission/ask-permission', {
         name,
+        location,
         roomName,
         door,
         date,
@@ -69,6 +80,7 @@ const AskPermission = () => {
         outTime,
         message,
       }, {
+        headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
       if (response.error) {
@@ -76,6 +88,7 @@ const AskPermission = () => {
       } else {
         setData({
           name: `${user?.firstName || ''} ${user?.lastName || ''}`.trim(),
+          location: '',
           roomName: '',
           door: '',
           date: '',
@@ -93,8 +106,7 @@ const AskPermission = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div>
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
@@ -115,7 +127,7 @@ const AskPermission = () => {
                 placeholder="User Name"
                 value={data.name}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
                 readOnly
               />
@@ -130,7 +142,7 @@ const AskPermission = () => {
                 name="door"
                 value={data.door}
                 onChange={handleDoorChange}
-                className={`flex w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
+                className={`flex w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
                   data.door === '' ? 'text-gray-400' : 'text-black'
                 }`}
                 required
@@ -150,7 +162,7 @@ const AskPermission = () => {
             </div>
 
             <div>
-              <label htmlFor="roomName" className="sr-only">
+              <label htmlFor="roomName" className="block text-sm text-gray-400 ml-3">
                 Room
               </label>
               <input
@@ -158,6 +170,21 @@ const AskPermission = () => {
                 id="roomName"
                 name="roomName"
                 value={data.roomName}
+                placeholder='Room Name'
+                readOnly
+                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="location" className="block text-sm text-gray-400 ml-3">
+                Location
+              </label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                value={data.location}
                 placeholder='Location'
                 readOnly
                 className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"
@@ -174,7 +201,10 @@ const AskPermission = () => {
                 name="date"
                 value={data.date}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${data.date === '' ? 'text-gray-400' : 'text-black'}`}
+                min={new Date().toISOString().split("T")[0]} // Restricts date to today or later
+                className={`w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
+                  data.date === '' ? 'text-gray-400' : 'text-black'
+                }`}
                 required
               />
             </div>
@@ -189,7 +219,7 @@ const AskPermission = () => {
                 name="inTime"
                 value={data.inTime}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />
             </div>
@@ -204,7 +234,7 @@ const AskPermission = () => {
                 name="outTime"
                 value={data.outTime}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
                 required
               />
             </div>
@@ -221,7 +251,7 @@ const AskPermission = () => {
                 value={data.message}
                 onChange={handleChange}
                 rows="3"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-700 dark:text-slate-100"
+                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-700 dark:text-slate-100"
                 required
               />
             </div>
@@ -237,7 +267,7 @@ const AskPermission = () => {
           </form>
         </div>
       </div>
-    </div>
+   
   );
 };
 

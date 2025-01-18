@@ -13,9 +13,10 @@ mongoose.connect(process.env.MONGO_URL)
 
 require('./models/user');
 require('./models/door'); 
-require('./models/permissionRequest');
+require('./models/PermissionRequest');
 require('./models/contactUs');
 require('./models/History'); 
+require('./models/company')
 
 // middleware
 app.use(express.json());
@@ -28,12 +29,12 @@ app.use(cors({
     credentials: true,
   }));
 
-app.use('/', require('./routes/authRoutes'))
-app.use('/user', require('./routes/userRoutes'))
-app.use('/door', require('./routes/doorRoutes'));
-app.use('/permission', require('./routes/permissionRoutes'))
-app.use('/contactus', require('./routes/contactRoutes'))
-app.use('/history', require('./routes/historyRoutes'));
+app.use('/api/', require('./routes/authRoutes'))
+app.use('/api/user', require('./routes/userRoutes'))
+app.use('/api/door', require('./routes/doorRoutes'));
+app.use('/api/permission', require('./routes/permissionRoutes'))
+app.use('/api/contactus', require('./routes/contactRoutes'))
+app.use('/api/history', require('./routes/historyRoutes'));
 
 const port =process.env.PORT;
 app.listen(port, () =>{console.log(`Server is running on port ${port}`)});

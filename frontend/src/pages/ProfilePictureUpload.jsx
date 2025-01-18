@@ -48,7 +48,7 @@ const ProfilePictureUpload = () => {
 
     try {
       // Add user ID to the API request
-      const response = await axios.put(`/user/profile-picture`, {
+      const response = await axios.put(`/api/user/profile-picture`, {
         userId: user._id, // Include the logged-in user's ID
         profilePicture: image,
       });
@@ -65,40 +65,39 @@ const ProfilePictureUpload = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div>
 
-    <div className="title flex items-center space-x-2 mb-8 dark:text-white">
+        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
+        
+            <GoChevronLeft className="cursor-pointer" 
+            onClick={handleBackNavigation}/>
+        
+            <span className='font-semibold'>Update Profile Picture</span>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="block text-gray-600 mb-1 dark:text-slate-200"
+          />
+          {preview && (
+            <img
+              src={preview}
+              alt="Preview"
+              className="w-40 h-40 object-cover rounded-full mb-8"
+            />
+          )}
+          <button
+            onClick={handleUpload}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mt-8"
+          >
+            Upload
+          </button>
+       </div>
+
     
-        <GoChevronLeft className="cursor-pointer" 
-        onClick={handleBackNavigation}/>
-    
-        <span className='font-semibold'>Update Profile Picture</span>
-    </div>
-
-    <div className="flex flex-col items-center">
-  <input
-    type="file"
-    accept="image/*"
-    onChange={handleImageChange}
-    className="block text-gray-600 mb-1 dark:text-slate-200"
-  />
-  {preview && (
-    <img
-      src={preview}
-      alt="Preview"
-      className="w-40 h-40 object-cover rounded-full mb-8"
-    />
-  )}
-  <button
-    onClick={handleUpload}
-    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mt-8"
-  >
-    Upload
-  </button>
-</div>
-
-    </div>
     </div>
   );
 };

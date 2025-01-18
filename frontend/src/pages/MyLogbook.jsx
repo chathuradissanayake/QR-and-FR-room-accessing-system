@@ -20,7 +20,7 @@ export default function MyLogbook() {
       }
 
       try {
-        const response = await axios.get(`/history/get-history?userId=${user.userId}`);
+        const response = await axios.get(`/api/history/get-history?userId=${user.userId}`);
         const logData = response.data;
         setLogs(logData);
       } catch (error) {
@@ -34,8 +34,7 @@ export default function MyLogbook() {
   }, [user]);
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div>
 
         {/* Title Section */}
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
@@ -47,9 +46,11 @@ export default function MyLogbook() {
 
         {/* Logs Section */}
         {loading ? (
-          <p className="dark:text-slate-300">Loading logs...</p>
+          <p className="dark:text-slate-300"></p>
         ) : logs.length === 0 ? (
-          <p className="dark:text-slate-300">No logs found.</p>
+          <div className="flex justify-center items-center py-8">
+          <p className="pl-4 text-gray-500">No log details.</p>
+          </div>
         ) : (
           <div className="space-y-4 ">
             {logs.map((log, index) => (
@@ -85,7 +86,7 @@ export default function MyLogbook() {
             ))}
           </div>
         )}
-      </div>
+      
     </div>
   );
 }

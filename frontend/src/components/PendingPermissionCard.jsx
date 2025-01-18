@@ -5,7 +5,9 @@ import { toast } from 'react-hot-toast';
 const PendingPermissionCard = ({ permission, onDelete }) => {
   const handleDelete = async () => {
     try {
-      await axios.delete(`/permission/delete-permission/${permission._id}`, {
+      const token = localStorage.getItem('token');
+      await axios.delete(`/api/permission/delete-permission/${permission._id}`, {
+        headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
       onDelete(permission._id);
@@ -17,19 +19,19 @@ const PendingPermissionCard = ({ permission, onDelete }) => {
   };
 
   return (
-    <div className="max-w-sm p-4 bg-white border dark:bg-slate-700 border-gray-200 rounded-lg shadow-lg">
+    <div className="max-w-sm p-4 bg-slate-100 dark:bg-slate-700 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold dark:text-white">{permission.door.roomName}</h2>
         <span className="font-bold dark:text-white">{permission.door ? permission.door.doorCode : "N/A"}</span>
       </div>
       <div className="space-y-2 text-gray-600 dark:text-slate-200">
         <div className="flex justify-between">
-          <span>Door</span>
-          <span className="text-blue-500">{permission.door ? permission.door.roomName : "N/A"}</span>
+          <span>Room </span>
+          <span className="text-blue-500">{permission.roomName}</span>
         </div>
         <div className="flex justify-between">
-          <span>Room</span>
-          <span className="text-blue-500">{permission.roomName}</span>
+          <span>Location</span>
+          <span className="text-blue-500">{permission.location}</span>
         </div>
         <div className="flex justify-between">
           <span>In Time</span>

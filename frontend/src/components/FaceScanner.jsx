@@ -1,14 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
+import { UserContext } from "../../context/userContext"; // Import UserContext
 import { toast } from 'react-hot-toast';
 
 const FaceScanner = ({ onSuccess }) => {
+  const { user } = useContext(UserContext); // Access user context values
   const [message, setMessage] = useState('');
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    // Log user context values to console
+    if (user) {
+      console.log("User Context Values:", user);
+    }
+
     startCamera(); // Automatically start the camera when the component loads
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     // Verification loop to periodically check face verification
@@ -57,16 +64,21 @@ const FaceScanner = ({ onSuccess }) => {
 
           if (response.ok) {
             const result = await response.json();
-            console.log(result);
-            if (result.msg === "Verification Success.") {
-              toast.success('Face verified successfully!');
+            console.log(result); // Log the result to check the API response
 
+            // Check if the userId in API response matches the userId in context
+            if (result.user === user.userId) {
+              console.log('User Verified'); // Log success if user IDs match
+              toast.success('Face verified successfully!');
 
               if (onSuccess) {
                 onSuccess(); // Notify parent component
               }
-
+            } else {
+              console.error('Access Denied: User ID does not match');
+              toast.error('Access Denied: User ID does not match');
             }
+
           } else {
             console.error('Verification failed:', response.statusText);
           }
@@ -78,8 +90,8 @@ const FaceScanner = ({ onSuccess }) => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-md p-8 bg-white rounded-md shadow-md">
+    <div className="flex justify-center min-h-screen">
+      <div className="w-full max-w-md p-8 ">
         <h3 className="text-2xl font-bold text-red-600 bg-yellow-100 p-4 border-l-4 border-red-600 rounded shadow-md mb-4">
           Please Wait! Verifying your identity...
         </h3>

@@ -27,7 +27,7 @@ export default function Notification() {
 
       try {
         console.log("Fetching logs for userId:", user._id); // Log user._id when fetching logs
-        const response = await axios.get(`/contactus/user/${user._id}`);
+        const response = await axios.get(`/api/contactus/user/${user._id}`);
         const logData = response.data;
 
         // Log the user-related objId from ContactUs data for comparison
@@ -46,7 +46,7 @@ export default function Notification() {
         setHasFetched(true);
       } catch (error) {
         console.error("Error fetching logs:", error);
-        setError("Failed to fetch logs. Please try again.");
+        // setError("Failed to fetch logs. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -56,8 +56,7 @@ export default function Notification() {
   }, [user, hasFetched]);
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div>
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
@@ -67,7 +66,7 @@ export default function Notification() {
 
         {loading ? (
           <div className="flex justify-center items-center min-h-screen">
-            <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            {/* <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div> */}
           </div>
         ) : error ? (
           <div className="flex justify-center items-center py-8">
@@ -124,7 +123,7 @@ export default function Notification() {
           </div>
 
         )}
-      </div>
+      
     </div>
   );
 }

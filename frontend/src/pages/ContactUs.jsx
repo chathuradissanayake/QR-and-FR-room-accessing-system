@@ -24,7 +24,7 @@ const ContactUs = () => {
     const { message } = data;
 
     try {
-      const { data: response } = await axios.post('/contactus/messages', {
+      const { data: response } = await axios.post('/api/contactus/messages', {
         message,
         user: {
           objId: user._id, // Passing the logged-in user's ObjectId
@@ -52,8 +52,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div>
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <GoChevronLeft className="cursor-pointer" onClick={handleBackNavigation} />
           <span className="font-semibold">Contact us</span>
@@ -110,7 +109,7 @@ const ContactUs = () => {
           </form>
         </div>
       </div>
-    </div>
+    
   );
 };
 

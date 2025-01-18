@@ -9,8 +9,7 @@ const AppInformation = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div>
 
     
     <div className="title flex items-center space-x-2 mb-8 dark:text-white">
@@ -23,9 +22,9 @@ const AppInformation = () => {
         <div className='ml-3'>
         <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100 ">App Details</h2>
         <ul className="list-disc list-inside text-gray-600 mb-6 text-sm dark:text-slate-200">
-          <li><strong>Version:</strong> 1.0.0</li>
+          <li><strong>Version:</strong> 1.0.3</li>
           <li><strong>Developer:</strong> SLT Mobitel</li>
-          <li><strong>Release Date:</strong> November 2024</li>
+          <li><strong>Release Date:</strong> January 2025</li>
         </ul>
 
         <h2 className="text-lg font-semibold text-gray-800 dark:text-slate-100 mb-3">Features</h2>
@@ -33,7 +32,7 @@ const AppInformation = () => {
           <li>Simple and user-friendly interface</li>
           <li>Real-time updates and notifications</li>
           <li>Secure login with multiple authentication options</li>
-          <li>Cross-platform support (Web, iOS, Android)</li>
+          
         </ul>
 
         <h2 className="text-lg font-semibold text-gray-800 dark:text-slate-100 mb-3">Contact Support</h2>
@@ -45,14 +44,19 @@ const AppInformation = () => {
         </p>
 
         <div className="text-center">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-            Learn More
-          </button>
+        <button
+          onClick={() => window.open('https://www.sltdigitallab.lk/', '_blank', 'noopener,noreferrer')}
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        >
+          Learn More
+        </button>
+
+
         </div>
         </div>
 
       </div>
-    </div>
+    
   );
 };
 

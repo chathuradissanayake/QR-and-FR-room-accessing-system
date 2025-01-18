@@ -1,13 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Toaster } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from 'react-router-dom';
+import { UserContext } from "../../context/userContext";
 import ApprovedPermissionCard from "../components/ApprovedPermissionCard";
 import DeniedPermissionCard from "../components/DeniedPermissionCard";
 import PendingPermissionCard from "../components/PendingPermissionCard";
 
 const MyPermissions = () => {
+  const { user } = useContext(UserContext);
   const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,11 +18,14 @@ const MyPermissions = () => {
   useEffect(() => {
     const fetchPermissions = async () => {
       try {
-        const response = await axios.get("/permission/my-requests", {
+        const token = localStorage.getItem('token');
+        const response = await axios.get("/api/permission/my-requests", {
+          headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
         if (response.status === 200) {
           setPermissions(response.data);
+          console.log("Permissions:", response.data);
         } else {
           setError("Failed to fetch permissions. Please try again later.");
         }
@@ -64,10 +69,9 @@ const MyPermissions = () => {
   }
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
+    <div>
     
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
           <Link to="/">
             <GoChevronLeft className="cursor-pointer" />
@@ -127,7 +131,7 @@ const MyPermissions = () => {
           })
         )}
       </div>
-    </div>
+    
     </div>
   );
 };

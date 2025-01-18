@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FaChevronRight, FaExclamationCircle } from 'react-icons/fa';
+import { FaChevronRight } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
+import avatar from "../assets/avatar.png"; // Default avatar image
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -37,8 +38,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50 dark:bg-slate-600 ">
-    <div className="bg-white shadow-md rounded-md p-8 w-full max-w-md dark:bg-slate-800">
+    <div>
 
     
     <div className="title flex items-center space-x-2 mb-8 dark:text-white">
@@ -51,11 +51,11 @@ const Profile = () => {
       {/* Profile Picture and User Info */}
       <div className="flex flex-col items-center mb-6">
         <div className="relative ">
-        <img
-          src={user.profilePicture} // Use Base64 string as the image source
-          alt="Profile"
+          <img
+          src={user.profilePicture || avatar}
+          onError={(e) => (e.target.src = avatar)}
           className="w-32 h-32 object-cover rounded-full"
-        />
+          />
           <button className="absolute bottom-0 right-0 p-1 bg-black rounded-full">
           <Link to="/upload-picture">
             <FiEdit className="text-white" />
@@ -100,7 +100,7 @@ const Profile = () => {
         >
           <span className="text-gray-500 dark:text-slate-200">Face ID</span>
           <div className="flex items-center space-x-2">
-            <FaExclamationCircle className="text-red-500" />
+            {/* <FaExclamationCircle className="text-red-500" /> */}
             <FaChevronRight className="text-gray-600" />
           </div>
         </div>
@@ -124,7 +124,7 @@ const Profile = () => {
           <button onClick={handleLogout} className="text-red-500">Log out</button>
         </div>
       </div>
-    </div>
+    
     </div>
   );
 };

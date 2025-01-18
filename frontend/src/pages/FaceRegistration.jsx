@@ -237,74 +237,56 @@ const FaceRegistration = () => {
                 </div>
             </form>
 
-            {registrationCount >= 5 && (
-                <p className=" mt-4 p-4 text-sm text-blue-600 dark:text-blue-400">
-                    Your registration is complete.
-                </p>
-            )}
+
 
             {result && (
-                <div className="mt-4 p-4 shadow-md rounded-md bg-white dark:bg-slate-800 border">
-                    <div className="flex items-center space-x-3">
-                        <div className="flex-shrink-0">
-                            {/* Conditionally render the checkmark icon for "Camera started" or "Registration completed" */}
-                            {result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed" ? (
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-6 w-6 text-green-500"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 10-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 000-1.414z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                            ) : (
-                                // X (cross) icon for "Cannot Register"
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-6 w-6 text-red-500"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 7.586l4.293-4.293a1 1 011.414 1.414L11.414 9l4.293 4.293a1 1 11-1.414 1.414L10 10.414l-4.293 4.293a1 1 11-1.414-1.414L8.586 9 4.293 4.707a1 1 010-1.414z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                            )}
-                        </div>
-                        <div>
-                            <h3
-                                className={`text-lg font-semibold ${
-                                    result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed"
-                                        ? "text-green-600"
-                                        : "text-red-600"
-                                }`}
-                            >
-                                {result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed"
-                                    ? "Ready to Register"
-                                    : "Cannot Register"}
-                            </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
-                                {result.msg}
-                            </p>
-                            {/* Show count for Registration Success and Maximum times registered */}
-                            {(result.msg === "Registration Success" ||
-                            result.msg === "Maximum times registered" ||
-                            result.msg === "Camera started" ||
-                            result.msg === "Registration completed") && (
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Registration Count: {registrationCount}/5
-                                </p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            )}
+    <div className="mt-4 p-4 shadow-md rounded-md bg-white dark:bg-slate-800 border">
+        <div className="flex items-center space-x-3">
+            <div className="flex-shrink-0">
+                {/* Do not display any icon if registration count is 0 */}
+                {registrationCount > 0 && (result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed") && (
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 text-green-500"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 10-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 000-1.414z"
+                            clipRule="evenodd"
+                        />
+                    </svg>
+                )}
+            </div>
+            <div>
+                <h3
+                    className={`text-lg font-semibold ${
+                        (result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed") &&
+                        (registrationCount > 0 ? "text-green-600" : "text-green-600")
+                    }`}
+                >
+                    {result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed"
+                        ? (registrationCount > 0 ? "Registration Success" : "Ready to Register")
+                        : "Cannot Register"}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {result.msg}
+                </p>
+                {/* Show count for Registration Success and Maximum times registered */}
+                {(result.msg === "Registration Success" ||
+                result.msg === "Maximum times registered" ||
+                result.msg === "Camera started" ||
+                result.msg === "Registration completed") && (
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                        Registration Count: {registrationCount}/5
+                    </p>
+                )}
+            </div>
+        </div>
+    </div>
+)}
+
         </div>
     );
 };

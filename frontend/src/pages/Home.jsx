@@ -148,13 +148,13 @@ const Home = () => {
           />
           <DashboardTab
             title="Ask Permission"
-            description="Asking permission for Access room"
+            description="Ask permission for Access room"
             href="/askpermission"
             image={askpermission}
           />
           <DashboardTab
             title="My Permissions"
-            description="Doors and Rooms that I have permission"
+            description="Doors that I have permission"
             href="/mypermissions"
             image={permissions}
           />
@@ -166,7 +166,7 @@ const Home = () => {
           />
           <DashboardTab
             title="Settings"
-            description="Account settings and App settings"
+            description="Account and App settings"
             href="/settings"
             image={settings}
           />

@@ -1,36 +1,50 @@
 const History = require("../models/History");
-const User = require("../models/user")
+const User = require("../models/user");
 
 // Create history
 const createHistory = async (req, res) => {
-  const { doorCode, createdAt, userId, location, roomName, exitTime } = req.body;
+  const { doorCode, createdAt, userId, location, roomName } = req.body;
 
   if (!doorCode || !createdAt || !userId) {
     return res.status(400).json({ success: false, message: "All fields are required." });
   }
 
   try {
+    console.log("Fetching user with userId:", userId); // Debugging log
+
     // Fetch the user from the database using the provided userId
-    const user = await User.findOne({ userId });
+    const user = await User.findOne({ userId }).populate('company');
     if (!user) {
+      console.log("User not found with userId:", userId); // Debugging log
       return res.status(404).json({ success: false, message: "User not found." });
     }
+
+    console.log("User found:", user); // Debugging log
+
+    if (!user.company) {
+      console.log("User does not have a company associated."); // Debugging log
+      return res.status(400).json({ success: false, message: "User does not have a company associated." });
+    }
+
+    console.log("User's company:", user.company); // Debugging log
 
     const newHistory = new History({
       doorCode,
       entryTime: createdAt,
-      user: { userId: user._id }, // Use the user's database _id
+      user: user._id, // Use the user's database _id
       location,
       roomName,
-      exitTime,
+      company: user.company._id, // Include the company ID from the user object
     });
+
+    console.log("Saving new history:", newHistory); // Debugging log
 
     await newHistory.save();
 
     res.status(201).json({ success: true, message: "History saved successfully!" });
   } catch (error) {
-    console.error("Error saving history:", error);
-    res.status(500).json({ success: false, message: "Error saving history." });
+    console.error("Error saving history:", error); // Log the error details
+    res.status(500).json({ success: false, message: "Error saving history.", error: error.message });
   }
 };
 
@@ -75,7 +89,7 @@ const updateExitTime = async (req, res) => {
 
     // Find the latest entry for the user and update the exitTime
     const updatedHistory = await History.findOneAndUpdate(
-      { "user.userId": user._id }, // Match the user ID
+      { user: user._id, exitTime: null }, // Match the user ID and ensure exitTime is null
       { $set: { exitTime } }, // Set the new exitTime
       { sort: { entryTime: -1 }, new: true }
     );

@@ -123,10 +123,10 @@ const EntrancePage = () => {
       toast.error("No door code available. Please scan a QR code first.");
       return;
     }
-
+  
     if (isConnected) {
-      const topic = "door/access";
-      const message = JSON.stringify({ action: "unlock" });
+      const topic = "door/access"; // Static topic remains
+      const message = JSON.stringify({ action: doorCode }); // Send doorCode as action
       client.publish(topic, message, { qos: 0 }, (error) => {
         if (error) {
           console.error("Publish error: ", error);
@@ -138,9 +138,9 @@ const EntrancePage = () => {
     } else {
       console.log("MQTT client is not connected");
     }
-
+  
     const createdAt = new Date().toISOString();
-
+  
     try {
       const response = await axios.post("/api/history/add-history", {
         doorCode,
@@ -149,7 +149,7 @@ const EntrancePage = () => {
         roomName,
         userId: user.userId,
       });
-
+  
       if (response.status === 201) {
         toast.success("You can enter now!");
         navigate("/");
@@ -161,7 +161,7 @@ const EntrancePage = () => {
       toast.error("An error occurred while unlocking the door.");
     }
   };
-
+  
   const startScanning = () => {
     setDoorCode("");
     setDoorName("");

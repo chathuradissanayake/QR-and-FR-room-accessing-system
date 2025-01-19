@@ -192,8 +192,8 @@ const EntrancePage = () => {
                 onClick={startScanning}
                 disabled={!scanEnabled || scanning}
                 className={`${
-                  scanning || !scanEnabled ? "bg-gray-300 dark:bg-slate-600 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-700"
-                } text-white font-sans py-1 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
+                  scanning || !scanEnabled ? "bg-gray-300 dark:bg-slate-600 cursor-not-allowed py-2" : "bg-blue-500 hover:bg-blue-700 py-2"
+                } text-white font-sans py-2 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
               >
                 <span>Scan QR</span>
                 <FaQrcode className="mt-1" />
@@ -205,8 +205,8 @@ const EntrancePage = () => {
                 onClick={() => setShowFaceScan(true)}
                 disabled={!hasAccess}
                 className={`${
-                  hasAccess ? "bg-blue-500 hover:bg-blue-700" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed"
-                } text-white font-sans py-1 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
+                  hasAccess ? "bg-blue-500 hover:bg-blue-700 py-2" : "py-2 bg-gray-300 dark:bg-slate-600 cursor-not-allowed"
+                } text-white font-sans py-2 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
               >
                 <span>Scan Face</span>
                 <FaLock className="mt-1" />
@@ -218,8 +218,8 @@ const EntrancePage = () => {
                 onClick={handleUnlockDoor}
                 disabled={!faceVerified || !isConnected}
                 className={`${
-                  faceVerified ? "bg-green-500 hover:bg-green-700" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed"
-                } text-white font-sans py-1 rounded-full mb-2 w-40`}
+                  faceVerified ? "bg-green-500 hover:bg-green-700 py-3" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed py-2"
+                } text-white font-sans py-2 rounded-full mb-2 w-40`}
               >
                 Unlock Door
               </button>

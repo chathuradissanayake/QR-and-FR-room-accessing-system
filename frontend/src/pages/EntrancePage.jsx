@@ -188,7 +188,7 @@ const EntrancePage = () => {
             {!scanEnabled && !scanning && !hasAccess && !faceVerified && (
               <div className=" mb-4">
                 <div className="flex justify-center">
-                  <h2 className="text-red-600 text-md font-mono">You're not permissined at this Time !</h2>
+                  <h2 className="text-red-800 text-md font-mono">You're not permissined !</h2>
                 </div>
                 <div className="flex justify-center mb-4">
                   <img src={Lock} alt="lock" className="w-48 h-48" />

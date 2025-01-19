@@ -44,18 +44,20 @@ const AboutUs = () => {
       </div>
 
       <p className="text-gray-600 text-sm mb-6 dark:text-slate-200">
-        Welcome to <span className="font-semibold">SecurePass AI</span>, where innovation meets excellence. We are a team of passionate developers, designers, and strategists dedicated to delivering top-notch digital solutions tailored to your needs.
-      </p>
+          Welcome to <span className="font-semibold">SecurePass AI</span>,  an innovative room access solution designed to simplify and modernize access management for enterprises and companies. Say goodbye to the hassle of physical keycards. With our system, users can unlock doors using their mobile devices by scanning a QR code and verifying their identity through facial recognition.
 
-      <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Our Mission</h2>
-      <p className="text-gray-600 mb-6 text-sm dark:text-slate-200">
-        Our mission is to empower businesses by providing cutting-edge technology solutions that drive growth and efficiency. We believe in building strong, long-term relationships with our clients and exceeding their expectations through quality and creativity.
-      </p>
+As part of SLT’s mission to empower Sri Lankan businesses, SecurePass AI offers an advanced and seamless way to manage access to rooms and facilities, ensuring enhanced security, ease of use, and improved workflows.
+        </p>
 
-      <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Our Vision</h2>
-      <p className="text-gray-600 mb-6 text-sm dark:text-slate-200">
-        To be a global leader in the digital landscape, known for our innovative approach and commitment to excellence. We aim to transform ideas into reality and create impactful experiences for users worldwide.
-      </p>
+        <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Our Mission</h2>
+        <p className="text-gray-600 mb-6 text-sm dark:text-slate-200">
+        To revolutionize room access management by providing businesses with a hassle-free, efficient, and modern solution that promotes smooth workflows and eliminates the need for physical tools.
+        </p>
+
+        <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Our Vision</h2>
+        <p className="text-gray-600 mb-6 text-sm dark:text-slate-200">
+        Our mission is to deliver a secure, user-friendly, and efficient room access system that simplifies access management for enterprises. By integrating QR code and facial recognition technology, we aim to help Sri Lankan businesses enhance workplace security, streamline daily operations, and transition to a more modern and digital approach, reducing the dependence on physical tools.
+        </p>
 
       <h3 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Meet the Developers</h3>
       <div className="flex justify-center rounded-full space-x-4 mt-6">

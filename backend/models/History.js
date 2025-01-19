@@ -1,17 +1,35 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 
-const historySchema = new Schema({
-  doorCode: { type: String, required: true },
-  entryTime: { type: Date, required: true },
-  exitTime: { type: Date, default: null },
-  location: { type: String },
-  roomName: { type: String },
+const historySchema = new mongoose.Schema({
+  doorCode: {
+    type: String,
+    required: true,
+  },
+  entryTime: {
+    type: Date,
+    required: true,
+  },
+  exitTime: {
+    type: Date,
+  },
   user: {
-    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  roomName: {
+    type: String,
+    required: true,
+  },
+  company: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Company",
+    required: true,
   },
 });
 
-const History = mongoose.model("History", historySchema);
-
-module.exports = History;
+module.exports = mongoose.model("History", historySchema);

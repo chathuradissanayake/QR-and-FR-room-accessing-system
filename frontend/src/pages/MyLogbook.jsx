@@ -60,6 +60,7 @@ export default function MyLogbook() {
       </div>
 
       {/* Search Section */}
+      {filteredLogs.length !== 0 && (
       <div className="mb-4">
         {/* Text Search */}
         <input
@@ -71,7 +72,6 @@ export default function MyLogbook() {
         />
 
         {/* Date Picker */}
-        
         <input
           type={selectedDate ? "date" : "text"} // Dynamically switch between "text" and "date"
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-800 dark:text-white dark:border-slate-600"
@@ -81,9 +81,8 @@ export default function MyLogbook() {
           onBlur={(e) => (e.target.type = selectedDate ? "date" : "text")} // Switch back if no date
           placeholder="Select a date"
         />
-
-
       </div>
+      )}
 
       {/* Logs Section */}
       {loading ? (
@@ -93,6 +92,7 @@ export default function MyLogbook() {
           <p className="pl-4 text-gray-500">No log details found.</p>
         </div>
       ) : (
+        
         <div className="space-y-4">
           {filteredLogs.map((log, index) => (
             <LogCard

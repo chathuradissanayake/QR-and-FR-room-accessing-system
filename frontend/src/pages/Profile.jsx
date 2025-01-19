@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FaChevronRight, FaExclamationCircle } from 'react-icons/fa';
+import { FaChevronRight } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { GoChevronLeft } from "react-icons/go";
 import { Link, useNavigate } from 'react-router-dom';

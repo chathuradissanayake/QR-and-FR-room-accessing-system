@@ -41,7 +41,7 @@ const SignIn = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         {/* Logo */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center ">
           <img
             src={logo}
             alt="Logo"
@@ -50,12 +50,12 @@ const SignIn = () => {
         </div>
         
         {/* Title */}
-        <h2 className="text-3xl text-gray-700 font-bold mb-6 text-center">LOG IN</h2>
+        <h2 className="text-4xl text-slate-600 font-bold mb-4 text-center">LOG IN</h2>
         
         {/* Form */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4 relative">
-            <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+            <label htmlFor="email" className="block text-slate-600 text-sm font-bold mb-2">Email</label>
             <div className="flex items-center border rounded shadow appearance-none w-full py-3 px-4 focus:outline-none focus:shadow-outline">
               <FaEnvelope className="text-gray-500 mr-2" />
               <input
@@ -71,7 +71,7 @@ const SignIn = () => {
           </div>
           
           <div className="mb-4 relative">
-            <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+            <label htmlFor="password" className="block text-slate-600 text-sm font-bold mb-2">Password</label>
             <div className="flex items-center border rounded shadow appearance-none w-full py-3 px-4 focus:outline-none focus:shadow-outline">
               <FaLock className="text-gray-500 mr-2" />
               <input

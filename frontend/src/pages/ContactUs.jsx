@@ -72,9 +72,9 @@ const ContactUs = () => {
 
           <h2 className="text-lg font-semibold text-gray-800 mb-6 dark:text-slate-100">Support Hours</h2>
           <p className="text-gray-600 mb-6 text-sm dark:text-slate-200">
-            <strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM (PST)
+            <strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM (GMT)
             <br />
-            <strong>Saturday:</strong> 10:00 AM - 12:00 PM (PST)
+            <strong>Saturday:</strong> 10:00 AM - 12:00 PM (GMT)
           </p>
 
           <h2 className="text-lg font-semibold text-gray-800 dark:text-slate-100 mb-3">Feedback</h2>

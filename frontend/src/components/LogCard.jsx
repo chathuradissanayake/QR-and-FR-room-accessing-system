@@ -38,13 +38,13 @@ const duration = calculateDuration(entryTime, exitTime);
       <div className="bg-slate-100 dark:bg-slate-600 shadow rounded-lg pt-3 pb-3 pl-5 pr-5  ">
           <div >
             <div className='flex justify-between items-center mb-4 '>
-            <h2 className="text-lg font-semibold dark:text-white">{room}</h2>
+            <h2 className="text-lg font-semibold dark:text-white">{door}</h2>
             <span className='text-black-500 dark:text-white'>{roomcode}</span>
             </div>
-            <div className='flex justify-between items-center mb-1 '>
+            {/* <div className='flex justify-between items-center mb-1 '>
             <p className="text-base dark:text-slate-100">Door</p>
             <span className='text-gray-500 dark:text-slate-100'>{door}</span>
-            </div>
+            </div> */}
             <div className='flex justify-between items-center mb-1 '>
             <p className="text-base dark:text-slate-100">Branch</p>
             <span className='text-gray-500 dark:text-slate-100'>{branch}</span>

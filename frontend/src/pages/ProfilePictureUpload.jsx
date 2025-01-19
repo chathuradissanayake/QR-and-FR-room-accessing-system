@@ -74,6 +74,7 @@ const ProfilePictureUpload = () => {
         
             <span className='font-semibold'>Update Profile Picture</span>
         </div>
+        <p className="px-6 pb-4 text-gray-500 dark:text-slate-400">Please upload image below 1MB.</p>
 
         <div className="flex flex-col items-center">
           <input

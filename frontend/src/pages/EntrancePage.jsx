@@ -125,8 +125,8 @@ const EntrancePage = () => {
     }
 
     if (isConnected) {
-      const topic = "door/access";
-      const message = JSON.stringify({ action: "unlock" });
+      const topic = "door/access"; // Static topic remains
+      const message = JSON.stringify({ action: doorCode }); // Send doorCode as action
       client.publish(topic, message, { qos: 0 }, (error) => {
         if (error) {
           console.error("Publish error: ", error);

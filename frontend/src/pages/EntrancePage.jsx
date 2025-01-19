@@ -2,12 +2,19 @@ import axios from "axios";
 import mqtt from "mqtt";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { FaLock, FaQrcode } from "react-icons/fa";
+import { FaQrcode } from "react-icons/fa";
 import { GoChevronLeft } from "react-icons/go";
+import { LuScanFace } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
+import Faceicon from "../assets/go-in-facial.png";
+import Lock from "../assets/go-in-lock.png";
+import QRcode from "../assets/go-in-qr.png";
+import Unlock from "../assets/go-in-unlock.png";
+import Verified from "../assets/verified.png";
 import FaceScanner from "../components/FaceScanner";
 import QRScanner from "../components/QRScanner";
+
 
 const EntrancePage = () => {
   const { user } = useContext(UserContext); // Access user from context
@@ -177,6 +184,56 @@ const EntrancePage = () => {
           <>
             <QRScanner scanning={scanning} onScanSuccess={handleScanSuccess} className="w-full max-w-md p-8" />
 
+            {/* Conditionally show images */}
+            {!scanEnabled && !scanning && !hasAccess && !faceVerified && (
+              <div className=" mb-4">
+                <div className="flex justify-center">
+                  <h2 className="text-red-600 text-md font-mono">You're not permissined at this Time !</h2>
+                </div>
+                <div className="flex justify-center mb-4">
+                  <img src={Lock} alt="lock" className="w-48 h-48" />
+                </div>
+                
+              </div>
+            )}
+
+            {scanEnabled && !scanning && !hasAccess && !faceVerified && (
+              <div className="mb-4">
+                <div className="flex justify-center">
+                  <h2 className="text-slate-600 dark:text-slate-300 text-md font-mono">Scan QR first !</h2>
+                </div>
+                <div className="flex justify-center">
+                  <img src={QRcode} alt="QR Code" className="w-48 h-48" />
+                </div>
+                
+              </div>
+            )}
+
+            {scanEnabled && !scanning && hasAccess && !faceVerified &&(
+              <div className="mb-4">
+                <div className="flex justify-center ">
+                  <h2 className="text-slate-600 dark:text-slate-300 text-md font-mono">Scan your Face !</h2>
+                </div>
+                <div className="flex justify-center">
+                  <img src={Faceicon} alt="QR Code" className="w-48 h-48" />
+                </div>
+
+                
+              </div>
+            )}
+
+            {scanEnabled && !scanning && hasAccess && faceVerified &&  (
+              <div className="mb-4">
+                <div className="flex justify-center ">
+                  <h2 className="text-green-500 text-md font-mono">Verified !</h2>
+                </div>
+                <div className="flex justify-center ">
+                  <img src={Unlock} alt="QR Code" className="w-48 h-48" />
+                </div>
+                
+              </div>
+            )}
+
             <div className="mt-4 mb-4 text-center">
               {doorCode && <p className="font-medium text-green-600">QR Code Scanned Successfully</p>}
               {doorName && <p className="font-medium text-blue-600">Room Name: {doorName}</p>}
@@ -193,10 +250,14 @@ const EntrancePage = () => {
                 disabled={!scanEnabled || scanning}
                 className={`${
                   scanning || !scanEnabled ? "bg-gray-300 dark:bg-slate-600 cursor-not-allowed py-2" : "bg-blue-500 hover:bg-blue-700 py-2"
-                } text-white font-sans py-2 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
+                } text-white font-sans py-2 rounded-full mb-3 w-40 flex justify-between pl-10 pr-5`}
               >
                 <span>Scan QR</span>
-                <FaQrcode className="mt-1" />
+                {scanEnabled && hasAccess && !scanning ? (
+                  <img src={Verified} alt="QR Icon" className="w-6 h-6" />
+                ) : (
+                  <FaQrcode className="mt-1" />
+                )}
               </button>
             </div>
 
@@ -206,10 +267,15 @@ const EntrancePage = () => {
                 disabled={!hasAccess}
                 className={`${
                   hasAccess ? "bg-blue-500 hover:bg-blue-700 py-2" : "py-2 bg-gray-300 dark:bg-slate-600 cursor-not-allowed"
-                } text-white font-sans py-2 rounded-full mb-2 w-40 flex justify-between pl-10 pr-5`}
+                } text-white font-sans py-2 rounded-full  w-40 flex justify-between pl-10 pr-5`}
               >
                 <span>Scan Face</span>
-                <FaLock className="mt-1" />
+                
+                {scanEnabled && hasAccess && faceVerified && !scanning ? (
+                  <img src={Verified} alt="QR Icon" className="w-6 h-6" />
+                ) : (
+                  <LuScanFace className="mt-1" />
+                )}
               </button>
             </div>
 
@@ -218,7 +284,7 @@ const EntrancePage = () => {
                 onClick={handleUnlockDoor}
                 disabled={!faceVerified || !isConnected}
                 className={`${
-                  faceVerified ? "bg-green-500 hover:bg-green-700 py-3" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed py-2"
+                  faceVerified ? "bg-green-500 hover:bg-green-600 hover:animate-pulse py-3 mt-4 text-lg transition duration-200  ease-in-out hover:scale-110 border-2 border-green-400 shadow-[0_4px_15px_rgba(0,0,0,0.2)]" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed mt-3 py-2"
                 } text-white font-sans py-2 rounded-full mb-2 w-40`}
               >
                 Unlock Door

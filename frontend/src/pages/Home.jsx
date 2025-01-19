@@ -3,14 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaBell } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
-import askpermission from "../assets/askpermission.png";
 import avatar from "../assets/avatar.png"; // Default avatar image
-import contact from "../assets/contactus.png";
-import goin from "../assets/go-in.png";
-import leave from "../assets/leave.png";
-import logbook from "../assets/logbook.png";
-import permissions from "../assets/permissions.png";
-import settings from "../assets/settings.png";
+import askpermission from "../assets/DashbordIcons/askpermission.png";
+import contact from "../assets/DashbordIcons/contactus.png";
+import goin from "../assets/DashbordIcons/go-in.png";
+import leave from "../assets/DashbordIcons/leave.png";
+import logbook from "../assets/DashbordIcons/logbook.png";
+import permissions from "../assets/DashbordIcons/permissions.png";
+import settings from "../assets/DashbordIcons/settings.png";
 import DashboardTab from "../components/DashboardTab";
 
 const Home = () => {

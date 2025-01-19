@@ -21,7 +21,7 @@ const AboutUs = () => {
       link: "https://www.linkedin.com/in/yoosuf-aathil/" 
     },
     { 
-      img: "https://github.com/chathuradissanayake/SecurePassAI-Developers/blob/main/Developers/Shavindu_Rajapaksha.jpeg?raw=true", 
+      img: "https://github.com/chathuradissanayake/SecurePassAI-Developers/blob/main/Developers/Shavindu_Rajapaksha.jpg?raw=true", 
       text: "Shavindu Rajapaksha", 
       link: "http://www.linkedin.com/in/shavindu-rajapaksha-953007223" 
     },

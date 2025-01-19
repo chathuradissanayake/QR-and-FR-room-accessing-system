@@ -30,7 +30,7 @@ import Success from "./pages/Success";
 import ThemeToggle from "./pages/ThemeToggle";
 import TypeCode from "./pages/TypeCode";
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+// axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 const ScrollToTop = () => {

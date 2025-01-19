@@ -90,6 +90,16 @@ export default function MarkLeave() {
     }
   };
 
+  const calculateDuration = (entryTime) => {
+    const entryDate = new Date(entryTime);
+    const currentDate = new Date();
+    const durationMs = currentDate - entryDate;
+    const durationMinutes = Math.floor(durationMs / 60000);
+    const hours = Math.floor(durationMinutes / 60);
+    const minutes = durationMinutes % 60;
+    return `${hours}h ${minutes}m`;
+  };
+
   return (
     <div>
       {/* Title Section */}
@@ -105,7 +115,7 @@ export default function MarkLeave() {
         <p className="pl-4 text-m text-black-500 dark:text-white"></p>
       ) : !latestLog ? (
         <div className="flex justify-center items-center py-8">
-        <p className="pl-4 text-gray-500">You are not in a Room.</p>
+          <p className="pl-4 text-gray-500">You are not in a Room.</p>
         </div>
       ) : (
         <LogCard
@@ -129,6 +139,9 @@ export default function MarkLeave() {
                 })
               : "Currently In Room"
           }
+          duration={
+            latestLog.entryTime ? calculateDuration(latestLog.entryTime) : ""
+          }
           date={
             latestLog.entryTime
               ? new Date(latestLog.entryTime).toLocaleDateString("en-IN")
@@ -145,7 +158,7 @@ export default function MarkLeave() {
           </p>
         ) : (
           latestLog &&
-          latestLog.exitTime === null && ( // Ensure button only appears when exitTime is null
+          !latestLog.exitTime && ( // Ensure button only appears when exitTime is null or not present
             <button
               onClick={handleLeaveNow}
               type="button"

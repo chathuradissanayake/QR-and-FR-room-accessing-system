@@ -71,15 +71,17 @@ export default function MyLogbook() {
         />
 
         {/* Date Picker */}
+        
         <input
-          type="date"
+          type={selectedDate ? "date" : "text"} // Dynamically switch between "text" and "date"
           className="w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-800 dark:text-white dark:border-slate-600"
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
-          onFocus={(e) => (e.target.type = "date")}
-          onBlur={(e) => (e.target.type = selectedDate ? "date" : "text")}
+          onFocus={(e) => (e.target.type = "date")} // Switch to "date" on focus
+          onBlur={(e) => (e.target.type = selectedDate ? "date" : "text")} // Switch back if no date
           placeholder="Select a date"
         />
+
 
       </div>
 

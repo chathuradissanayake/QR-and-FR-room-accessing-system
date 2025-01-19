@@ -48,30 +48,6 @@ const createHistory = async (req, res) => {
   }
 };
 
-// Get history for logged-in user
-const getHistory = async (req, res) => {
-  const userId = req.query.userId; // Expecting userId as a query parameter
-
-  if (!userId) {
-    return res.status(400).json({ success: false, message: "User ID is required." });
-  }
-
-  try {
-    // Fetch the user from the database using the provided userId
-    const user = await User.findOne({ userId });
-    if (!user) {
-      return res.status(404).json({ success: false, message: "User not found." });
-    }
-
-    // Fetch logs only for the logged-in user
-    const historyRecords = await History.find({ "user.userId": user._id }).sort({ entryTime: -1 });
-    res.status(200).json(historyRecords);
-  } catch (error) {
-    console.error("Error fetching history records:", error);
-    res.status(500).json({ success: false, message: "Error fetching history records." });
-  }
-};
-
 // Update exit time
 const updateExitTime = async (req, res) => {
   const { userId, exitTime } = req.body;
@@ -102,6 +78,37 @@ const updateExitTime = async (req, res) => {
   } catch (error) {
     console.error("Error updating exitTime:", error);
     res.status(500).json({ success: false, message: "Error updating exitTime." });
+  }
+};
+
+const getHistory = async (req, res) => {
+  const userId = req.query.userId; // Expecting userId as a query parameter
+
+  if (!userId) {
+    return res.status(400).json({ success: false, message: "User ID is required." });
+  }
+
+  try {
+    console.log("Fetching user with userId:", userId); // Debugging log
+
+    // Fetch the user from the database using the provided userId
+    const user = await User.findOne({ userId });
+    if (!user) {
+      console.log("User not found with userId:", userId); // Debugging log
+      return res.status(404).json({ success: false, message: "User not found." });
+    }
+
+    console.log("User found:", user); // Debugging log
+    console.log("User's ObjectId:", user._id); // Debugging log
+
+    // Fetch logs only for the logged-in user using the user's ObjectId
+    const historyRecords = await History.find({ user: user._id }).sort({ entryTime: -1 });
+    console.log("Fetched history records:", historyRecords); // Debugging log
+
+    res.status(200).json(historyRecords);
+  } catch (error) {
+    console.error("Error fetching history records:", error);
+    res.status(500).json({ success: false, message: "Error fetching history records." });
   }
 };
 

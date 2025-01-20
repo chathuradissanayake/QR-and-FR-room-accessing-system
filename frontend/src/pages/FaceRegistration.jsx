@@ -1,8 +1,8 @@
+import axios from 'axios';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { GoChevronLeft } from "react-icons/go";
 import { Link } from 'react-router-dom';
 import { UserContext } from "../../context/userContext";
-import axios from 'axios';
 
 const FaceRegistration = () => {
     const { user, setUser } = useContext(UserContext);
@@ -11,7 +11,8 @@ const FaceRegistration = () => {
     const [image, setImage] = useState(null);
     const [message, setMessage] = useState('');
     const [result, setResult] = useState(null);
-    const [registrationCount, setRegistrationCount] = useState(0); 
+    const [registrationCount, setRegistrationCount] = useState(0);
+    const [isIOS, setIsIOS] = useState(false);
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -19,10 +20,12 @@ const FaceRegistration = () => {
     const loc = import.meta.env.VITE_LOC || "guest";
 
     useEffect(() => {
+        setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream);
+        
         if (user) {
             setNic(user.userId);
             console.log("User ID set:", user.userId);
-            fetchFaceCount(user.userId); 
+            fetchFaceCount(user.userId);
         }
     }, [user]);
 
@@ -45,13 +48,21 @@ const FaceRegistration = () => {
 
     const startCamera = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const constraints = {
+                video: {
+                    facingMode: 'user',
+                    width: { ideal: 640 },
+                    height: { ideal: 480 }
+                }
+            };
+
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
             if (videoRef.current) {
                 videoRef.current.srcObject = stream;
-                videoRef.current.play();
+                videoRef.current.setAttribute('playsinline', 'true');
+                await videoRef.current.play();
                 console.log("Camera started successfully");
             }
-            // Show the result section when the camera starts
             setMessage('Register your face with different looks.');
             setResult({ msg: 'Camera started' });
         } catch (error) {
@@ -63,14 +74,25 @@ const FaceRegistration = () => {
     const captureImage = () => {
         if (canvasRef.current && videoRef.current) {
             const canvas = canvasRef.current;
+            const videoWidth = videoRef.current.videoWidth;
+            const videoHeight = videoRef.current.videoHeight;
+            
+            canvas.width = videoWidth;
+            canvas.height = videoHeight;
+            
             const context = canvas.getContext('2d');
-            context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+            context.drawImage(videoRef.current, 0, 0, videoWidth, videoHeight);
+            
             canvas.toBlob((blob) => {
                 setImage(blob);
                 const imageUrl = URL.createObjectURL(blob);
                 setImagePreview(imageUrl);
-                console.log("Image captured and set for preview");
-            }, 'image/jpeg');
+                
+                if (videoRef.current && videoRef.current.srcObject) {
+                    const tracks = videoRef.current.srcObject.getTracks();
+                    tracks.forEach(track => track.stop());
+                }
+            }, 'image/jpeg', 0.8);
         }
     };
 
@@ -114,18 +136,15 @@ const FaceRegistration = () => {
                 setResult(resultData);
                 console.log("Response received:", resultData);
 
-                // Update count only if "Registration Success"
                 if (resultData.msg === "Registration Success") {
                     const newCount = Math.min(registrationCount + 1, 5);
                     setRegistrationCount(newCount);
-                    // Update faceCount in the backend
                     await axios.post('/api/user/update-face-count', {
                         userId: user.userId,
                         faceCount: newCount
                     });
-                    // Update user context
                     setUser((prevUser) => ({ ...prevUser, faceCount: newCount }));
-                    console.log("Registration count updated:", newCount);
+                    
                     if (newCount >= 5) {
                         setMessage('Your registration is complete.');
                         setResult({ msg: 'Registration completed' });
@@ -134,17 +153,13 @@ const FaceRegistration = () => {
                     }
                 }
 
-                // Handle "Maximum times registered"
                 if (resultData.msg === "Maximum times registered") {
-                    setRegistrationCount(5); // Set count to 5/5
-                    // Update faceCount in the backend
+                    setRegistrationCount(5);
                     await axios.post('/api/user/update-face-count', {
                         userId: user.userId,
                         faceCount: 5
                     });
-                    // Update user context
                     setUser((prevUser) => ({ ...prevUser, faceCount: 5 }));
-                    console.log("Maximum registrations reached, count set to 5/5");
                     setMessage('Your registration is complete.');
                 }
 
@@ -159,8 +174,22 @@ const FaceRegistration = () => {
         }
     };
 
+    const stopCamera = () => {
+        if (videoRef.current && videoRef.current.srcObject) {
+            const tracks = videoRef.current.srcObject.getTracks();
+            tracks.forEach(track => track.stop());
+            videoRef.current.srcObject = null;
+        }
+    };
+
+    useEffect(() => {
+        return () => {
+            stopCamera();
+        };
+    }, []);
+
     return (
-        <div>
+        <div >
             <div className="title flex items-center space-x-2 mb-8 dark:text-white">
                 <Link to="/profile">
                     <GoChevronLeft className="cursor-pointer" />
@@ -168,9 +197,11 @@ const FaceRegistration = () => {
                 <span className="font-semibold">Face Registration</span>
             </div>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                    <label htmlFor="nic" className="block text-gray-600 mb-1 dark:text-slate-200">User ID</label>
+                    <label htmlFor="nic" className="block text-gray-600 mb-1 dark:text-slate-200">
+                        User ID
+                    </label>
                     <input
                         type="text"
                         id="nic"
@@ -180,113 +211,112 @@ const FaceRegistration = () => {
                     />
                 </div>
 
-                <div className="my-4">
-                    <div className="relative w-full h-80 bg-gray-200 dark:bg-slate-600 rounded">
+                <div className="space-y-4">
+                    <div className="relative w-full aspect-[1/1] bg-gray-200 dark:bg-slate-600 rounded-lg">
                         {imagePreview ? (
-                            <img
-                                src={imagePreview}
-                                alt="Captured"
-                                className="w-full h-full object-cover rounded"
-                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <img
+                                    src={imagePreview}
+                                    alt="Captured"
+                                    className="w-full h-full object-contain rounded-lg"
+                                />
+                            </div>
                         ) : (
                             <video
                                 ref={videoRef}
-                                className="w-full h-full object-cover rounded"
+                                className="absolute inset-0 w-full h-full object-cover rounded-lg"
                                 autoPlay
+                                playsInline
                                 muted
                             />
                         )}
                     </div>
-                    <canvas ref={canvasRef} className="hidden" width={640} height={480}></canvas>
-                    {!imagePreview ? (
-                        <div className='flex justify-between'>
+                    <canvas ref={canvasRef} className="hidden" />
+                    
+                    <div className={`grid ${!imagePreview ? 'grid-cols-2 gap-4' : 'grid-cols-1'}`}>
+                        {!imagePreview ? (
+                            <>
+                                <button
+                                    type="button"
+                                    onClick={startCamera}
+                                    className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                                >
+                                    Start Camera
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={captureImage}
+                                    className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                                >
+                                    Capture Image
+                                </button>
+                            </>
+                        ) : (
                             <button
                                 type="button"
-                                onClick={startCamera}
-                                className="w-full mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+                                onClick={recaptureImage}
+                                className="w-full px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
                             >
-                                Start Camera
+                                Recapture
                             </button>
-                            <button
-                                type="button"
-                                onClick={captureImage}
-                                className="w-full mt-2 ml-2 px-4 py-2 bg-green-500 text-white rounded"
-                            >
-                                Capture Image
-                            </button>
-                        </div>
-                    ) : (
-                        <button
-                            type="button"
-                            onClick={recaptureImage}
-                            className="w-full mt-2 px-4 py-2 bg-orange-500 text-white rounded"
-                        >
-                            Recapture
-                        </button>
-                    )}
+                        )}
+                    </div>
                 </div>
 
-                <div>
-                    <button
-                        type="submit"
-                        className="w-full mt-4 px-4 py-2 bg-indigo-500 text-white rounded"
-                        disabled={registrationCount >= 5} // Disable button if count is 5 or more
-                    >
-                        Submit
-                    </button>
-                </div>
+                <button
+                    type="submit"
+                    className="w-full px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    disabled={registrationCount >= 5}
+                >
+                    Submit
+                </button>
             </form>
 
-
-
             {result && (
-    <div className="mt-4 p-4 shadow-md rounded-md bg-white dark:bg-slate-800 border">
-        <div className="flex items-center space-x-3">
-            <div className="flex-shrink-0">
-                {/* Do not display any icon if registration count is 0 */}
-                {registrationCount > 0 && (result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed") && (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-green-500"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 10-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 000-1.414z"
-                            clipRule="evenodd"
-                        />
-                    </svg>
-                )}
-            </div>
-            <div>
-                <h3
-                    className={`text-lg font-semibold ${
-                        (result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed") &&
-                        (registrationCount > 0 ? "text-green-600" : "text-green-600")
-                    }`}
-                >
-                    {result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed"
-                        ? (registrationCount > 0 ? "Registration Success" : "Ready to Register")
-                        : "Cannot Register"}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {result.msg}
-                </p>
-                {/* Show count for Registration Success and Maximum times registered */}
-                {(result.msg === "Registration Success" ||
-                result.msg === "Maximum times registered" ||
-                result.msg === "Camera started" ||
-                result.msg === "Registration completed") && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Registration Count: {registrationCount}/5
-                    </p>
-                )}
-            </div>
-        </div>
-    </div>
-)}
-
+                <div className="mt-6 p-4 shadow-md rounded-lg bg-white dark:bg-slate-800 border">
+                    <div className="flex items-center space-x-3">
+                        <div className="flex-shrink-0">
+                            {registrationCount > 0 && (result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed") && (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6 text-green-500"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 10-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 000-1.414z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                            )}
+                        </div>
+                        <div>
+                            <h3
+                                className={`text-lg font-semibold ${
+                                    (result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed") &&
+                                    (registrationCount > 0 ? "text-green-600" : "text-green-600")
+                                }`}
+                            >
+                                {result.msg === "Camera started" || result.msg === "Registration Success" || result.msg === "Registration completed"
+                                    ? (registrationCount > 0 ? "Registration Success" : "Ready to Register")
+                                    : "Cannot Register"}
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                {result.msg}
+                            </p>
+                            {(result.msg === "Registration Success" ||
+                            result.msg === "Maximum times registered" ||
+                            result.msg === "Camera started" ||
+                            result.msg === "Registration completed") && (
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Registration Count: {registrationCount}/5
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

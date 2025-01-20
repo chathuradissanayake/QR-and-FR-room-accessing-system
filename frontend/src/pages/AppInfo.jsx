@@ -22,16 +22,20 @@ const AppInformation = () => {
         <div className='ml-3'>
         <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100 ">App Details</h2>
         <ul className="list-disc list-inside text-gray-600 mb-6 text-sm dark:text-slate-200">
-          <li><strong>Version:</strong> 1.0.3</li>
+          <li><strong>Version:</strong> 1.0.4</li>
           <li><strong>Developer:</strong> SLT Mobitel</li>
           <li><strong>Release Date:</strong> January 2025</li>
         </ul>
+
+        <p className='dark:text-slate-200 text-slate-500 text-sm font-sans mb-4 text-justify'>SecurePass AI is an innovative room access management solution designed to replace traditional keycards with a seamless mobile-based system. It combines QR code scanning and facial recognition to ensure secure and effortless access for users.
+        </p>
 
         <h2 className="text-lg font-semibold text-gray-800 dark:text-slate-100 mb-3">Features</h2>
         <ul className="list-disc list-inside text-gray-600 dark:text-slate-200 mb-6 text-sm">
           <li>Simple and user-friendly interface</li>
           <li>Real-time updates and notifications</li>
           <li>Secure login with multiple authentication options</li>
+          <li>Secure Multi-Factor Authentication: Combines QR codes and facial recognition for advanced security.</li>
           
         </ul>
 

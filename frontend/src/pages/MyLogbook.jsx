@@ -60,7 +60,7 @@ export default function MyLogbook() {
       </div>
 
       {/* Search Section */}
-      {filteredLogs.length !== 0 && (
+      
       <div className="mb-4">
         {/* Text Search */}
         <input
@@ -82,7 +82,7 @@ export default function MyLogbook() {
           placeholder="Select a date"
         />
       </div>
-      )}
+      
 
       {/* Logs Section */}
       {loading ? (

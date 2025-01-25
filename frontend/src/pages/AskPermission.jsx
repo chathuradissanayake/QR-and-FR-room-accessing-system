@@ -104,8 +104,9 @@ const AskPermission = () => {
     }
   };
 
+  // Get today's date in the local time zone (yyyy-mm-dd format)
   const today = new Date();
-  const formattedToday = today.toISOString().split('T')[0];
+  const formattedToday = today.toLocaleDateString('en-CA'); // This gives yyyy-mm-dd format in local time zone
   const currentTime = `${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`;
 
   return (
@@ -184,7 +185,7 @@ const AskPermission = () => {
               name="date"
               value={data.date}
               onChange={handleChange}
-              min={formattedToday}
+              min={formattedToday} // Disabling dates before today
               className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
               required
             />
@@ -198,7 +199,8 @@ const AskPermission = () => {
               value={data.inTime}
               onChange={(e) => {
                 const { value } = e.target;
-                if (data.date === formattedToday && value < currentTime) {
+                const isToday = data.date === formattedToday;
+                if (isToday && value < currentTime) {
                   toast.error('In Time cannot be earlier than the current time.');
                 } else {
                   setData({ ...data, inTime: value });

@@ -45,11 +45,11 @@ const AskPermission = () => {
 
   const handleDoorChange = (e) => {
     const selectedDoor = doors.find(door => door._id === e.target.value);
-    setData({ 
-      ...data, 
-      door: e.target.value, 
-      roomName: selectedDoor ? selectedDoor.roomName : '', 
-      location: selectedDoor ? selectedDoor.location : '' 
+    setData({
+      ...data,
+      door: e.target.value,
+      roomName: selectedDoor ? selectedDoor.roomName : '',
+      location: selectedDoor ? selectedDoor.location : ''
     });
   };
 
@@ -65,7 +65,6 @@ const AskPermission = () => {
     console.log('outTime:', data.outTime);
     console.log('message:', data.message);
 
-    // Destructuring data
     const { name, roomName, door, location, date, inTime, outTime, message } = data;
 
     try {
@@ -105,169 +104,154 @@ const AskPermission = () => {
     }
   };
 
+  const today = new Date();
+  const formattedToday = today.toISOString().split('T')[0];
+  const currentTime = `${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`;
+
   return (
     <div>
-        <div className="title flex items-center space-x-2 mb-8 dark:text-white">
-          <Link to="/">
-            <GoChevronLeft className="cursor-pointer" />
-          </Link>
-          <span className='font-semibold'>Ask Permission</span>
-        </div>
-        <div className='ml-4'>
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name" className="sr-only">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="User Name"
-                value={data.name}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
-                required
-                readOnly
-              />
-            </div>
-
-            <div >
-              <label htmlFor="door" className="sr-only">
-                Door
-              </label>
-              <select
-                id="door"
-                name="door"
-                value={data.door}
-                onChange={handleDoorChange}
-                className={`flex w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
-                  data.door === '' ? 'text-gray-400' : 'text-black'
-                }`}
-                required
-              >
-                <option disabled value="">
-                  Select the Door
-                </option>
-                {doors
-                  .filter((door) => door.status === 'Active') // Only include doors with "Active" status
-                  .sort((a, b) => a.doorCode.localeCompare(b.doorCode)) // Sort alphabetically by doorCode
-                  .map((door) => (
-                    <option key={door._id} value={door._id}>
-                      {door.doorCode} &nbsp; {door.roomName}
-                    </option>
-                  ))}
-              </select>                                                 
-            </div>
-
-            <div>
-              <label htmlFor="roomName" className="block text-sm text-gray-400 ml-3">
-                Room
-              </label>
-              <input
-                type="text"
-                id="roomName"
-                name="roomName"
-                value={data.roomName}
-                placeholder='Room Name'
-                readOnly
-                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="location" className="block text-sm text-gray-400 ml-3">
-                Location
-              </label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                value={data.location}
-                placeholder='Location'
-                readOnly
-                className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="date" className="block text-sm text-gray-400 ml-3">
-                Date
-              </label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                value={data.date}
-                onChange={handleChange}
-                min={new Date().toISOString().split("T")[0]} // Restricts date to today or later
-                className={`w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400 ${
-                  data.date === '' ? 'text-gray-400' : 'text-black'
-                }`}
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="inTime" className="block text-sm text-gray-400 ml-3">
-                In Time
-              </label>
-              <input
-                type="time"
-                id="inTime"
-                name="inTime"
-                value={data.inTime}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="outTime" className="block text-sm text-gray-400 ml-3">
-                Out Time
-              </label>
-              <input
-                type="time"
-                id="outTime"
-                name="outTime"
-                value={data.outTime}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2  dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="message" className="sr-only">
-                Message
-              </label>
-              <textarea
-                type="text"
-                id="message"
-                name="message"
-                placeholder="Message"
-                value={data.message}
-                onChange={handleChange}
-                rows="3"
-                className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-700 dark:text-slate-100"
-                required
-              />
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
-              >
-                Submit Request
-              </button>
-            </div>
-          </form>
-        </div>
+      <div className="title flex items-center space-x-2 mb-8 dark:text-white">
+        <Link to="/">
+          <GoChevronLeft className="cursor-pointer" />
+        </Link>
+        <span className="font-semibold">Ask Permission</span>
       </div>
-   
+      <div className="ml-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="User Name"
+              value={data.name}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+              required
+              readOnly
+            />
+          </div>
+
+          <div>
+            <select
+              id="door"
+              name="door"
+              value={data.door}
+              onChange={handleDoorChange}
+              className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+              required
+            >
+              <option disabled value="">Select the Door</option>
+              {doors
+                .filter((door) => door.status === 'Active')
+                .sort((a, b) => a.doorCode.localeCompare(b.doorCode))
+                .map((door) => (
+                  <option key={door._id} value={door._id}>
+                    {door.doorCode} &nbsp; {door.roomName}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          <div>
+            <input
+              type="text"
+              id="roomName"
+              name="roomName"
+              value={data.roomName}
+              placeholder="Room Name"
+              readOnly
+              className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={data.location}
+              placeholder="Location"
+              readOnly
+              className="w-full px-4 py-2 rounded-lg text-blue-900 text-center dark:bg-slate-700 dark:text-white bg-blue-100"
+            />
+          </div>
+
+          <div>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={data.date}
+              onChange={handleChange}
+              min={formattedToday}
+              className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+              required
+            />
+          </div>
+
+          <div>
+            <input
+              type="time"
+              id="inTime"
+              name="inTime"
+              value={data.inTime}
+              onChange={(e) => {
+                const { value } = e.target;
+                if (data.date === formattedToday && value < currentTime) {
+                  toast.error('In Time cannot be earlier than the current time.');
+                } else {
+                  setData({ ...data, inTime: value });
+                }
+              }}
+              className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+              required
+            />
+          </div>
+
+          <div>
+            <input
+              type="time"
+              id="outTime"
+              name="outTime"
+              value={data.outTime}
+              onChange={(e) => {
+                const { value } = e.target;
+                if (value <= data.inTime) {
+                  toast.error('Out Time must be later than In Time.');
+                } else {
+                  setData({ ...data, outTime: value });
+                }
+              }}
+              className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
+              required
+            />
+          </div>
+
+          <div>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Message"
+              value={data.message}
+              onChange={handleChange}
+              rows="3"
+              className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-slate-700 dark:text-slate-100"
+              required
+            />
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300"
+            >
+              Submit Request
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

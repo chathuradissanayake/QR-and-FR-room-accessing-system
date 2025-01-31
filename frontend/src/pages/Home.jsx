@@ -12,8 +12,6 @@ import logbook from "../assets/DashbordIcons/logbook.png";
 import permissions from "../assets/DashbordIcons/permissions.png";
 import settings from "../assets/DashbordIcons/settings.png";
 import DashboardTab from "../components/DashboardTab";
-import { GoChevronLeft } from "react-icons/go";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const { user, setUser } = useContext(UserContext); // Assuming setUser is available
@@ -49,9 +47,9 @@ const Home = () => {
           console.log(`ContactUs log objId (user reference): ${log.user.objId}, Reply: ${log.reply}`);
         });
 
-        // Filter notificationCount to show only those where user._id matches the log user.objId and reply is not null
+        // Filter notificationCount to show only those where user._id matches the log user.objId and reply is not null and that userStatus == unread 
         const filterednotificationCount = logData.filter(
-          (log) => log.user.objId.toString() === user._id && log.reply !== null
+          (log) => log.user.objId.toString() === user._id && log.reply !== null && log.userstatus === "unread"
         );
         console.log("Filtered notificationCount based on matching objId and non-null reply:", filterednotificationCount);
 

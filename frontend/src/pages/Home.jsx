@@ -12,13 +12,63 @@ import logbook from "../assets/DashbordIcons/logbook.png";
 import permissions from "../assets/DashbordIcons/permissions.png";
 import settings from "../assets/DashbordIcons/settings.png";
 import DashboardTab from "../components/DashboardTab";
+import { GoChevronLeft } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { user, setUser } = useContext(UserContext); // Assuming setUser is available
   const navigate = useNavigate();
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+  const [notificationCount, setnotificationCount] = useState([]);
+  const [error, setError] = useState(null); // For error state
+  const [hasFetched, setHasFetched] = useState(false); // Prevent refetch on re-render
+  const [filteredLogsCount, setFilteredLogsCount] = useState(0); // Count for filtered logs
+
+  useEffect(() => {
+    if (user) {
+      console.log("User context value:", user); // Log the user object from context
+    }
+
+    if (!user || !user._id) {
+      setLoading(false);
+      return;
+    }
+
+    const fetchnotificationCount = async () => {
+      if (hasFetched) return; // Prevent duplicate fetches
+      setLoading(true);
+
+      try {
+        console.log("Fetching notificationCount for userId:", user._id); // Log user._id when fetching logs
+        const response = await axios.get(`/api/contactus/user/${user._id}`);
+        const logData = response.data;
+
+        // Log the user-related objId from ContactUs data for comparison
+        logData.forEach((log) => {
+          console.log(`ContactUs log objId (user reference): ${log.user.objId}, Reply: ${log.reply}`);
+        });
+
+        // Filter notificationCount to show only those where user._id matches the log user.objId and reply is not null
+        const filterednotificationCount = logData.filter(
+          (log) => log.user.objId.toString() === user._id && log.reply !== null
+        );
+        console.log("Filtered notificationCount based on matching objId and non-null reply:", filterednotificationCount);
+
+        setnotificationCount(filterednotificationCount.reverse());
+        setFilteredLogsCount(filterednotificationCount.length); // Set the count of filtered logs
+        setError(null);
+        setHasFetched(true);
+      } catch (error) {
+        console.error("Error fetching notificationCount:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchnotificationCount();
+  }, [user, hasFetched]);
+
   // Get current date and day in a formatted string
   const getCurrentDateAndDay = () => {
     const date = new Date();
@@ -61,6 +111,7 @@ const Home = () => {
 
   return (
     <div>
+ 
       <div>
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
@@ -76,7 +127,14 @@ const Home = () => {
             <div className="relative">
               <button
                 onClick={() => navigate("/notification")}
-                className="text-yellow-400 text-3xl mt-1"><FaBell />
+                className="text-yellow-400 text-3xl mt-1"
+              >
+                <FaBell />
+                {filteredLogsCount > 0 && (
+                  <span className="absolute top-0 right-0 text-xs text-white bg-red-500 rounded-full w-4 h-4 flex items-center justify-center">
+                    {filteredLogsCount}
+                  </span>
+                )}
               </button>
             </div>
             <img
@@ -94,17 +152,16 @@ const Home = () => {
 
         {/* Show message if face registration is not complete (user.faceCount = 0) */}
         {user?.faceCount === 0 && (
-        <div className="bg-red-200 text-red-700 p-4 mb-6 rounded-lg">
+          <div className="bg-red-200 text-red-700 p-4 mb-6 rounded-lg">
             Face Registration not complete. Please complete the registration process.{" "}
             <button
-                onClick={() => navigate("/face-registration")}
-                className="text-blue-500 hover:text-blue-700"
+              onClick={() => navigate("/face-registration")}
+              className="text-blue-500 hover:text-blue-700"
             >
-                Click here
+              Click here
             </button>
-        </div>
+          </div>
         )}
-
 
         {/* Latest Log Section */}
         {loading ? (
@@ -170,7 +227,7 @@ const Home = () => {
           />
           <DashboardTab
             title="Log Book"
-            description="My previous accessing"
+            description="Door accessed logs"
             href="/mylogbook"
             image={logbook}
           />

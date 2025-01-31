@@ -219,13 +219,13 @@ const Home = () => {
           />
           <DashboardTab
             title="My Permissions"
-            description="Doors that I have permission"
+            description="Permissions I submitted"
             href="/mypermissions"
             image={permissions}
           />
           <DashboardTab
             title="Log Book"
-            description="Door accessed logs"
+            description="Accessed doors logs"
             href="/mylogbook"
             image={logbook}
           />

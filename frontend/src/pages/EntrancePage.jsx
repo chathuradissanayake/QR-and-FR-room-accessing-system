@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { FaQrcode } from "react-icons/fa";
 import { GoChevronLeft } from "react-icons/go";
 import { LuScanFace } from "react-icons/lu";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import Faceicon from "../assets/go-in-facial.png";
 import Lock from "../assets/go-in-lock.png";
@@ -171,12 +171,14 @@ const EntrancePage = () => {
     setScanning(true);
   };
 
+  const handleBackNavigation = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
         <div className="title flex items-center space-x-2 mb-8 dark:text-white">
-          <Link to="/">
-            <GoChevronLeft className="cursor-pointer" />
-          </Link>
+          <GoChevronLeft className="cursor-pointer" onClick={handleBackNavigation} />
           <span className="font-semibold">Go In</span>
         </div>
 

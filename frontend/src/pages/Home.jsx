@@ -225,7 +225,7 @@ const Home = () => {
           />
           <DashboardTab
             title="Log Book"
-            description="Door accessed logs"
+            description="Accessed doors logs"
             href="/mylogbook"
             image={logbook}
           />

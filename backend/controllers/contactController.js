@@ -52,7 +52,29 @@ const getContactUsByUser = async (req, res) => {
   }
 };
 
+const updateNotificationStatus = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updatedNotification = await ContactUs.findByIdAndUpdate(
+      id,
+      { userstatus: 'read' },
+      { new: true }
+    );
+
+    if (!updatedNotification) {
+      return res.status(404).json({ success: false, message: 'Notification not found.' });
+    }
+
+    return res.status(200).json({ success: true, message: 'Notification status updated.', data: updatedNotification });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: 'Error updating notification status.' });
+  }
+};
+
 module.exports = {
   postContactUs, 
   getContactUsByUser,
+  updateNotificationStatus,
 };

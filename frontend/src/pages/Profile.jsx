@@ -117,7 +117,7 @@ const Profile = () => {
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
           onClick={() => handleNavigation('/contactus')}
         >
-          <span className="text-gray-500 dark:text-slate-200">Costumer care</span>
+          <span className="text-gray-500 dark:text-slate-200">Contact us</span>
           <FaChevronRight className="text-gray-600" />
         </div> */}
 

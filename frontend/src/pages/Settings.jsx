@@ -56,7 +56,7 @@ const Settings = () => {
                 role="button"
                 onClick={() => navigate('/contactus')}
                 class="text-slate-800 dark:text-slate-100 dark:hover:bg-slate-600  flex w-full items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 justify-between">
-                Customer Care
+                Contact us
                 <GoChevronRight className='text-gray-500'/>
             </div>
             <hr></hr>

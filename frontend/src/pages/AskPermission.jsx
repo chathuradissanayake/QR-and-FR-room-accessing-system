@@ -53,6 +53,41 @@ const AskPermission = () => {
     });
   };
 
+  const handleInTimeChange = (e) => {
+    const { value } = e.target;
+    const isToday = data.date === formattedToday;
+
+    if (isToday) {
+      const currentTimeObj = new Date();
+      const selectedInTimeObj = new Date(data.date + 'T' + value);
+
+      //currenttime decrease by 1 minute in if condition for avoid the error when selecting current time
+      const newCurrentTimeObj = currentTimeObj.setMinutes(currentTimeObj.getMinutes() - 1);
+
+      // Ensure inTime isn't earlier than the current time
+      if (selectedInTimeObj < newCurrentTimeObj) {
+        toast.error('In Time cannot be earlier than the current time.');
+      } else {
+        setData({ ...data, inTime: value });
+      }
+    } else {
+      setData({ ...data, inTime: value });
+    }
+  };
+
+  const handleOutTimeChange = (e) => {
+    const { value } = e.target;
+    const selectedInTimeObj = new Date(data.date + 'T' + data.inTime);
+    const selectedOutTimeObj = new Date(data.date + 'T' + value);
+
+    // Ensure outTime is later than inTime
+    if (selectedOutTimeObj <= selectedInTimeObj) {
+      toast.error('Out Time must be later than In Time.');
+    } else {
+      setData({ ...data, outTime: value });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -120,6 +155,7 @@ const AskPermission = () => {
       <div className="ml-4">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
+            <label htmlFor="name" className="block text-gray-500 dark:text-slate-200 mb-1">User Name</label>
             <input
               type="text"
               id="name"
@@ -134,6 +170,7 @@ const AskPermission = () => {
           </div>
 
           <div>
+            <label htmlFor="door" className="block text-gray-500 dark:text-slate-200 mb-1">Door</label>
             <select
               id="door"
               name="door"
@@ -179,6 +216,7 @@ const AskPermission = () => {
           </div>
 
           <div>
+            <label htmlFor="date" className="block text-gray-500 dark:text-slate-200 mb-1">Date</label>
             <input
               type="date"
               id="date"
@@ -192,49 +230,37 @@ const AskPermission = () => {
           </div>
 
           <div>
+            <label htmlFor="inTime" className="block text-gray-500 dark:text-slate-200 mb-1">In Time</label>
             <input
               type="time"
               id="inTime"
               name="inTime"
               value={data.inTime}
-              onChange={(e) => {
-                const { value } = e.target;
-                const isToday = data.date === formattedToday;
-                if (isToday && value < currentTime) {
-                  toast.error('In Time cannot be earlier than the current time.');
-                } else {
-                  setData({ ...data, inTime: value });
-                }
-              }}
+              onChange={handleInTimeChange}  // Updated logic here
               className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
               required
             />
           </div>
 
           <div>
+            <label htmlFor="outTime" className="block text-gray-500 dark:text-slate-200 mb-1">Out Time</label>
             <input
               type="time"
               id="outTime"
               name="outTime"
               value={data.outTime}
-              onChange={(e) => {
-                const { value } = e.target;
-                if (value <= data.inTime) {
-                  toast.error('Out Time must be later than In Time.');
-                } else {
-                  setData({ ...data, outTime: value });
-                }
-              }}
+              onChange={handleOutTimeChange}  // Updated logic here
               className="w-full px-4 py-2 border border-slate-500 dark:border-slate-400 rounded-lg focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 focus:ring-blue-400"
               required
             />
           </div>
 
           <div>
+            <label htmlFor="message" className="block text-gray-500 dark:text-slate-200 mb-1">Message</label>
             <textarea
               id="message"
               name="message"
-              placeholder="Message"
+              placeholder="Enter your message..."
               value={data.message}
               onChange={handleChange}
               rows="3"

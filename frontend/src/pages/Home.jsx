@@ -219,7 +219,7 @@ const Home = () => {
           />
           <DashboardTab
             title="My Permissions"
-            description="Doors that I have permission"
+            description="Permissions I submitted"
             href="/mypermissions"
             image={permissions}
           />

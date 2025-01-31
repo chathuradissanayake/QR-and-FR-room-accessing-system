@@ -60,30 +60,29 @@ export default function MyLogbook() {
       </div>
 
       {/* Search Section */}
-      <div className="flex flex-col space-y-4 mb-4 md:flex-row md:space-y-0 md:space-x-2">
+      
+      <div className="mb-4">
         {/* Text Search */}
         <input
           type="text"
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-800 dark:text-white dark:border-gray-600"
+          className="w-full p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-800 dark:text-white dark:border-gray-600"
           placeholder="Door Code or Room Name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
         {/* Date Picker */}
-        
         <input
           type={selectedDate ? "date" : "text"} // Dynamically switch between "text" and "date"
-          className="w-1/2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-800 dark:text-white dark:border-slate-600"
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-800 dark:text-white dark:border-slate-600"
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
           onFocus={(e) => (e.target.type = "date")} // Switch to "date" on focus
           onBlur={(e) => (e.target.type = selectedDate ? "date" : "text")} // Switch back if no date
           placeholder="Select a date"
         />
-
-
       </div>
+      
 
       {/* Logs Section */}
       {loading ? (
@@ -93,6 +92,7 @@ export default function MyLogbook() {
           <p className="pl-4 text-gray-500">No log details found.</p>
         </div>
       ) : (
+        
         <div className="space-y-4">
           {filteredLogs.map((log, index) => (
             <LogCard

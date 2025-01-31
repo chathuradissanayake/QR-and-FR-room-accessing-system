@@ -43,19 +43,19 @@ const AboutUs = () => {
         <img src={logo} alt="Logo" className="h-40" />
       </div>
 
-      <p className="text-gray-600 text-sm mb-6 dark:text-slate-200">
+      <p className="text-gray-600 text-sm mb-6 dark:text-slate-200 text-justify">
           Welcome to <span className="font-semibold">SecurePass AI</span>,  an innovative room access solution designed to simplify and modernize access management for enterprises and companies. Say goodbye to the hassle of physical keycards. With our system, users can unlock doors using their mobile devices by scanning a QR code and verifying their identity through facial recognition.
 
 As part of SLT’s mission to empower Sri Lankan businesses, SecurePass AI offers an advanced and seamless way to manage access to rooms and facilities, ensuring enhanced security, ease of use, and improved workflows.
         </p>
 
         <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Our Mission</h2>
-        <p className="text-gray-600 mb-6 text-sm dark:text-slate-200">
+        <p className="text-gray-600 mb-6 text-sm dark:text-slate-200 text-justify">
         To revolutionize room access management by providing businesses with a hassle-free, efficient, and modern solution that promotes smooth workflows and eliminates the need for physical tools.
         </p>
 
         <h2 className="text-lg font-semibold text-gray-800 mb-3 dark:text-slate-100">Our Vision</h2>
-        <p className="text-gray-600 mb-6 text-sm dark:text-slate-200">
+        <p className="text-gray-600 mb-6 text-sm dark:text-slate-200 text-justify">
         Our mission is to deliver a secure, user-friendly, and efficient room access system that simplifies access management for enterprises. By integrating QR code and facial recognition technology, we aim to help Sri Lankan businesses enhance workplace security, streamline daily operations, and transition to a more modern and digital approach, reducing the dependence on physical tools.
         </p>
 

@@ -243,14 +243,14 @@ const EntrancePage = () => {
                 </p>
               )}
             </div>
-
+              
             <div className="flex justify-center">
               <button
                 onClick={startScanning}
                 disabled={!scanEnabled || scanning}
                 className={`${
                   scanning || !scanEnabled ? "bg-gray-300 dark:bg-slate-600 cursor-not-allowed py-2" : "bg-blue-500 hover:bg-blue-700 py-2"
-                } text-white font-sans py-2 rounded-full mb-3 w-40 flex justify-between pl-10 pr-5`}
+                } text-white font-sans py-3 rounded-full mb-3 w-40 flex justify-between pl-10 pr-5`}
               >
                 <span>Scan QR</span>
                 {scanEnabled && hasAccess && !scanning ? (
@@ -267,7 +267,7 @@ const EntrancePage = () => {
                 disabled={!hasAccess}
                 className={`${
                   hasAccess ? "bg-blue-500 hover:bg-blue-700 py-2" : "py-2 bg-gray-300 dark:bg-slate-600 cursor-not-allowed"
-                } text-white font-sans py-2 rounded-full  w-40 flex justify-between pl-10 pr-5`}
+                } text-white font-sans py-3 rounded-full  w-40 flex justify-between pl-10 pr-5`}
               >
                 <span>Scan Face</span>
                 
@@ -284,8 +284,8 @@ const EntrancePage = () => {
                 onClick={handleUnlockDoor}
                 disabled={!faceVerified || !isConnected}
                 className={`${
-                  faceVerified ? "bg-green-500 hover:bg-green-600 hover:animate-pulse py-3 mt-4 text-lg transition duration-200  ease-in-out hover:scale-110 border-2 border-green-400 shadow-[0_4px_15px_rgba(0,0,0,0.2)]" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed mt-3 py-2"
-                } text-white font-sans py-2 rounded-full mb-2 w-40`}
+                  faceVerified ? "bg-green-500 hover:bg-green-600 hover:animate-pulse py-4 mt-4 text-lg transition duration-200  ease-in-out hover:scale-110 border-2 border-green-400 shadow-[0_4px_15px_rgba(0,0,0,0.2)]" : "bg-gray-300 dark:bg-slate-600 cursor-not-allowed mt-3 py-2"
+                } text-white font-sans py-3 rounded-full mb-2 w-40`}
               >
                 Unlock Door
               </button>

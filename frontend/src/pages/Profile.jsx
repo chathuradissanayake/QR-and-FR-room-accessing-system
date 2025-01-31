@@ -37,14 +37,16 @@ const Profile = () => {
     return <div>User data not available</div>;
   }
 
+  const handleBackNavigation = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
 
     
     <div className="title flex items-center space-x-2 mb-8 dark:text-white">
-    <Link to="/">
-        <GoChevronLeft className="cursor-pointer" />
-    </Link>
+        <GoChevronLeft className="cursor-pointer" onClick={handleBackNavigation} />
         <span className='font-semibold'>Profile</span>
     </div>
 
@@ -106,18 +108,18 @@ const Profile = () => {
         </div>
         <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
-          onClick={() => handleNavigation('/app-info')}
+          onClick={() => handleNavigation('/settings')}
         >
-          <span className="text-gray-500 dark:text-slate-200">App Information</span>
+          <span className="text-gray-500 dark:text-slate-200">Settings</span>
           <FaChevronRight className="text-gray-600" />
         </div>
-        <div
+        {/* <div
           className="flex justify-between items-center py-2 border-b border-gray-300 cursor-pointer"
           onClick={() => handleNavigation('/contactus')}
         >
           <span className="text-gray-500 dark:text-slate-200">Costumer care</span>
           <FaChevronRight className="text-gray-600" />
-        </div>
+        </div> */}
 
         {/* Log Out */}
         <div className="flex justify-center py-4">

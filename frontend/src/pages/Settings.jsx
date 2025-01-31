@@ -1,9 +1,13 @@
 import React from 'react';
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
     const navigate = useNavigate();
+
+    const handleBackNavigation = () => {
+        navigate(-1);
+    };
 
   return (
     <>
@@ -12,9 +16,7 @@ const Settings = () => {
 
     
         <div className="title flex items-center space-x-2 mb-8 dark:text-slate-100">
-        <Link to="/">
-            <GoChevronLeft className="cursor-pointer" />
-        </Link>
+            <GoChevronLeft className="cursor-pointer" onClick={handleBackNavigation} />
             <span className='font-semibold'>Settings</span>
         </div>
 

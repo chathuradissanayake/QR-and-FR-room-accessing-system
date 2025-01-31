@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { GoChevronLeft } from "react-icons/go";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/userContext";
 
 const AskPermission = () => {
@@ -61,8 +61,11 @@ const AskPermission = () => {
       const currentTimeObj = new Date();
       const selectedInTimeObj = new Date(data.date + 'T' + value);
 
+      //currenttime decrease by 1 minute in if condition for avoid the error when selecting current time
+      const newCurrentTimeObj = currentTimeObj.setMinutes(currentTimeObj.getMinutes() - 1);
+
       // Ensure inTime isn't earlier than the current time
-      if (selectedInTimeObj < currentTimeObj) {
+      if (selectedInTimeObj < newCurrentTimeObj) {
         toast.error('In Time cannot be earlier than the current time.');
       } else {
         setData({ ...data, inTime: value });
@@ -136,6 +139,10 @@ const AskPermission = () => {
     }
   };
 
+  const handleBackNavigation = () => {
+    navigate(-1);
+};
+
   // Get today's date in the local time zone (yyyy-mm-dd format)
   const today = new Date();
   const formattedToday = today.toLocaleDateString('en-CA'); // This gives yyyy-mm-dd format in local time zone
@@ -144,9 +151,7 @@ const AskPermission = () => {
   return (
     <div>
       <div className="title flex items-center space-x-2 mb-8 dark:text-white">
-        <Link to="/">
-          <GoChevronLeft className="cursor-pointer" />
-        </Link>
+        <GoChevronLeft className="cursor-pointer" onClick={handleBackNavigation} />
         <span className="font-semibold">Ask Permission</span>
       </div>
       <div className="ml-4">
